@@ -62,6 +62,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="common\commands\RelayCommand.cs" />
+    <Compile Include="common\commands\SimpleCommand.cs" />
+    <Compile Include="viewModel\MainViewModel.cs" />
+    <Compile Include="viewModel\ViewModelBase.cs" />
     <Compile Include="wrapper\DBWrapper.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -178,7 +182,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="view\" />
+    <Folder Include="common\assets\" />
+    <Folder Include="common\config\" />
+    <Folder Include="common\log\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

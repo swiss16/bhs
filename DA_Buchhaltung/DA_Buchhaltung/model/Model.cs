@@ -14,7 +14,7 @@ namespace DA_Buchhaltung.model
         private List<Kunde> kundenListe;
 
 
-        public List<Kunde> LadeKunde()
+        public List<Kunde> LadeKunden()
         {
             kundenListe = dbWrapper.LadeKunden();
 
