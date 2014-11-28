@@ -1,0 +1,1000 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="bhs_DBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="TBL_Auftrag">
+          <Key>
+            <PropertyRef Name="Auftrag_ID" />
+          </Key>
+          <Property Name="Auftrag_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="A_ErfassungsDatum" Type="datetime" Nullable="false" />
+          <Property Name="A_Total" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="A_RabattInProzent" Type="bit" Nullable="false" />
+          <Property Name="A_Rabatt" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="A_KundenGespraech" Type="varchar" MaxLength="1" />
+          <Property Name="Kunde_ID" Type="int" Nullable="false" />
+          <Property Name="Dienstleistung_ID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TBL_Bild">
+          <Key>
+            <PropertyRef Name="Bild_ID" />
+          </Key>
+          <Property Name="Bild_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Bild_Pfad" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="Bild_Name" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="Auftrag_ID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TBL_Dienstleistung">
+          <Key>
+            <PropertyRef Name="Dienstleistung_ID" />
+          </Key>
+          <Property Name="Dienstleistung_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Dl_Preis" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Dl_Name" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="Dl_PreisStartDatum" Type="datetime" Nullable="false" />
+          <Property Name="Dl_PreisEndDatum" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TBL_Gutschein">
+          <Key>
+            <PropertyRef Name="Gutschein_ID" />
+          </Key>
+          <Property Name="Gutschein_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Gs_Rabatt" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Gs_GutscheinCode" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="Gs_AusstellungsDatum" Type="datetime" Nullable="false" />
+          <Property Name="Gs_GueltigInTage" Type="int" Nullable="false" />
+          <Property Name="Auftrag_ID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TBL_Kategorie">
+          <Key>
+            <PropertyRef Name="Kategorie_ID" />
+          </Key>
+          <Property Name="Kategorie_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Kat_Name" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="Kat_Geloescht" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TBL_Kreditor">
+          <Key>
+            <PropertyRef Name="Kreditor_ID" />
+          </Key>
+          <Property Name="Kreditor_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="KRD_Firma" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="KRD_Name" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="KRD_Adresse" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="KRD_Fax" Type="varchar" MaxLength="1" />
+          <Property Name="KRD_Tel" Type="varchar" MaxLength="1" />
+          <Property Name="KRD_Email" Type="varchar" MaxLength="1" />
+          <Property Name="KRD_Erfassungsdatum" Type="datetime" Nullable="false" />
+          <Property Name="KRD_Geloescht" Type="bit" Nullable="false" />
+          <Property Name="PLZ" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TBL_Kunde">
+          <Key>
+            <PropertyRef Name="Kunde_ID" />
+          </Key>
+          <Property Name="Kunde_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="K_Name" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="K_Vorname" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="K_Adresse" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="K_TelPrivat" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="K_TelMobile" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="K_Email" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="K_Erfassungsdatum" Type="datetime" Nullable="false" />
+          <Property Name="K_Erinnerung" Type="bit" Nullable="false" />
+          <Property Name="K_Geloescht" Type="bit" Nullable="false" />
+          <Property Name="PLZ" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TBL_Opt_Auftr">
+          <Key>
+            <PropertyRef Name="Auftrag_ID" />
+            <PropertyRef Name="Option_ID" />
+          </Key>
+          <Property Name="Auftrag_ID" Type="int" Nullable="false" />
+          <Property Name="Option_ID" Type="int" Nullable="false" />
+          <Property Name="OA_GesammtPreis" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="OA_Anzahl" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TBL_Option">
+          <Key>
+            <PropertyRef Name="Option_ID" />
+          </Key>
+          <Property Name="Option_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Opt_Name" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="Opt_Einheitspreis" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Opt_PreisStartDatum" Type="datetime" Nullable="false" />
+          <Property Name="Opt_PreisEndDatum" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TBL_Ort">
+          <Key>
+            <PropertyRef Name="PLZ" />
+          </Key>
+          <Property Name="PLZ" Type="int" Nullable="false" />
+          <Property Name="Ortschaft" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="Land" Type="varchar" MaxLength="1" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TBL_Rechnung">
+          <Key>
+            <PropertyRef Name="Rechnung_ID" />
+          </Key>
+          <Property Name="Rechnung_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Rechnung_Beschreibung" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="Rechnung_Erfassungsdatum" Type="datetime" Nullable="false" />
+          <Property Name="Rechnung_Preis" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Kreditor_ID" Type="int" Nullable="false" />
+          <Property Name="Kategorie_ID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TBL_Rueckerstattung">
+          <Key>
+            <PropertyRef Name="Rueckerstattung_ID" />
+          </Key>
+          <Property Name="Rueckerstattung_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Re_Total" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Re_Beschreibung" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="Re_Erfassungsdatum" Type="datetime" Nullable="false" />
+          <Property Name="Kreditor_ID" Type="int" Nullable="false" />
+          <Property Name="Kategorie_ID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TBL_Termin">
+          <Key>
+            <PropertyRef Name="Termin_ID" />
+          </Key>
+          <Property Name="Termin_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="T_Datum" Type="datetime" Nullable="false" />
+          <Property Name="T_Zeit" Type="datetime" Nullable="false" />
+          <Property Name="T_DauerInMinuten" Type="float" Nullable="false" />
+          <Property Name="Kunde_ID" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="TBL_Auftrag_TBL_Bild_fk">
+          <End Role="TBL_Auftrag" Type="Self.TBL_Auftrag" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="TBL_Bild" Type="Self.TBL_Bild" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_Auftrag">
+              <PropertyRef Name="Auftrag_ID" />
+            </Principal>
+            <Dependent Role="TBL_Bild">
+              <PropertyRef Name="Auftrag_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="TBL_Auftrag_TBL_Gutschein_fk">
+          <End Role="TBL_Auftrag" Type="Self.TBL_Auftrag" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="TBL_Gutschein" Type="Self.TBL_Gutschein" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_Auftrag">
+              <PropertyRef Name="Auftrag_ID" />
+            </Principal>
+            <Dependent Role="TBL_Gutschein">
+              <PropertyRef Name="Auftrag_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="TBL_Auftrag_TBL_Opt_Auftr_fk">
+          <End Role="TBL_Auftrag" Type="Self.TBL_Auftrag" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="TBL_Opt_Auftr" Type="Self.TBL_Opt_Auftr" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_Auftrag">
+              <PropertyRef Name="Auftrag_ID" />
+            </Principal>
+            <Dependent Role="TBL_Opt_Auftr">
+              <PropertyRef Name="Auftrag_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="TBL_Dienstleistung_TBL_Auftrag_fk">
+          <End Role="TBL_Dienstleistung" Type="Self.TBL_Dienstleistung" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="TBL_Auftrag" Type="Self.TBL_Auftrag" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_Dienstleistung">
+              <PropertyRef Name="Dienstleistung_ID" />
+            </Principal>
+            <Dependent Role="TBL_Auftrag">
+              <PropertyRef Name="Dienstleistung_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="TBL_Kategorie_TBL_Rechnung_fk">
+          <End Role="TBL_Kategorie" Type="Self.TBL_Kategorie" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="TBL_Rechnung" Type="Self.TBL_Rechnung" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_Kategorie">
+              <PropertyRef Name="Kategorie_ID" />
+            </Principal>
+            <Dependent Role="TBL_Rechnung">
+              <PropertyRef Name="Kategorie_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="TBL_Kategorie_TBL_Rueckerstattung_fk">
+          <End Role="TBL_Kategorie" Type="Self.TBL_Kategorie" Multiplicity="1" />
+          <End Role="TBL_Rueckerstattung" Type="Self.TBL_Rueckerstattung" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_Kategorie">
+              <PropertyRef Name="Kategorie_ID" />
+            </Principal>
+            <Dependent Role="TBL_Rueckerstattung">
+              <PropertyRef Name="Kategorie_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="TBL_Kreditor_TBL_Rechnung_fk">
+          <End Role="TBL_Kreditor" Type="Self.TBL_Kreditor" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="TBL_Rechnung" Type="Self.TBL_Rechnung" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_Kreditor">
+              <PropertyRef Name="Kreditor_ID" />
+            </Principal>
+            <Dependent Role="TBL_Rechnung">
+              <PropertyRef Name="Kreditor_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="TBL_Kreditor_TBL_Rueckerstattung_fk">
+          <End Role="TBL_Kreditor" Type="Self.TBL_Kreditor" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="TBL_Rueckerstattung" Type="Self.TBL_Rueckerstattung" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_Kreditor">
+              <PropertyRef Name="Kreditor_ID" />
+            </Principal>
+            <Dependent Role="TBL_Rueckerstattung">
+              <PropertyRef Name="Kreditor_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="TBL_Kunde_TBL_Auftrag_fk">
+          <End Role="TBL_Kunde" Type="Self.TBL_Kunde" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="TBL_Auftrag" Type="Self.TBL_Auftrag" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_Kunde">
+              <PropertyRef Name="Kunde_ID" />
+            </Principal>
+            <Dependent Role="TBL_Auftrag">
+              <PropertyRef Name="Kunde_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="TBL_Kunde_TBL_Termin_fk">
+          <End Role="TBL_Kunde" Type="Self.TBL_Kunde" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="TBL_Termin" Type="Self.TBL_Termin" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_Kunde">
+              <PropertyRef Name="Kunde_ID" />
+            </Principal>
+            <Dependent Role="TBL_Termin">
+              <PropertyRef Name="Kunde_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="TBL_Option_TBL_Opt_Auftr_fk">
+          <End Role="TBL_Option" Type="Self.TBL_Option" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="TBL_Opt_Auftr" Type="Self.TBL_Opt_Auftr" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_Option">
+              <PropertyRef Name="Option_ID" />
+            </Principal>
+            <Dependent Role="TBL_Opt_Auftr">
+              <PropertyRef Name="Option_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="TBL_Ort_TBL_Kreditor_fk">
+          <End Role="TBL_Ort" Type="Self.TBL_Ort" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="TBL_Kreditor" Type="Self.TBL_Kreditor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_Ort">
+              <PropertyRef Name="PLZ" />
+            </Principal>
+            <Dependent Role="TBL_Kreditor">
+              <PropertyRef Name="PLZ" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="TBL_Ort_TBL_Kunde_fk">
+          <End Role="TBL_Ort" Type="Self.TBL_Ort" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="TBL_Kunde" Type="Self.TBL_Kunde" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_Ort">
+              <PropertyRef Name="PLZ" />
+            </Principal>
+            <Dependent Role="TBL_Kunde">
+              <PropertyRef Name="PLZ" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="bhs_DBModelStoreContainer">
+          <EntitySet Name="TBL_Auftrag" EntityType="Self.TBL_Auftrag" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBL_Bild" EntityType="Self.TBL_Bild" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBL_Dienstleistung" EntityType="Self.TBL_Dienstleistung" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBL_Gutschein" EntityType="Self.TBL_Gutschein" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBL_Kategorie" EntityType="Self.TBL_Kategorie" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBL_Kreditor" EntityType="Self.TBL_Kreditor" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBL_Kunde" EntityType="Self.TBL_Kunde" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBL_Opt_Auftr" EntityType="Self.TBL_Opt_Auftr" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBL_Option" EntityType="Self.TBL_Option" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBL_Ort" EntityType="Self.TBL_Ort" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBL_Rechnung" EntityType="Self.TBL_Rechnung" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBL_Rueckerstattung" EntityType="Self.TBL_Rueckerstattung" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBL_Termin" EntityType="Self.TBL_Termin" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="TBL_Auftrag_TBL_Bild_fk" Association="Self.TBL_Auftrag_TBL_Bild_fk">
+            <End Role="TBL_Auftrag" EntitySet="TBL_Auftrag" />
+            <End Role="TBL_Bild" EntitySet="TBL_Bild" />
+          </AssociationSet>
+          <AssociationSet Name="TBL_Auftrag_TBL_Gutschein_fk" Association="Self.TBL_Auftrag_TBL_Gutschein_fk">
+            <End Role="TBL_Auftrag" EntitySet="TBL_Auftrag" />
+            <End Role="TBL_Gutschein" EntitySet="TBL_Gutschein" />
+          </AssociationSet>
+          <AssociationSet Name="TBL_Auftrag_TBL_Opt_Auftr_fk" Association="Self.TBL_Auftrag_TBL_Opt_Auftr_fk">
+            <End Role="TBL_Auftrag" EntitySet="TBL_Auftrag" />
+            <End Role="TBL_Opt_Auftr" EntitySet="TBL_Opt_Auftr" />
+          </AssociationSet>
+          <AssociationSet Name="TBL_Dienstleistung_TBL_Auftrag_fk" Association="Self.TBL_Dienstleistung_TBL_Auftrag_fk">
+            <End Role="TBL_Dienstleistung" EntitySet="TBL_Dienstleistung" />
+            <End Role="TBL_Auftrag" EntitySet="TBL_Auftrag" />
+          </AssociationSet>
+          <AssociationSet Name="TBL_Kategorie_TBL_Rechnung_fk" Association="Self.TBL_Kategorie_TBL_Rechnung_fk">
+            <End Role="TBL_Kategorie" EntitySet="TBL_Kategorie" />
+            <End Role="TBL_Rechnung" EntitySet="TBL_Rechnung" />
+          </AssociationSet>
+          <AssociationSet Name="TBL_Kategorie_TBL_Rueckerstattung_fk" Association="Self.TBL_Kategorie_TBL_Rueckerstattung_fk">
+            <End Role="TBL_Kategorie" EntitySet="TBL_Kategorie" />
+            <End Role="TBL_Rueckerstattung" EntitySet="TBL_Rueckerstattung" />
+          </AssociationSet>
+          <AssociationSet Name="TBL_Kreditor_TBL_Rechnung_fk" Association="Self.TBL_Kreditor_TBL_Rechnung_fk">
+            <End Role="TBL_Kreditor" EntitySet="TBL_Kreditor" />
+            <End Role="TBL_Rechnung" EntitySet="TBL_Rechnung" />
+          </AssociationSet>
+          <AssociationSet Name="TBL_Kreditor_TBL_Rueckerstattung_fk" Association="Self.TBL_Kreditor_TBL_Rueckerstattung_fk">
+            <End Role="TBL_Kreditor" EntitySet="TBL_Kreditor" />
+            <End Role="TBL_Rueckerstattung" EntitySet="TBL_Rueckerstattung" />
+          </AssociationSet>
+          <AssociationSet Name="TBL_Kunde_TBL_Auftrag_fk" Association="Self.TBL_Kunde_TBL_Auftrag_fk">
+            <End Role="TBL_Kunde" EntitySet="TBL_Kunde" />
+            <End Role="TBL_Auftrag" EntitySet="TBL_Auftrag" />
+          </AssociationSet>
+          <AssociationSet Name="TBL_Kunde_TBL_Termin_fk" Association="Self.TBL_Kunde_TBL_Termin_fk">
+            <End Role="TBL_Kunde" EntitySet="TBL_Kunde" />
+            <End Role="TBL_Termin" EntitySet="TBL_Termin" />
+          </AssociationSet>
+          <AssociationSet Name="TBL_Option_TBL_Opt_Auftr_fk" Association="Self.TBL_Option_TBL_Opt_Auftr_fk">
+            <End Role="TBL_Option" EntitySet="TBL_Option" />
+            <End Role="TBL_Opt_Auftr" EntitySet="TBL_Opt_Auftr" />
+          </AssociationSet>
+          <AssociationSet Name="TBL_Ort_TBL_Kreditor_fk" Association="Self.TBL_Ort_TBL_Kreditor_fk">
+            <End Role="TBL_Ort" EntitySet="TBL_Ort" />
+            <End Role="TBL_Kreditor" EntitySet="TBL_Kreditor" />
+          </AssociationSet>
+          <AssociationSet Name="TBL_Ort_TBL_Kunde_fk" Association="Self.TBL_Ort_TBL_Kunde_fk">
+            <End Role="TBL_Ort" EntitySet="TBL_Ort" />
+            <End Role="TBL_Kunde" EntitySet="TBL_Kunde" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="bhs_DBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="TBL_Auftrag">
+          <Key>
+            <PropertyRef Name="Auftrag_ID" />
+          </Key>
+          <Property Name="Auftrag_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="A_ErfassungsDatum" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="A_Total" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="A_RabattInProzent" Type="Boolean" Nullable="false" />
+          <Property Name="A_Rabatt" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="A_KundenGespraech" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="Kunde_ID" Type="Int32" Nullable="false" />
+          <Property Name="Dienstleistung_ID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="TBL_Bild" Relationship="Self.TBL_Auftrag_TBL_Bild_fk" FromRole="TBL_Auftrag" ToRole="TBL_Bild" />
+          <NavigationProperty Name="TBL_Gutschein" Relationship="Self.TBL_Auftrag_TBL_Gutschein_fk" FromRole="TBL_Auftrag" ToRole="TBL_Gutschein" />
+          <NavigationProperty Name="TBL_Opt_Auftr" Relationship="Self.TBL_Auftrag_TBL_Opt_Auftr_fk" FromRole="TBL_Auftrag" ToRole="TBL_Opt_Auftr" />
+          <NavigationProperty Name="TBL_Dienstleistung" Relationship="Self.TBL_Dienstleistung_TBL_Auftrag_fk" FromRole="TBL_Auftrag" ToRole="TBL_Dienstleistung" />
+          <NavigationProperty Name="TBL_Kunde" Relationship="Self.TBL_Kunde_TBL_Auftrag_fk" FromRole="TBL_Auftrag" ToRole="TBL_Kunde" />
+        </EntityType>
+        <EntityType Name="TBL_Bild">
+          <Key>
+            <PropertyRef Name="Bild_ID" />
+          </Key>
+          <Property Name="Bild_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Bild_Pfad" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Bild_Name" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Auftrag_ID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="TBL_Auftrag" Relationship="Self.TBL_Auftrag_TBL_Bild_fk" FromRole="TBL_Bild" ToRole="TBL_Auftrag" />
+        </EntityType>
+        <EntityType Name="TBL_Dienstleistung">
+          <Key>
+            <PropertyRef Name="Dienstleistung_ID" />
+          </Key>
+          <Property Name="Dienstleistung_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Dl_Preis" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Dl_Name" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Dl_PreisStartDatum" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Dl_PreisEndDatum" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="TBL_Auftrag" Relationship="Self.TBL_Dienstleistung_TBL_Auftrag_fk" FromRole="TBL_Dienstleistung" ToRole="TBL_Auftrag" />
+        </EntityType>
+        <EntityType Name="TBL_Gutschein">
+          <Key>
+            <PropertyRef Name="Gutschein_ID" />
+          </Key>
+          <Property Name="Gutschein_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Gs_Rabatt" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Gs_GutscheinCode" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Gs_AusstellungsDatum" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Gs_GueltigInTage" Type="Int32" Nullable="false" />
+          <Property Name="Auftrag_ID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="TBL_Auftrag" Relationship="Self.TBL_Auftrag_TBL_Gutschein_fk" FromRole="TBL_Gutschein" ToRole="TBL_Auftrag" />
+        </EntityType>
+        <EntityType Name="TBL_Kategorie">
+          <Key>
+            <PropertyRef Name="Kategorie_ID" />
+          </Key>
+          <Property Name="Kategorie_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Kat_Name" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Kat_Geloescht" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="TBL_Rechnung" Relationship="Self.TBL_Kategorie_TBL_Rechnung_fk" FromRole="TBL_Kategorie" ToRole="TBL_Rechnung" />
+          <NavigationProperty Name="TBL_Rueckerstattung" Relationship="Self.TBL_Kategorie_TBL_Rueckerstattung_fk" FromRole="TBL_Kategorie" ToRole="TBL_Rueckerstattung" />
+        </EntityType>
+        <EntityType Name="TBL_Kreditor">
+          <Key>
+            <PropertyRef Name="Kreditor_ID" />
+          </Key>
+          <Property Name="Kreditor_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="KRD_Firma" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="KRD_Name" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="KRD_Adresse" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="KRD_Fax" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="KRD_Tel" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="KRD_Email" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="KRD_Erfassungsdatum" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="KRD_Geloescht" Type="Boolean" Nullable="false" />
+          <Property Name="PLZ" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="TBL_Rechnung" Relationship="Self.TBL_Kreditor_TBL_Rechnung_fk" FromRole="TBL_Kreditor" ToRole="TBL_Rechnung" />
+          <NavigationProperty Name="TBL_Rueckerstattung" Relationship="Self.TBL_Kreditor_TBL_Rueckerstattung_fk" FromRole="TBL_Kreditor" ToRole="TBL_Rueckerstattung" />
+          <NavigationProperty Name="TBL_Ort" Relationship="Self.TBL_Ort_TBL_Kreditor_fk" FromRole="TBL_Kreditor" ToRole="TBL_Ort" />
+        </EntityType>
+        <EntityType Name="TBL_Kunde">
+          <Key>
+            <PropertyRef Name="Kunde_ID" />
+          </Key>
+          <Property Name="Kunde_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="K_Name" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="K_Vorname" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="K_Adresse" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="K_TelPrivat" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="K_TelMobile" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="K_Email" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="K_Erfassungsdatum" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="K_Erinnerung" Type="Boolean" Nullable="false" />
+          <Property Name="K_Geloescht" Type="Boolean" Nullable="false" />
+          <Property Name="PLZ" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="TBL_Auftrag" Relationship="Self.TBL_Kunde_TBL_Auftrag_fk" FromRole="TBL_Kunde" ToRole="TBL_Auftrag" />
+          <NavigationProperty Name="TBL_Termin" Relationship="Self.TBL_Kunde_TBL_Termin_fk" FromRole="TBL_Kunde" ToRole="TBL_Termin" />
+          <NavigationProperty Name="TBL_Ort" Relationship="Self.TBL_Ort_TBL_Kunde_fk" FromRole="TBL_Kunde" ToRole="TBL_Ort" />
+        </EntityType>
+        <EntityType Name="TBL_Opt_Auftr">
+          <Key>
+            <PropertyRef Name="Auftrag_ID" />
+            <PropertyRef Name="Option_ID" />
+          </Key>
+          <Property Name="Auftrag_ID" Type="Int32" Nullable="false" />
+          <Property Name="Option_ID" Type="Int32" Nullable="false" />
+          <Property Name="OA_GesammtPreis" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="OA_Anzahl" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <NavigationProperty Name="TBL_Auftrag" Relationship="Self.TBL_Auftrag_TBL_Opt_Auftr_fk" FromRole="TBL_Opt_Auftr" ToRole="TBL_Auftrag" />
+          <NavigationProperty Name="TBL_Option" Relationship="Self.TBL_Option_TBL_Opt_Auftr_fk" FromRole="TBL_Opt_Auftr" ToRole="TBL_Option" />
+        </EntityType>
+        <EntityType Name="TBL_Option">
+          <Key>
+            <PropertyRef Name="Option_ID" />
+          </Key>
+          <Property Name="Option_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Opt_Name" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Opt_Einheitspreis" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Opt_PreisStartDatum" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Opt_PreisEndDatum" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="TBL_Opt_Auftr" Relationship="Self.TBL_Option_TBL_Opt_Auftr_fk" FromRole="TBL_Option" ToRole="TBL_Opt_Auftr" />
+        </EntityType>
+        <EntityType Name="TBL_Ort">
+          <Key>
+            <PropertyRef Name="PLZ" />
+          </Key>
+          <Property Name="PLZ" Type="Int32" Nullable="false" />
+          <Property Name="Ortschaft" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Land" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="TBL_Kreditor" Relationship="Self.TBL_Ort_TBL_Kreditor_fk" FromRole="TBL_Ort" ToRole="TBL_Kreditor" />
+          <NavigationProperty Name="TBL_Kunde" Relationship="Self.TBL_Ort_TBL_Kunde_fk" FromRole="TBL_Ort" ToRole="TBL_Kunde" />
+        </EntityType>
+        <EntityType Name="TBL_Rechnung">
+          <Key>
+            <PropertyRef Name="Rechnung_ID" />
+          </Key>
+          <Property Name="Rechnung_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Rechnung_Beschreibung" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Rechnung_Erfassungsdatum" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Rechnung_Preis" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Kreditor_ID" Type="Int32" Nullable="false" />
+          <Property Name="Kategorie_ID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="TBL_Kategorie" Relationship="Self.TBL_Kategorie_TBL_Rechnung_fk" FromRole="TBL_Rechnung" ToRole="TBL_Kategorie" />
+          <NavigationProperty Name="TBL_Kreditor" Relationship="Self.TBL_Kreditor_TBL_Rechnung_fk" FromRole="TBL_Rechnung" ToRole="TBL_Kreditor" />
+        </EntityType>
+        <EntityType Name="TBL_Rueckerstattung">
+          <Key>
+            <PropertyRef Name="Rueckerstattung_ID" />
+          </Key>
+          <Property Name="Rueckerstattung_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Re_Total" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Re_Beschreibung" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Re_Erfassungsdatum" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Kreditor_ID" Type="Int32" Nullable="false" />
+          <Property Name="Kategorie_ID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="TBL_Kategorie" Relationship="Self.TBL_Kategorie_TBL_Rueckerstattung_fk" FromRole="TBL_Rueckerstattung" ToRole="TBL_Kategorie" />
+          <NavigationProperty Name="TBL_Kreditor" Relationship="Self.TBL_Kreditor_TBL_Rueckerstattung_fk" FromRole="TBL_Rueckerstattung" ToRole="TBL_Kreditor" />
+        </EntityType>
+        <EntityType Name="TBL_Termin">
+          <Key>
+            <PropertyRef Name="Termin_ID" />
+          </Key>
+          <Property Name="Termin_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="T_Datum" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="T_Zeit" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="T_DauerInMinuten" Type="Double" Nullable="false" />
+          <Property Name="Kunde_ID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="TBL_Kunde" Relationship="Self.TBL_Kunde_TBL_Termin_fk" FromRole="TBL_Termin" ToRole="TBL_Kunde" />
+        </EntityType>
+        <Association Name="TBL_Auftrag_TBL_Bild_fk">
+          <End Role="TBL_Auftrag" Type="Self.TBL_Auftrag" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="TBL_Bild" Type="Self.TBL_Bild" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_Auftrag">
+              <PropertyRef Name="Auftrag_ID" />
+            </Principal>
+            <Dependent Role="TBL_Bild">
+              <PropertyRef Name="Auftrag_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="TBL_Auftrag_TBL_Gutschein_fk">
+          <End Role="TBL_Auftrag" Type="Self.TBL_Auftrag" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="TBL_Gutschein" Type="Self.TBL_Gutschein" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_Auftrag">
+              <PropertyRef Name="Auftrag_ID" />
+            </Principal>
+            <Dependent Role="TBL_Gutschein">
+              <PropertyRef Name="Auftrag_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="TBL_Auftrag_TBL_Opt_Auftr_fk">
+          <End Role="TBL_Auftrag" Type="Self.TBL_Auftrag" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="TBL_Opt_Auftr" Type="Self.TBL_Opt_Auftr" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_Auftrag">
+              <PropertyRef Name="Auftrag_ID" />
+            </Principal>
+            <Dependent Role="TBL_Opt_Auftr">
+              <PropertyRef Name="Auftrag_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="TBL_Dienstleistung_TBL_Auftrag_fk">
+          <End Role="TBL_Dienstleistung" Type="Self.TBL_Dienstleistung" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="TBL_Auftrag" Type="Self.TBL_Auftrag" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_Dienstleistung">
+              <PropertyRef Name="Dienstleistung_ID" />
+            </Principal>
+            <Dependent Role="TBL_Auftrag">
+              <PropertyRef Name="Dienstleistung_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="TBL_Kunde_TBL_Auftrag_fk">
+          <End Role="TBL_Kunde" Type="Self.TBL_Kunde" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="TBL_Auftrag" Type="Self.TBL_Auftrag" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_Kunde">
+              <PropertyRef Name="Kunde_ID" />
+            </Principal>
+            <Dependent Role="TBL_Auftrag">
+              <PropertyRef Name="Kunde_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="TBL_Kategorie_TBL_Rechnung_fk">
+          <End Role="TBL_Kategorie" Type="Self.TBL_Kategorie" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="TBL_Rechnung" Type="Self.TBL_Rechnung" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_Kategorie">
+              <PropertyRef Name="Kategorie_ID" />
+            </Principal>
+            <Dependent Role="TBL_Rechnung">
+              <PropertyRef Name="Kategorie_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="TBL_Kategorie_TBL_Rueckerstattung_fk">
+          <End Role="TBL_Kategorie" Type="Self.TBL_Kategorie" Multiplicity="1" />
+          <End Role="TBL_Rueckerstattung" Type="Self.TBL_Rueckerstattung" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_Kategorie">
+              <PropertyRef Name="Kategorie_ID" />
+            </Principal>
+            <Dependent Role="TBL_Rueckerstattung">
+              <PropertyRef Name="Kategorie_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="TBL_Kreditor_TBL_Rechnung_fk">
+          <End Role="TBL_Kreditor" Type="Self.TBL_Kreditor" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="TBL_Rechnung" Type="Self.TBL_Rechnung" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_Kreditor">
+              <PropertyRef Name="Kreditor_ID" />
+            </Principal>
+            <Dependent Role="TBL_Rechnung">
+              <PropertyRef Name="Kreditor_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="TBL_Kreditor_TBL_Rueckerstattung_fk">
+          <End Role="TBL_Kreditor" Type="Self.TBL_Kreditor" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="TBL_Rueckerstattung" Type="Self.TBL_Rueckerstattung" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_Kreditor">
+              <PropertyRef Name="Kreditor_ID" />
+            </Principal>
+            <Dependent Role="TBL_Rueckerstattung">
+              <PropertyRef Name="Kreditor_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="TBL_Ort_TBL_Kreditor_fk">
+          <End Role="TBL_Ort" Type="Self.TBL_Ort" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="TBL_Kreditor" Type="Self.TBL_Kreditor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_Ort">
+              <PropertyRef Name="PLZ" />
+            </Principal>
+            <Dependent Role="TBL_Kreditor">
+              <PropertyRef Name="PLZ" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="TBL_Kunde_TBL_Termin_fk">
+          <End Role="TBL_Kunde" Type="Self.TBL_Kunde" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="TBL_Termin" Type="Self.TBL_Termin" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_Kunde">
+              <PropertyRef Name="Kunde_ID" />
+            </Principal>
+            <Dependent Role="TBL_Termin">
+              <PropertyRef Name="Kunde_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="TBL_Ort_TBL_Kunde_fk">
+          <End Role="TBL_Ort" Type="Self.TBL_Ort" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="TBL_Kunde" Type="Self.TBL_Kunde" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_Ort">
+              <PropertyRef Name="PLZ" />
+            </Principal>
+            <Dependent Role="TBL_Kunde">
+              <PropertyRef Name="PLZ" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="TBL_Option_TBL_Opt_Auftr_fk">
+          <End Role="TBL_Option" Type="Self.TBL_Option" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="TBL_Opt_Auftr" Type="Self.TBL_Opt_Auftr" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_Option">
+              <PropertyRef Name="Option_ID" />
+            </Principal>
+            <Dependent Role="TBL_Opt_Auftr">
+              <PropertyRef Name="Option_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="bhs_DBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="TBL_Auftrag" EntityType="Self.TBL_Auftrag" />
+          <EntitySet Name="TBL_Bild" EntityType="Self.TBL_Bild" />
+          <EntitySet Name="TBL_Dienstleistung" EntityType="Self.TBL_Dienstleistung" />
+          <EntitySet Name="TBL_Gutschein" EntityType="Self.TBL_Gutschein" />
+          <EntitySet Name="TBL_Kategorie" EntityType="Self.TBL_Kategorie" />
+          <EntitySet Name="TBL_Kreditor" EntityType="Self.TBL_Kreditor" />
+          <EntitySet Name="TBL_Kunde" EntityType="Self.TBL_Kunde" />
+          <EntitySet Name="TBL_Opt_Auftr" EntityType="Self.TBL_Opt_Auftr" />
+          <EntitySet Name="TBL_Option" EntityType="Self.TBL_Option" />
+          <EntitySet Name="TBL_Ort" EntityType="Self.TBL_Ort" />
+          <EntitySet Name="TBL_Rechnung" EntityType="Self.TBL_Rechnung" />
+          <EntitySet Name="TBL_Rueckerstattung" EntityType="Self.TBL_Rueckerstattung" />
+          <EntitySet Name="TBL_Termin" EntityType="Self.TBL_Termin" />
+          <AssociationSet Name="TBL_Auftrag_TBL_Bild_fk" Association="Self.TBL_Auftrag_TBL_Bild_fk">
+            <End Role="TBL_Auftrag" EntitySet="TBL_Auftrag" />
+            <End Role="TBL_Bild" EntitySet="TBL_Bild" />
+          </AssociationSet>
+          <AssociationSet Name="TBL_Auftrag_TBL_Gutschein_fk" Association="Self.TBL_Auftrag_TBL_Gutschein_fk">
+            <End Role="TBL_Auftrag" EntitySet="TBL_Auftrag" />
+            <End Role="TBL_Gutschein" EntitySet="TBL_Gutschein" />
+          </AssociationSet>
+          <AssociationSet Name="TBL_Auftrag_TBL_Opt_Auftr_fk" Association="Self.TBL_Auftrag_TBL_Opt_Auftr_fk">
+            <End Role="TBL_Auftrag" EntitySet="TBL_Auftrag" />
+            <End Role="TBL_Opt_Auftr" EntitySet="TBL_Opt_Auftr" />
+          </AssociationSet>
+          <AssociationSet Name="TBL_Dienstleistung_TBL_Auftrag_fk" Association="Self.TBL_Dienstleistung_TBL_Auftrag_fk">
+            <End Role="TBL_Dienstleistung" EntitySet="TBL_Dienstleistung" />
+            <End Role="TBL_Auftrag" EntitySet="TBL_Auftrag" />
+          </AssociationSet>
+          <AssociationSet Name="TBL_Kunde_TBL_Auftrag_fk" Association="Self.TBL_Kunde_TBL_Auftrag_fk">
+            <End Role="TBL_Kunde" EntitySet="TBL_Kunde" />
+            <End Role="TBL_Auftrag" EntitySet="TBL_Auftrag" />
+          </AssociationSet>
+          <AssociationSet Name="TBL_Kategorie_TBL_Rechnung_fk" Association="Self.TBL_Kategorie_TBL_Rechnung_fk">
+            <End Role="TBL_Kategorie" EntitySet="TBL_Kategorie" />
+            <End Role="TBL_Rechnung" EntitySet="TBL_Rechnung" />
+          </AssociationSet>
+          <AssociationSet Name="TBL_Kategorie_TBL_Rueckerstattung_fk" Association="Self.TBL_Kategorie_TBL_Rueckerstattung_fk">
+            <End Role="TBL_Kategorie" EntitySet="TBL_Kategorie" />
+            <End Role="TBL_Rueckerstattung" EntitySet="TBL_Rueckerstattung" />
+          </AssociationSet>
+          <AssociationSet Name="TBL_Kreditor_TBL_Rechnung_fk" Association="Self.TBL_Kreditor_TBL_Rechnung_fk">
+            <End Role="TBL_Kreditor" EntitySet="TBL_Kreditor" />
+            <End Role="TBL_Rechnung" EntitySet="TBL_Rechnung" />
+          </AssociationSet>
+          <AssociationSet Name="TBL_Kreditor_TBL_Rueckerstattung_fk" Association="Self.TBL_Kreditor_TBL_Rueckerstattung_fk">
+            <End Role="TBL_Kreditor" EntitySet="TBL_Kreditor" />
+            <End Role="TBL_Rueckerstattung" EntitySet="TBL_Rueckerstattung" />
+          </AssociationSet>
+          <AssociationSet Name="TBL_Ort_TBL_Kreditor_fk" Association="Self.TBL_Ort_TBL_Kreditor_fk">
+            <End Role="TBL_Ort" EntitySet="TBL_Ort" />
+            <End Role="TBL_Kreditor" EntitySet="TBL_Kreditor" />
+          </AssociationSet>
+          <AssociationSet Name="TBL_Kunde_TBL_Termin_fk" Association="Self.TBL_Kunde_TBL_Termin_fk">
+            <End Role="TBL_Kunde" EntitySet="TBL_Kunde" />
+            <End Role="TBL_Termin" EntitySet="TBL_Termin" />
+          </AssociationSet>
+          <AssociationSet Name="TBL_Ort_TBL_Kunde_fk" Association="Self.TBL_Ort_TBL_Kunde_fk">
+            <End Role="TBL_Ort" EntitySet="TBL_Ort" />
+            <End Role="TBL_Kunde" EntitySet="TBL_Kunde" />
+          </AssociationSet>
+          <AssociationSet Name="TBL_Option_TBL_Opt_Auftr_fk" Association="Self.TBL_Option_TBL_Opt_Auftr_fk">
+            <End Role="TBL_Option" EntitySet="TBL_Option" />
+            <End Role="TBL_Opt_Auftr" EntitySet="TBL_Opt_Auftr" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="bhs_DBModelStoreContainer" CdmEntityContainer="bhs_DBEntities">
+          <EntitySetMapping Name="TBL_Auftrag">
+            <EntityTypeMapping TypeName="bhs_DBModel.TBL_Auftrag">
+              <MappingFragment StoreEntitySet="TBL_Auftrag">
+                <ScalarProperty Name="Auftrag_ID" ColumnName="Auftrag_ID" />
+                <ScalarProperty Name="A_ErfassungsDatum" ColumnName="A_ErfassungsDatum" />
+                <ScalarProperty Name="A_Total" ColumnName="A_Total" />
+                <ScalarProperty Name="A_RabattInProzent" ColumnName="A_RabattInProzent" />
+                <ScalarProperty Name="A_Rabatt" ColumnName="A_Rabatt" />
+                <ScalarProperty Name="A_KundenGespraech" ColumnName="A_KundenGespraech" />
+                <ScalarProperty Name="Kunde_ID" ColumnName="Kunde_ID" />
+                <ScalarProperty Name="Dienstleistung_ID" ColumnName="Dienstleistung_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_Bild">
+            <EntityTypeMapping TypeName="bhs_DBModel.TBL_Bild">
+              <MappingFragment StoreEntitySet="TBL_Bild">
+                <ScalarProperty Name="Bild_ID" ColumnName="Bild_ID" />
+                <ScalarProperty Name="Bild_Pfad" ColumnName="Bild_Pfad" />
+                <ScalarProperty Name="Bild_Name" ColumnName="Bild_Name" />
+                <ScalarProperty Name="Auftrag_ID" ColumnName="Auftrag_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_Dienstleistung">
+            <EntityTypeMapping TypeName="bhs_DBModel.TBL_Dienstleistung">
+              <MappingFragment StoreEntitySet="TBL_Dienstleistung">
+                <ScalarProperty Name="Dienstleistung_ID" ColumnName="Dienstleistung_ID" />
+                <ScalarProperty Name="Dl_Preis" ColumnName="Dl_Preis" />
+                <ScalarProperty Name="Dl_Name" ColumnName="Dl_Name" />
+                <ScalarProperty Name="Dl_PreisStartDatum" ColumnName="Dl_PreisStartDatum" />
+                <ScalarProperty Name="Dl_PreisEndDatum" ColumnName="Dl_PreisEndDatum" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_Gutschein">
+            <EntityTypeMapping TypeName="bhs_DBModel.TBL_Gutschein">
+              <MappingFragment StoreEntitySet="TBL_Gutschein">
+                <ScalarProperty Name="Gutschein_ID" ColumnName="Gutschein_ID" />
+                <ScalarProperty Name="Gs_Rabatt" ColumnName="Gs_Rabatt" />
+                <ScalarProperty Name="Gs_GutscheinCode" ColumnName="Gs_GutscheinCode" />
+                <ScalarProperty Name="Gs_AusstellungsDatum" ColumnName="Gs_AusstellungsDatum" />
+                <ScalarProperty Name="Gs_GueltigInTage" ColumnName="Gs_GueltigInTage" />
+                <ScalarProperty Name="Auftrag_ID" ColumnName="Auftrag_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_Kategorie">
+            <EntityTypeMapping TypeName="bhs_DBModel.TBL_Kategorie">
+              <MappingFragment StoreEntitySet="TBL_Kategorie">
+                <ScalarProperty Name="Kategorie_ID" ColumnName="Kategorie_ID" />
+                <ScalarProperty Name="Kat_Name" ColumnName="Kat_Name" />
+                <ScalarProperty Name="Kat_Geloescht" ColumnName="Kat_Geloescht" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_Kreditor">
+            <EntityTypeMapping TypeName="bhs_DBModel.TBL_Kreditor">
+              <MappingFragment StoreEntitySet="TBL_Kreditor">
+                <ScalarProperty Name="Kreditor_ID" ColumnName="Kreditor_ID" />
+                <ScalarProperty Name="KRD_Firma" ColumnName="KRD_Firma" />
+                <ScalarProperty Name="KRD_Name" ColumnName="KRD_Name" />
+                <ScalarProperty Name="KRD_Adresse" ColumnName="KRD_Adresse" />
+                <ScalarProperty Name="KRD_Fax" ColumnName="KRD_Fax" />
+                <ScalarProperty Name="KRD_Tel" ColumnName="KRD_Tel" />
+                <ScalarProperty Name="KRD_Email" ColumnName="KRD_Email" />
+                <ScalarProperty Name="KRD_Erfassungsdatum" ColumnName="KRD_Erfassungsdatum" />
+                <ScalarProperty Name="KRD_Geloescht" ColumnName="KRD_Geloescht" />
+                <ScalarProperty Name="PLZ" ColumnName="PLZ" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_Kunde">
+            <EntityTypeMapping TypeName="bhs_DBModel.TBL_Kunde">
+              <MappingFragment StoreEntitySet="TBL_Kunde">
+                <ScalarProperty Name="Kunde_ID" ColumnName="Kunde_ID" />
+                <ScalarProperty Name="K_Name" ColumnName="K_Name" />
+                <ScalarProperty Name="K_Vorname" ColumnName="K_Vorname" />
+                <ScalarProperty Name="K_Adresse" ColumnName="K_Adresse" />
+                <ScalarProperty Name="K_TelPrivat" ColumnName="K_TelPrivat" />
+                <ScalarProperty Name="K_TelMobile" ColumnName="K_TelMobile" />
+                <ScalarProperty Name="K_Email" ColumnName="K_Email" />
+                <ScalarProperty Name="K_Erfassungsdatum" ColumnName="K_Erfassungsdatum" />
+                <ScalarProperty Name="K_Erinnerung" ColumnName="K_Erinnerung" />
+                <ScalarProperty Name="K_Geloescht" ColumnName="K_Geloescht" />
+                <ScalarProperty Name="PLZ" ColumnName="PLZ" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_Opt_Auftr">
+            <EntityTypeMapping TypeName="bhs_DBModel.TBL_Opt_Auftr">
+              <MappingFragment StoreEntitySet="TBL_Opt_Auftr">
+                <ScalarProperty Name="Auftrag_ID" ColumnName="Auftrag_ID" />
+                <ScalarProperty Name="Option_ID" ColumnName="Option_ID" />
+                <ScalarProperty Name="OA_GesammtPreis" ColumnName="OA_GesammtPreis" />
+                <ScalarProperty Name="OA_Anzahl" ColumnName="OA_Anzahl" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_Option">
+            <EntityTypeMapping TypeName="bhs_DBModel.TBL_Option">
+              <MappingFragment StoreEntitySet="TBL_Option">
+                <ScalarProperty Name="Option_ID" ColumnName="Option_ID" />
+                <ScalarProperty Name="Opt_Name" ColumnName="Opt_Name" />
+                <ScalarProperty Name="Opt_Einheitspreis" ColumnName="Opt_Einheitspreis" />
+                <ScalarProperty Name="Opt_PreisStartDatum" ColumnName="Opt_PreisStartDatum" />
+                <ScalarProperty Name="Opt_PreisEndDatum" ColumnName="Opt_PreisEndDatum" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_Ort">
+            <EntityTypeMapping TypeName="bhs_DBModel.TBL_Ort">
+              <MappingFragment StoreEntitySet="TBL_Ort">
+                <ScalarProperty Name="PLZ" ColumnName="PLZ" />
+                <ScalarProperty Name="Ortschaft" ColumnName="Ortschaft" />
+                <ScalarProperty Name="Land" ColumnName="Land" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_Rechnung">
+            <EntityTypeMapping TypeName="bhs_DBModel.TBL_Rechnung">
+              <MappingFragment StoreEntitySet="TBL_Rechnung">
+                <ScalarProperty Name="Rechnung_ID" ColumnName="Rechnung_ID" />
+                <ScalarProperty Name="Rechnung_Beschreibung" ColumnName="Rechnung_Beschreibung" />
+                <ScalarProperty Name="Rechnung_Erfassungsdatum" ColumnName="Rechnung_Erfassungsdatum" />
+                <ScalarProperty Name="Rechnung_Preis" ColumnName="Rechnung_Preis" />
+                <ScalarProperty Name="Kreditor_ID" ColumnName="Kreditor_ID" />
+                <ScalarProperty Name="Kategorie_ID" ColumnName="Kategorie_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_Rueckerstattung">
+            <EntityTypeMapping TypeName="bhs_DBModel.TBL_Rueckerstattung">
+              <MappingFragment StoreEntitySet="TBL_Rueckerstattung">
+                <ScalarProperty Name="Rueckerstattung_ID" ColumnName="Rueckerstattung_ID" />
+                <ScalarProperty Name="Re_Total" ColumnName="Re_Total" />
+                <ScalarProperty Name="Re_Beschreibung" ColumnName="Re_Beschreibung" />
+                <ScalarProperty Name="Re_Erfassungsdatum" ColumnName="Re_Erfassungsdatum" />
+                <ScalarProperty Name="Kreditor_ID" ColumnName="Kreditor_ID" />
+                <ScalarProperty Name="Kategorie_ID" ColumnName="Kategorie_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_Termin">
+            <EntityTypeMapping TypeName="bhs_DBModel.TBL_Termin">
+              <MappingFragment StoreEntitySet="TBL_Termin">
+                <ScalarProperty Name="Termin_ID" ColumnName="Termin_ID" />
+                <ScalarProperty Name="T_Datum" ColumnName="T_Datum" />
+                <ScalarProperty Name="T_Zeit" ColumnName="T_Zeit" />
+                <ScalarProperty Name="T_DauerInMinuten" ColumnName="T_DauerInMinuten" />
+                <ScalarProperty Name="Kunde_ID" ColumnName="Kunde_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Kein" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
