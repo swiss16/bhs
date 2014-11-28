@@ -1,8 +1,10 @@
 ﻿<Window x:Class="DA_Buchhaltung.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="MainWindow" Height="350" Width="525">
+        Title="MainWindow" Height="1080" Width="1920">
     <Grid>
-        
+        <ListBox HorizontalAlignment="Left" Height="100" Margin="150,114,0,0" VerticalAlignment="Top" Width="772"/>
+        <Button Content="Button" HorizontalAlignment="Left" Margin="150,69,0,0" VerticalAlignment="Top" Width="75"/>
+
     </Grid>
 </Window>
