@@ -20,10 +20,10 @@ namespace DA_Buchhaltung.data
         }
     
         public int Dienstleistung_ID { get; set; }
-        public decimal Dl_Preis { get; set; }
-        public string Dl_Name { get; set; }
-        public System.DateTime Dl_PreisStartDatum { get; set; }
-        public System.DateTime Dl_PreisEndDatum { get; set; }
+        public decimal Preis { get; set; }
+        public string Name { get; set; }
+        public System.DateTime PreisStartDatum { get; set; }
+        public System.DateTime PreisEndDatum { get; set; }
     
         public virtual ICollection<TBL_Auftrag> TBL_Auftrag { get; set; }
     }

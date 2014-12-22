@@ -15,9 +15,9 @@ namespace DA_Buchhaltung.data
     public partial class TBL_Rueckerstattung
     {
         public int Rueckerstattung_ID { get; set; }
-        public decimal Re_Total { get; set; }
-        public string Re_Beschreibung { get; set; }
-        public System.DateTime Re_Erfassungsdatum { get; set; }
+        public decimal Total { get; set; }
+        public string Beschreibung { get; set; }
+        public System.DateTime Erfassungsdatum { get; set; }
         public int Kreditor_ID { get; set; }
         public int Kategorie_ID { get; set; }
     

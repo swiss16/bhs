@@ -34,7 +34,7 @@ namespace DA_Buchhaltung.data
         public virtual DbSet<TBL_Kunde> TBL_Kunde { get; set; }
         public virtual DbSet<TBL_Opt_Auftr> TBL_Opt_Auftr { get; set; }
         public virtual DbSet<TBL_Option> TBL_Option { get; set; }
-        public virtual DbSet<TBL_Ort> TBL_Ort { get; set; }
+        public virtual DbSet<TBL_Person> TBL_Person { get; set; }
         public virtual DbSet<TBL_Rechnung> TBL_Rechnung { get; set; }
         public virtual DbSet<TBL_Rueckerstattung> TBL_Rueckerstattung { get; set; }
         public virtual DbSet<TBL_Termin> TBL_Termin { get; set; }

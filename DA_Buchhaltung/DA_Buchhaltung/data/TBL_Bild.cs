@@ -15,8 +15,8 @@ namespace DA_Buchhaltung.data
     public partial class TBL_Bild
     {
         public int Bild_ID { get; set; }
-        public string Bild_Pfad { get; set; }
-        public string Bild_Name { get; set; }
+        public string Pfad { get; set; }
+        public string BildName { get; set; }
         public int Auftrag_ID { get; set; }
     
         public virtual TBL_Auftrag TBL_Auftrag { get; set; }

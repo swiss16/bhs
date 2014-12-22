@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using DA_Buchhaltung.viewModel;
 
 namespace DA_Buchhaltung
 {
@@ -20,9 +21,16 @@ namespace DA_Buchhaltung
     /// </summary>
     public partial class MainWindow : Window
     {
+        private readonly MainViewModel _viewModel = new MainViewModel();
+
+        public MainViewModel ViewModel
+        {
+            get { return _viewModel; }
+        }
         public MainWindow()
         {
             InitializeComponent();
+            //DataContext = new MainViewModel();
         }
     }
 }

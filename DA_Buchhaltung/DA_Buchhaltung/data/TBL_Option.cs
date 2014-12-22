@@ -20,10 +20,11 @@ namespace DA_Buchhaltung.data
         }
     
         public int Option_ID { get; set; }
-        public string Opt_Name { get; set; }
-        public decimal Opt_Einheitspreis { get; set; }
-        public System.DateTime Opt_PreisStartDatum { get; set; }
-        public System.DateTime Opt_PreisEndDatum { get; set; }
+        public string Name { get; set; }
+        public decimal Einheitspreis { get; set; }
+        public System.DateTime PreisStartDatum { get; set; }
+        public System.DateTime PreisEndDatum { get; set; }
+        public bool Konfigurierbar { get; set; }
     
         public virtual ICollection<TBL_Opt_Auftr> TBL_Opt_Auftr { get; set; }
     }

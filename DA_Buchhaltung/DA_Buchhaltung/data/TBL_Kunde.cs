@@ -17,23 +17,15 @@ namespace DA_Buchhaltung.data
         public TBL_Kunde()
         {
             this.TBL_Auftrag = new HashSet<TBL_Auftrag>();
+            this.TBL_Person = new HashSet<TBL_Person>();
             this.TBL_Termin = new HashSet<TBL_Termin>();
         }
     
         public int Kunde_ID { get; set; }
-        public string K_Name { get; set; }
-        public string K_Vorname { get; set; }
-        public string K_Adresse { get; set; }
-        public string K_TelPrivat { get; set; }
-        public string K_TelMobile { get; set; }
-        public string K_Email { get; set; }
-        public System.DateTime K_Erfassungsdatum { get; set; }
-        public bool K_Erinnerung { get; set; }
-        public bool K_Geloescht { get; set; }
-        public int PLZ { get; set; }
+        public bool Erinnerung { get; set; }
     
         public virtual ICollection<TBL_Auftrag> TBL_Auftrag { get; set; }
+        public virtual ICollection<TBL_Person> TBL_Person { get; set; }
         public virtual ICollection<TBL_Termin> TBL_Termin { get; set; }
-        public virtual TBL_Ort TBL_Ort { get; set; }
     }
 }

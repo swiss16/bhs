@@ -4,33 +4,33 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="2189760589ce4389acb5ec4b526b5e8c" Name="Diagram1">
-        <EntityTypeShape EntityType="bhs_DBModel.TBL_Auftrag" Width="1.5" PointX="5.25" PointY="10.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="bhs_DBModel.TBL_Bild" Width="1.5" PointX="7.5" PointY="11.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="bhs_DBModel.TBL_Dienstleistung" Width="1.5" PointX="3" PointY="15.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="bhs_DBModel.TBL_Gutschein" Width="1.5" PointX="7.5" PointY="13.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="bhs_DBModel.TBL_Kategorie" Width="1.5" PointX="3" PointY="3.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="bhs_DBModel.TBL_Kreditor" Width="1.5" PointX="3" PointY="6.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="bhs_DBModel.TBL_Kunde" Width="1.5" PointX="3" PointY="10.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="bhs_DBModel.TBL_Opt_Auftr" Width="1.5" PointX="10.5" PointY="11.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="bhs_DBModel.TBL_Option" Width="1.5" PointX="8.25" PointY="17.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="bhs_DBModel.TBL_Ort" Width="1.5" PointX="0.75" PointY="9.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="bhs_DBModel.TBL_Rechnung" Width="1.5" PointX="5.25" PointY="7" IsExpanded="true" />
-        <EntityTypeShape EntityType="bhs_DBModel.TBL_Rueckerstattung" Width="1.5" PointX="8.25" PointY="7" IsExpanded="true" />
-        <EntityTypeShape EntityType="bhs_DBModel.TBL_Termin" Width="1.5" PointX="5.25" PointY="17.375" IsExpanded="true" />
-        <AssociationConnector Association="bhs_DBModel.TBL_Auftrag_TBL_Bild_fk" ManuallyRouted="false" />
-        <AssociationConnector Association="bhs_DBModel.TBL_Auftrag_TBL_Gutschein_fk" ManuallyRouted="false" />
-        <AssociationConnector Association="bhs_DBModel.TBL_Auftrag_TBL_Opt_Auftr_fk" ManuallyRouted="false" />
-        <AssociationConnector Association="bhs_DBModel.TBL_Dienstleistung_TBL_Auftrag_fk" ManuallyRouted="false" />
-        <AssociationConnector Association="bhs_DBModel.TBL_Kunde_TBL_Auftrag_fk" ManuallyRouted="false" />
-        <AssociationConnector Association="bhs_DBModel.TBL_Kategorie_TBL_Rechnung_fk" ManuallyRouted="false" />
-        <AssociationConnector Association="bhs_DBModel.TBL_Kategorie_TBL_Rueckerstattung_fk" ManuallyRouted="false" />
-        <AssociationConnector Association="bhs_DBModel.TBL_Kreditor_TBL_Rechnung_fk" ManuallyRouted="false" />
-        <AssociationConnector Association="bhs_DBModel.TBL_Kreditor_TBL_Rueckerstattung_fk" ManuallyRouted="false" />
-        <AssociationConnector Association="bhs_DBModel.TBL_Ort_TBL_Kreditor_fk" ManuallyRouted="false" />
-        <AssociationConnector Association="bhs_DBModel.TBL_Kunde_TBL_Termin_fk" ManuallyRouted="false" />
-        <AssociationConnector Association="bhs_DBModel.TBL_Ort_TBL_Kunde_fk" ManuallyRouted="false" />
-        <AssociationConnector Association="bhs_DBModel.TBL_Option_TBL_Opt_Auftr_fk" ManuallyRouted="false" />
+      <Diagram DiagramId="2189760589ce4389acb5ec4b526b5e8c" Name="Diagram1" ZoomLevel="82">
+        <EntityTypeShape EntityType="bhs_DBModel.TBL_Auftrag" Width="1.5" PointX="6" PointY="8.25" />
+        <EntityTypeShape EntityType="bhs_DBModel.TBL_Bild" Width="1.5" PointX="8.25" PointY="7.5" />
+        <EntityTypeShape EntityType="bhs_DBModel.TBL_Dienstleistung" Width="1.5" PointX="3.75" PointY="4" />
+        <EntityTypeShape EntityType="bhs_DBModel.TBL_Gutschein" Width="1.5" PointX="8.25" PointY="13.125" />
+        <EntityTypeShape EntityType="bhs_DBModel.TBL_Kategorie" Width="1.5" PointX="3.75" PointY="0.75" />
+        <EntityTypeShape EntityType="bhs_DBModel.TBL_Kreditor" Width="1.5" PointX="0.75" PointY="6" />
+        <EntityTypeShape EntityType="bhs_DBModel.TBL_Kunde" Width="1.5" PointX="0.75" PointY="9" />
+        <EntityTypeShape EntityType="bhs_DBModel.TBL_Opt_Auftr" Width="1.5" PointX="11.25" PointY="9" />
+        <EntityTypeShape EntityType="bhs_DBModel.TBL_Option" Width="1.5" PointX="9" PointY="3.875" />
+        <EntityTypeShape EntityType="bhs_DBModel.TBL_Person" Width="1.5" PointX="3" PointY="7.75" />
+        <EntityTypeShape EntityType="bhs_DBModel.TBL_Rechnung" Width="1.5" PointX="6" PointY="0.75" />
+        <EntityTypeShape EntityType="bhs_DBModel.TBL_Rueckerstattung" Width="1.5" PointX="6" PointY="4.75" />
+        <EntityTypeShape EntityType="bhs_DBModel.TBL_Termin" Width="1.5" PointX="3" PointY="20" />
+        <AssociationConnector Association="bhs_DBModel.TBL_Auftrag_TBL_Bild_fk" />
+        <AssociationConnector Association="bhs_DBModel.TBL_Auftrag_TBL_Gutschein_fk" />
+        <AssociationConnector Association="bhs_DBModel.TBL_Auftrag_TBL_Opt_Auftr_fk" />
+        <AssociationConnector Association="bhs_DBModel.TBL_Dienstleistung_TBL_Auftrag_fk" />
+        <AssociationConnector Association="bhs_DBModel.TBL_Kunde_TBL_Auftrag_fk" />
+        <AssociationConnector Association="bhs_DBModel.TBL_Kategorie_TBL_Rechnung_fk" />
+        <AssociationConnector Association="bhs_DBModel.TBL_Kategorie_TBL_Rueckerstattung_fk" />
+        <AssociationConnector Association="bhs_DBModel.TBL_Kreditor_TBL_Person_fk" />
+        <AssociationConnector Association="bhs_DBModel.TBL_Kreditor_TBL_Rechnung_fk" />
+        <AssociationConnector Association="bhs_DBModel.TBL_Kreditor_TBL_Rueckerstattung_fk" />
+        <AssociationConnector Association="bhs_DBModel.TBL_Kunde_TBL_Person_fk" />
+        <AssociationConnector Association="bhs_DBModel.TBL_Kunde_TBL_Termin_fk" />
+        <AssociationConnector Association="bhs_DBModel.TBL_Option_TBL_Opt_Auftr_fk" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

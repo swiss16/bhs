@@ -16,8 +16,8 @@ namespace DA_Buchhaltung.data
     {
         public int Auftrag_ID { get; set; }
         public int Option_ID { get; set; }
-        public decimal OA_GesammtPreis { get; set; }
-        public decimal OA_Anzahl { get; set; }
+        public decimal GesammtPreis { get; set; }
+        public decimal Anzahl { get; set; }
     
         public virtual TBL_Auftrag TBL_Auftrag { get; set; }
         public virtual TBL_Option TBL_Option { get; set; }

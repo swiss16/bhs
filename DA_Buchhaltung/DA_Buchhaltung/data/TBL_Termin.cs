@@ -15,9 +15,9 @@ namespace DA_Buchhaltung.data
     public partial class TBL_Termin
     {
         public int Termin_ID { get; set; }
-        public System.DateTime T_Datum { get; set; }
-        public System.DateTime T_Zeit { get; set; }
-        public double T_DauerInMinuten { get; set; }
+        public System.DateTime Datum { get; set; }
+        public System.DateTime Zeit { get; set; }
+        public double DauerInMinuten { get; set; }
         public int Kunde_ID { get; set; }
     
         public virtual TBL_Kunde TBL_Kunde { get; set; }

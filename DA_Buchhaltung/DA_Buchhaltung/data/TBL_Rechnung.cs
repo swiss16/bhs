@@ -15,9 +15,9 @@ namespace DA_Buchhaltung.data
     public partial class TBL_Rechnung
     {
         public int Rechnung_ID { get; set; }
-        public string Rechnung_Beschreibung { get; set; }
-        public System.DateTime Rechnung_Erfassungsdatum { get; set; }
-        public decimal Rechnung_Preis { get; set; }
+        public string Beschreibung { get; set; }
+        public System.DateTime Erfassungsdatum { get; set; }
+        public decimal Preis { get; set; }
         public int Kreditor_ID { get; set; }
         public int Kategorie_ID { get; set; }
     

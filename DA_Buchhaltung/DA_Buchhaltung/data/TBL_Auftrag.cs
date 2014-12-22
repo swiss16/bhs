@@ -22,13 +22,13 @@ namespace DA_Buchhaltung.data
         }
     
         public int Auftrag_ID { get; set; }
-        public System.DateTime A_ErfassungsDatum { get; set; }
-        public decimal A_Total { get; set; }
-        public bool A_RabattInProzent { get; set; }
-        public Nullable<decimal> A_Rabatt { get; set; }
-        public string A_KundenGespraech { get; set; }
-        public int Kunde_ID { get; set; }
+        public System.DateTime ErfassungsDatum { get; set; }
+        public decimal Total { get; set; }
+        public bool RabattInProzent { get; set; }
+        public Nullable<decimal> Rabatt { get; set; }
+        public string KundenGespraech { get; set; }
         public int Dienstleistung_ID { get; set; }
+        public int Kunde_ID { get; set; }
     
         public virtual ICollection<TBL_Bild> TBL_Bild { get; set; }
         public virtual ICollection<TBL_Gutschein> TBL_Gutschein { get; set; }

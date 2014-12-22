@@ -15,10 +15,10 @@ namespace DA_Buchhaltung.data
     public partial class TBL_Gutschein
     {
         public int Gutschein_ID { get; set; }
-        public decimal Gs_Rabatt { get; set; }
-        public string Gs_GutscheinCode { get; set; }
-        public System.DateTime Gs_AusstellungsDatum { get; set; }
-        public int Gs_GueltigInTage { get; set; }
+        public decimal Rabatt { get; set; }
+        public string GutscheinCode { get; set; }
+        public System.DateTime AusstellungsDatum { get; set; }
+        public int GueltigInTage { get; set; }
         public int Auftrag_ID { get; set; }
     
         public virtual TBL_Auftrag TBL_Auftrag { get; set; }

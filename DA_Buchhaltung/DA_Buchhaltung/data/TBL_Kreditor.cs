@@ -16,23 +16,17 @@ namespace DA_Buchhaltung.data
     {
         public TBL_Kreditor()
         {
+            this.TBL_Person = new HashSet<TBL_Person>();
             this.TBL_Rechnung = new HashSet<TBL_Rechnung>();
             this.TBL_Rueckerstattung = new HashSet<TBL_Rueckerstattung>();
         }
     
         public int Kreditor_ID { get; set; }
-        public string KRD_Firma { get; set; }
-        public string KRD_Name { get; set; }
-        public string KRD_Adresse { get; set; }
-        public string KRD_Fax { get; set; }
-        public string KRD_Tel { get; set; }
-        public string KRD_Email { get; set; }
-        public System.DateTime KRD_Erfassungsdatum { get; set; }
+        public string Firma { get; set; }
         public bool KRD_Geloescht { get; set; }
-        public int PLZ { get; set; }
     
+        public virtual ICollection<TBL_Person> TBL_Person { get; set; }
         public virtual ICollection<TBL_Rechnung> TBL_Rechnung { get; set; }
         public virtual ICollection<TBL_Rueckerstattung> TBL_Rueckerstattung { get; set; }
-        public virtual TBL_Ort TBL_Ort { get; set; }
     }
 }

@@ -21,8 +21,8 @@ namespace DA_Buchhaltung.data
         }
     
         public int Kategorie_ID { get; set; }
-        public string Kat_Name { get; set; }
-        public bool Kat_Geloescht { get; set; }
+        public string Name { get; set; }
+        public bool Geloescht { get; set; }
     
         public virtual ICollection<TBL_Rechnung> TBL_Rechnung { get; set; }
         public virtual ICollection<TBL_Rueckerstattung> TBL_Rueckerstattung { get; set; }
