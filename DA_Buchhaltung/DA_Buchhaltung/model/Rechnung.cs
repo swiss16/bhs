@@ -9,7 +9,7 @@ namespace DA_Buchhaltung.model
     public class Rechnung
     {
         public int ID { get; set; }
-        public Kreditor Kreditor { get; set; }
+        public int KreditorID { get; set; }
         public decimal Betrag { get; set; }
         public string Beschreibung { get; set; }
         public string Kategorie { get; set; }

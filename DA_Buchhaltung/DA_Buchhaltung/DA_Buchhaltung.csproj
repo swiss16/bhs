@@ -67,7 +67,7 @@
     <Compile Include="common\commands\RelayCommand.cs" />
     <Compile Include="common\commands\SimpleCommand.cs" />
     <Compile Include="common\config\ConfigWrapper.cs" />
-    <Compile Include="common\Converter\BooleanToVisibilityConverter.cs" />
+    <Compile Include="common\converter\BooleanToVisibilityConverter.cs" />
     <Compile Include="common\log\Logger.cs" />
     <Compile Include="data\TBL_Person.cs">
       <DependentUpon>bhsContext.tt</DependentUpon>
@@ -77,11 +77,15 @@
     <Compile Include="model\Bild.cs" />
     <Compile Include="model\Dienstleistung.cs" />
     <Compile Include="model\Erfolgsrechnung.cs" />
+    <Compile Include="model\Kategorie.cs" />
     <Compile Include="model\Kreditor.cs" />
     <Compile Include="model\Option.cs" />
     <Compile Include="model\Person.cs" />
     <Compile Include="model\PreisOption.cs" />
     <Compile Include="model\Rechnung.cs" />
+    <Compile Include="userforms\UC_Kreditor.xaml.cs">
+      <DependentUpon>UC_Kreditor.xaml</DependentUpon>
+    </Compile>
     <Compile Include="viewModel\MainViewModel.cs" />
     <Compile Include="viewModel\ViewModelBase.cs" />
     <Compile Include="wrapper\DBWrapper.cs" />
@@ -148,6 +152,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="userforms\UC_Kreditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="model\Kunde.cs" />

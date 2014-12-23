@@ -35,7 +35,10 @@ namespace DA_Buchhaltung.common.log
         public static void append(String message, int level)
         {
             int logLevel = ConfigWrapper.LogLevel;
+            try
+            {
 
+            
             if (logLevel >= level)
             {
                 DateTime dt = DateTime.Now;
@@ -58,8 +61,15 @@ namespace DA_Buchhaltung.common.log
                 }
                 catch (Exception e)
                 {
-                    Debug.WriteLine(e.Message.ToString());
+                    Debug.WriteLine("Fehler beim Logger");
+                    Debug.WriteLine(e.Message);
                 }
+            }
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine("Fehler beim Logger");
+                Debug.WriteLine(e.Message);
             }
         }
     }
