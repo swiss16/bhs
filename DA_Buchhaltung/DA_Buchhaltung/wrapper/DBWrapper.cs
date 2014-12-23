@@ -708,6 +708,193 @@ namespace DA_Buchhaltung.wrapper
 
             return returnValue;
         }
+
+        /// <summary>
+        /// Speichert einen bestehenden oder erstellt einen neuen Kreditor, gemäss dem Kreditoren Objekt. Gibt die ID der Person zurück, oder -1 wenn es fehlerhaft war.
+        /// </summary>
+        /// <param name="kreditor">Kreditor Objekt</param>
+        /// <returns>ID</returns>
+        public int SpeichernKreditor(Kreditor kreditor)
+        {
+            int returnValue = -1;
+            if (checkConnection() == false)
+            {
+                Logger.append(
+                    "Error: Fehler beim Verbindungsaufbau zur Datenbank. Überprüfen sie die Internetverbindung oder die Konfiguration!",
+                    1);
+                throw new Exception("Fehler beim Datenbankzugriff. Weitere Informationen stehen im Logfile.");
+            }
+
+            #region KreditorenTabelle
+            var firmaList = db.TBL_Kreditor.Where(i => i.Firma == kreditor.Firma);
+            TBL_Kreditor firma;
+            if (firmaList.Any())
+            {
+                firma = firmaList.First();
+            }
+            else
+            {
+                try
+                {
+                    firma = new TBL_Kreditor { Firma = kreditor.Firma, KRD_Geloescht = false };
+                    db.TBL_Kreditor.Add(firma);
+                    db.SaveChanges();
+                    db.Entry(firma);
+                }
+                catch (Exception)
+                {
+
+                    Logger.append("Fehler beim Neuerstellen, schreiben in die Datenbank nicht möglich", Logger.ERROR);
+                    return -1;
+                }
+
+            } 
+            #endregion
+            if (kreditor.ID == -1)
+            {
+                
+                var newKreditor = new TBL_Person()
+                {
+                    Kreditor_ID = firma.Kreditor_ID,
+                    Adresse = kreditor.Adresse,
+                    Email = kreditor.Email,
+                    Erfassungsdatum = kreditor.ErfDatum,
+                    Fax = kreditor.Fax,
+                    Geloescht = false,
+                    Land = "CH",
+                    Kunde_ID = null,
+                    Name = kreditor.Name,
+                    Ortschaft = kreditor.Wohnort,
+                    TelFirma = kreditor.TelFirma,
+                    TelMobile = kreditor.TelMobile,
+                    TelPrivat = kreditor.TelPrivat,
+                    PLZ = kreditor.PLZ,
+                    Vorname = kreditor.Vorname
+
+                };
+                try
+                {
+                    db.TBL_Person.Add(newKreditor);
+                    db.SaveChanges();
+                    db.Entry(newKreditor);
+                    returnValue = newKreditor.Person_ID;
+                }
+                catch (Exception)
+                {
+
+                    Logger.append("Fehler beim Neuerstellen, schreiben in die Datenbank nicht möglich", Logger.ERROR);
+                    return -1;
+                }
+
+            }
+            else
+            {
+                var bestKreditor = db.TBL_Person.Find(kreditor.ID);
+                if (bestKreditor == null)
+                {
+                    Logger.append("Der bestehende Kunde konnte nicht geladen werden", Logger.ERROR);
+                    return -1;
+                }
+                bestKreditor.Kunde_ID = null;
+                bestKreditor.Adresse = kreditor.Adresse;
+                bestKreditor.Email = kreditor.Email;
+                bestKreditor.Erfassungsdatum = kreditor.ErfDatum;
+                bestKreditor.Fax = kreditor.Fax;
+                bestKreditor.Geloescht = false;
+                bestKreditor.Land = "CH";
+                bestKreditor.Kreditor_ID = firma.Kreditor_ID;
+                bestKreditor.Name = kreditor.Name;
+                bestKreditor.Ortschaft = kreditor.Wohnort;
+                bestKreditor.TelFirma = kreditor.TelFirma;
+                bestKreditor.TelMobile = kreditor.TelMobile;
+                bestKreditor.TelPrivat = kreditor.TelPrivat;
+                bestKreditor.PLZ = kreditor.PLZ;
+                bestKreditor.Vorname = kreditor.Vorname;
+
+
+                try
+                {
+                    db.SaveChanges();
+                    db.Entry(bestKreditor);
+                    returnValue = bestKreditor.Person_ID;
+                }
+                catch (Exception)
+                {
+
+                    Logger.append("Fehler beim Neuerstellen, schreiben in die Datenbank nicht möglich", Logger.ERROR);
+                    return -1;
+                }
+            }
+
+
+
+            return returnValue;
+        }
+
+        /// <summary>
+        /// Speichert eine bestehende oder erstellt eine neue Kategorie, gemäss dem Kategorieobjekt. Gibt die ID der kategorie zurück, -1 wenn es nicht erfolgreich war.
+        /// </summary>
+        /// <param name="kategorie">Kategorie Objekt</param>
+        /// <returns>ID der Kategorie</returns>
+        public int SpeicherenKategorie(Kategorie kategorie)
+        {
+            int returnValue = -1;
+            if (checkConnection() == false)
+            {
+                Logger.append(
+                    "Error: Fehler beim Verbindungsaufbau zur Datenbank. Überprüfen sie die Internetverbindung oder die Konfiguration!",
+                    1);
+                throw new Exception("Fehler beim Datenbankzugriff. Weitere Informationen stehen im Logfile.");
+            }
+            if (kategorie.ID == -1)
+            {
+                var newKat = new TBL_Kategorie
+                {
+                    Name = kategorie.Name,
+                    Geloescht = false
+                };
+
+                try
+                {
+                    db.TBL_Kategorie.Add(newKat);
+                    db.SaveChanges();
+                    db.Entry(newKat);
+                    returnValue = newKat.Kategorie_ID;
+                }
+                catch (Exception)
+                {
+
+                    Logger.append("Fehler beim Neuerstellen, schreiben in die Datenbank nicht möglich", Logger.ERROR);
+                    return -1;
+                }
+
+
+            }
+            else
+            {
+                var oldKat = db.TBL_Kategorie.Find(kategorie.ID);
+                oldKat.Name = kategorie.Name;
+                oldKat.Geloescht = false;
+
+                try
+                {
+                    db.SaveChanges();
+                    returnValue = oldKat.Kategorie_ID;
+                }
+                catch (Exception)
+                {
+
+                    Logger.append("Fehler beim Neuerstellen, schreiben in die Datenbank nicht möglich", Logger.ERROR);
+                    return -1;
+                }
+            }
+
+
+            return returnValue;
+        }
+
+
+        //Todo: Save methoden für Aufträge,Rechnungen, Rückzahlungen
     }
 
 }
