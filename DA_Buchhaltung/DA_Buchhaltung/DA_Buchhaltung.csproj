@@ -72,6 +72,8 @@
     <Compile Include="data\TBL_Person.cs">
       <DependentUpon>bhsContext.tt</DependentUpon>
     </Compile>
+    <Compile Include="model\Kreditor.cs" />
+    <Compile Include="model\Person.cs" />
     <Compile Include="viewModel\MainViewModel.cs" />
     <Compile Include="viewModel\ViewModelBase.cs" />
     <Compile Include="wrapper\DBWrapper.cs" />

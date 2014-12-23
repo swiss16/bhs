@@ -6,7 +6,24 @@
         xmlns:toolkit="http://schemas.xceed.com/wpf/xaml/toolkit"
         Title="Nailart Financial Manager" WindowStartupLocation="CenterScreen" Width="auto" Height="auto">
     <Grid>
-        <ListBox HorizontalAlignment="Left" Height="100" Margin="150,114,0,0" VerticalAlignment="Top" Width="772" ItemsSource="{Binding CustomerCollection}" SelectedIndex="{Binding SelectedKundenIndex}" SelectedItem="{Binding AktuellerKunde}"/>
+        <ListBox HorizontalAlignment="Left" Height="100" Margin="150,114,0,0" VerticalAlignment="Top" Width="772" 
+                 ItemsSource="{Binding CustomerCollection}" 
+                 SelectedIndex="{Binding SelectedKundenIndex}" 
+                 SelectedItem="{Binding AktuellerKunde}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding Vorname}"/>
+                        <TextBlock Text=" "/>
+                        <TextBlock Text="{Binding Name}"/>
+                        <TextBlock Text=" "/>
+                        <TextBlock Text="{Binding Adresse}"/>
+                        <TextBlock Text=" "/>
+                        <TextBlock Text="{Binding Wohnort}"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+            </ListBox>
         <Button Content="Button" HorizontalAlignment="Left" Margin="150,69,0,0" VerticalAlignment="Top" Width="75" Command="{Binding LadeKundenCommand}" CommandParameter="{Binding IstKundenAktiv}"/>
 
     </Grid>

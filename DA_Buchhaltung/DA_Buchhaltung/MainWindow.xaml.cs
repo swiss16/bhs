@@ -30,7 +30,7 @@ namespace DA_Buchhaltung
         public MainWindow()
         {
             InitializeComponent();
-            //DataContext = new MainViewModel();
+            
         }
     }
 }

@@ -6,8 +6,10 @@ using System.Threading.Tasks;
 
 namespace DA_Buchhaltung.model
 {
-    public class Kunde:Person
+    public class Kreditor : Person
     {
-        public bool Reminder { get; set; }
+        
+        public string Firma { get; set; }
+
     }
 }
