@@ -72,8 +72,16 @@
     <Compile Include="data\TBL_Person.cs">
       <DependentUpon>bhsContext.tt</DependentUpon>
     </Compile>
+    <Compile Include="model\Auftrag.cs" />
+    <Compile Include="model\Betraege.cs" />
+    <Compile Include="model\Bild.cs" />
+    <Compile Include="model\Dienstleistung.cs" />
+    <Compile Include="model\Erfolgsrechnung.cs" />
     <Compile Include="model\Kreditor.cs" />
+    <Compile Include="model\Option.cs" />
     <Compile Include="model\Person.cs" />
+    <Compile Include="model\PreisOption.cs" />
+    <Compile Include="model\Rechnung.cs" />
     <Compile Include="viewModel\MainViewModel.cs" />
     <Compile Include="viewModel\ViewModelBase.cs" />
     <Compile Include="wrapper\DBWrapper.cs" />

@@ -21,5 +21,11 @@ namespace DA_Buchhaltung.model
         public string Email { get; set; }
         
         public DateTime ErfDatum { get; set; }
+
+        public Person()
+        {
+            this.ID = -1;
+            this.ErfDatum = DateTime.Now;
+        }
     }
 }
