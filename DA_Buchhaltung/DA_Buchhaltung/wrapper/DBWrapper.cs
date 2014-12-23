@@ -76,7 +76,8 @@ namespace DA_Buchhaltung.wrapper
                 where p.Geloescht == false
                 select new Kunde
                 {
-                    ID = k.Kunde_ID,
+                    ID = p.Person_ID,
+                    KundeID = k.Kunde_ID,
                     Name = p.Name,
                     Vorname = p.Vorname,
                     Adresse = p.Adresse,
@@ -221,6 +222,7 @@ namespace DA_Buchhaltung.wrapper
                                              ErfDatum = p.Erfassungsdatum,
                                              Fax = p.Fax,
                                              ID = p.Person_ID,
+                                             KreditorID = k.Kreditor_ID,
                                              TelFirma = p.TelFirma,
                                              TelMobile = p.TelMobile,
                                              TelPrivat = p.TelPrivat
@@ -276,7 +278,7 @@ namespace DA_Buchhaltung.wrapper
                 throw new Exception("Fehler beim Datenbankzugriff. Weitere Informationen stehen im Logfile.");
             }
             IQueryable<PreisOption> list = from r in db.TBL_Option
-                                           where r.Konfigurierbar == true && r.PreisEndDatum < DateTime.Now
+                                           where r.Konfigurierbar == true && r.PreisEndDatum.Date < DateTime.Now.Date
                                            select new PreisOption
                                            {
                                                ID = r.Option_ID,
@@ -286,7 +288,7 @@ namespace DA_Buchhaltung.wrapper
                                            };
 
             IQueryable<PreisOption> list2 = from r in db.TBL_Dienstleistung
-                                           where r.PreisEndDatum < DateTime.Now
+                                           where r.PreisEndDatum.Date < DateTime.Now.Date
                                            select new PreisOption
                                            {
                                                ID = r.Dienstleistung_ID,
@@ -333,7 +335,379 @@ namespace DA_Buchhaltung.wrapper
             return kategorienListe;
         }
 
+        /// <summary>
+        /// Setzt den Gelöscht Status des Kunden auf true. Gibt True zurück, wenn es erfolgreich war.
+        /// </summary>
+        /// <param name="kunde">Kunde Objekt</param>
+        /// <returns>True wenn erfolgreich</returns>
+        public bool LoescheKunde(Kunde kunde)
+        {
+            if (checkConnection() == false)
+            {
+                Logger.append(
+                    "Error: Fehler beim Verbindungsaufbau zur Datenbank. Überprüfen sie die Internetverbindung oder die Konfiguration!",
+                    1);
+                throw new Exception("Fehler beim Datenbankzugriff. Weitere Informationen stehen im Logfile.");
+            }
+            var pers = db.TBL_Person.Find(kunde.ID);
+            if (pers == null)
+            {
+                Logger.append("Der Kunde konnte nicht gefunden werden.", Logger.INFO);
+                return false;
+            }
+            pers.Geloescht = true;
+            db.SaveChanges();
 
+
+            return true;
+        }
+
+        /// <summary>
+        /// Setzt den Gelöscht Status des Kreditors auf true. Gibt True zurück, wenn es erfolgreich war.
+        /// </summary>
+        /// <param name="kreditor">Objekt Kreditor</param>
+        /// <returns>True wenn erfolgreich</returns>
+        public bool LoescheKreditor(Kreditor kreditor)
+        {
+            if (checkConnection() == false)
+            {
+                Logger.append(
+                    "Error: Fehler beim Verbindungsaufbau zur Datenbank. Überprüfen sie die Internetverbindung oder die Konfiguration!",
+                    1);
+                throw new Exception("Fehler beim Datenbankzugriff. Weitere Informationen stehen im Logfile.");
+            }
+            var pers = db.TBL_Person.Find(kreditor.ID);
+            if (pers == null)
+            {
+                Logger.append("Der Kunde konnte nicht gefunden werden.", Logger.INFO);
+                return false;
+            }
+            pers.Geloescht = true;
+            db.SaveChanges();
+
+
+            return true;
+        }
+
+        /// <summary>
+        /// Löscht einen Auftrag vollkommen aus der Datenbank. Gibt true zurück, wenn es erfolgreich war.
+        /// </summary>
+        /// <param name="auftrag">Auftrag Objekt</param>
+        /// <returns>True wenn erfolgreich</returns>
+        public bool LoescheAuftrag(Auftrag auftrag)
+        {
+            if (checkConnection() == false)
+            {
+                Logger.append(
+                    "Error: Fehler beim Verbindungsaufbau zur Datenbank. Überprüfen sie die Internetverbindung oder die Konfiguration!",
+                    1);
+                throw new Exception("Fehler beim Datenbankzugriff. Weitere Informationen stehen im Logfile.");
+            }
+            var auftr = db.TBL_Auftrag.Find(auftrag.ID);
+            if (auftr == null)
+            {
+                Logger.append("Der Auftrag konnte nicht gefunden werden.", Logger.INFO);
+                return false;
+            }
+            try
+            {
+                db.TBL_Auftrag.Remove(auftr);
+                db.SaveChanges();
+            }
+            catch (Exception)
+            {
+                
+                Logger.append("Fehler beim Löschen",Logger.ERROR);
+                return false;
+            }
+            
+
+
+            return true;
+        }
+
+        /// <summary>
+        /// Löscht eine Rechnung komplett aus der Datenbank. Gibt true zurück, wenn es erfolgreich war.
+        /// </summary>
+        /// <param name="rechnung">Objekt Rechnung</param>
+        /// <returns>True wenn erfolgreich</returns>
+        public bool LoescheRechnung(Rechnung rechnung)
+        {
+            if (checkConnection() == false)
+            {
+                Logger.append(
+                    "Error: Fehler beim Verbindungsaufbau zur Datenbank. Überprüfen sie die Internetverbindung oder die Konfiguration!",
+                    1);
+                throw new Exception("Fehler beim Datenbankzugriff. Weitere Informationen stehen im Logfile.");
+            }
+            var rech = db.TBL_Rechnung.Find(rechnung.ID);
+            if (rech == null)
+            {
+                Logger.append("Die Rechnung konnte nicht gefunden werden.", Logger.INFO);
+                return false;
+            }
+            try
+            {
+                db.TBL_Rechnung.Remove(rech);
+                db.SaveChanges();
+            }
+            catch (Exception)
+            {
+
+                Logger.append("Fehler beim Löschen", Logger.ERROR);
+                return false;
+            }
+            return true;
+        }
+
+        /// <summary>
+        /// Löscht eine Rückzahlung komplett aus der Datenbank. Gibt true zurück, wenn es erfolgreich war.
+        /// </summary>
+        /// <param name="rueckzahlung">Objekt Rechnung als Rueckzahlung</param>
+        /// <returns>true wenn erfolgreich</returns>
+        public bool LoescheRueckzahlung(Rechnung rueckzahlung)
+        {
+            if (checkConnection() == false)
+            {
+                Logger.append(
+                    "Error: Fehler beim Verbindungsaufbau zur Datenbank. Überprüfen sie die Internetverbindung oder die Konfiguration!",
+                    1);
+                throw new Exception("Fehler beim Datenbankzugriff. Weitere Informationen stehen im Logfile.");
+            }
+            var rech = db.TBL_Rueckerstattung.Find(rueckzahlung.ID);
+            if (rech == null)
+            {
+                Logger.append("Die Rückerstattung konnte nicht gefunden werden.", Logger.INFO);
+                return false;
+            }
+            try
+            {
+                db.TBL_Rueckerstattung.Remove(rech);
+                db.SaveChanges();
+            }
+            catch (Exception)
+            {
+
+                Logger.append("Fehler beim Löschen", Logger.ERROR);
+                return false;
+            }
+            return true;
+        }
+
+        /// <summary>
+        /// Lässt die alte PreisOption verfallen und erstellt eine neue gültige für den nächsten Tag. Gibt true zurück, wenn es erfolgreich war.
+        /// </summary>
+        /// <param name="preisOption">PreisOption (Dienstleistung oder Option)</param>
+        /// <returns>true wenn erfolreich</returns>
+        public bool AenderungPreisOption(PreisOption preisOption)
+        {
+            if (checkConnection() == false)
+            {
+                Logger.append(
+                    "Error: Fehler beim Verbindungsaufbau zur Datenbank. Überprüfen sie die Internetverbindung oder die Konfiguration!",
+                    1);
+                throw new Exception("Fehler beim Datenbankzugriff. Weitere Informationen stehen im Logfile.");
+            }
+            if (preisOption == null)
+            {
+                Logger.append("Die PreisOption wurde falsch übergeben", Logger.INFO);
+                return false;
+            }
+
+            if (preisOption.PreisKatalog == PreisKatalog.Dienstleistung)
+            {
+                var dlg = db.TBL_Dienstleistung.Find(preisOption.ID);
+                if (dlg == null)
+                {
+                    Logger.append("Die Dienstleistung konnte nicht gefunden werden", Logger.INFO);
+                    return false;
+                }
+                try
+                {
+                    dlg.PreisEndDatum = DateTime.Now.Date;
+                    var newDlg = new TBL_Dienstleistung();
+                    newDlg.Name = preisOption.Name;
+                    newDlg.Preis = preisOption.Preis;
+                    newDlg.PreisStartDatum = DateTime.Now.AddDays(1).Date;
+                    newDlg.PreisEndDatum = newDlg.PreisStartDatum.AddYears(100).Date;
+                    db.TBL_Dienstleistung.Add(newDlg);
+                }
+                catch (Exception)
+                {
+
+                    Logger.append("Fehler beim Löschen", Logger.ERROR);
+                    return false;
+                }
+                
+
+            }
+            else
+            {
+                var opt = db.TBL_Option.Find(preisOption.ID);
+                if (opt == null)
+                {
+                    Logger.append("Die Option konnte nicht gefunden werden", Logger.INFO);
+                    return false;
+                }
+                try
+                {
+                    opt.PreisEndDatum = DateTime.Now.Date;
+                    var newOpt = new TBL_Option();
+                    newOpt.Einheitspreis = preisOption.Preis;
+                    newOpt.Konfigurierbar = true;
+                    newOpt.Name = preisOption.Name;
+                    newOpt.PreisStartDatum = DateTime.Now.AddDays(1).Date;
+                    newOpt.PreisEndDatum = newOpt.PreisStartDatum.AddYears(100).Date;
+                    db.TBL_Option.Add(newOpt);
+                }
+                catch (Exception)
+                {
+
+                    Logger.append("Fehler beim Löschen", Logger.ERROR);
+                    return false;
+                }
+            }
+
+            try
+            {
+                db.SaveChanges();
+            }
+            catch (Exception)
+            {
+
+                Logger.append("Fehler beim Löschen", Logger.ERROR);
+                return false;
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        /// Setzt den Geloescht Zustand der Kategorie auf true, Gibt true zurück, wenn es erfolgreich war.
+        /// </summary>
+        /// <param name="kategorie">Kategorie Objekt</param>
+        /// <returns>true wenn erfolreich</returns>
+        public bool LoescheKategorie(Kategorie kategorie)
+        {
+            if (checkConnection() == false)
+            {
+                Logger.append(
+                    "Error: Fehler beim Verbindungsaufbau zur Datenbank. Überprüfen sie die Internetverbindung oder die Konfiguration!",
+                    1);
+                throw new Exception("Fehler beim Datenbankzugriff. Weitere Informationen stehen im Logfile.");
+            }
+            var kat = db.TBL_Kategorie.Find(kategorie.ID);
+            if (kat == null)
+            {
+                Logger.append("Die Kategorie konnte nicht gefunden werden.", Logger.INFO);
+                return false;
+            }
+            kat.Geloescht = true;
+            db.SaveChanges();
+
+            return true;
+        }
+
+        /// <summary>
+        /// Speichert einen bestehenden oder erstellt einen neuen Kunden, mit dem angegebenen Kunden Objekt. Gibt die ID der Person zurück. Oder -1 wenn es fehlgeschlagen ist.
+        /// </summary>
+        /// <param name="kunde">Kunden Objekt</param>
+        /// <returns>ID der Person</returns>
+        public int SpeichernKunde(Kunde kunde)
+        {
+            int returnValue = -1;
+            if (checkConnection() == false)
+            {
+                Logger.append(
+                    "Error: Fehler beim Verbindungsaufbau zur Datenbank. Überprüfen sie die Internetverbindung oder die Konfiguration!",
+                    1);
+                throw new Exception("Fehler beim Datenbankzugriff. Weitere Informationen stehen im Logfile.");
+            }
+            int kid = 1;
+            if (kunde.Reminder == true)
+            {
+                kid = 2;
+            }
+            if (kunde.ID == -1)
+            {
+                
+                var newKunde = new TBL_Person()
+                {
+                    Kunde_ID = kid,
+                    Adresse = kunde.Adresse,
+                    Email = kunde.Email,
+                    Erfassungsdatum = kunde.ErfDatum,
+                    Fax = kunde.Fax,
+                    Geloescht = false,
+                    Land = "CH",
+                    Kreditor_ID = null,
+                    Name = kunde.Name,
+                    Ortschaft = kunde.Wohnort,
+                    TelFirma = kunde.TelFirma,
+                    TelMobile = kunde.TelMobile,
+                    TelPrivat = kunde.TelPrivat,
+                    PLZ = kunde.PLZ,
+                    Vorname = kunde.Vorname
+
+                };
+                try
+                {
+                    db.TBL_Person.Add(newKunde);
+                    db.SaveChanges();
+                    db.Entry(newKunde);
+                    returnValue = newKunde.Person_ID;
+                }
+                catch (Exception)
+                {
+
+                    Logger.append("Fehler beim Neuerstellen, schreiben in die Datenbank nicht möglich", Logger.ERROR);
+                    return -1;
+                }
+
+            }
+            else
+            {
+                var bestKunde = db.TBL_Person.Find(kunde.ID);
+                if (bestKunde == null)
+                {
+                    Logger.append("Der bestehende Kunde konnte nicht geladen werden", Logger.ERROR);
+                    return -1;
+                }
+                    bestKunde.Kunde_ID = kid;
+                    bestKunde.Adresse = kunde.Adresse;
+                    bestKunde.Email = kunde.Email;
+                    bestKunde.Erfassungsdatum = kunde.ErfDatum;
+                    bestKunde.Fax = kunde.Fax;
+                    bestKunde.Geloescht = false;
+                    bestKunde.Land = "CH";
+                    bestKunde.Kreditor_ID = null;
+                    bestKunde.Name = kunde.Name;
+                    bestKunde.Ortschaft = kunde.Wohnort;
+                    bestKunde.TelFirma = kunde.TelFirma;
+                    bestKunde.TelMobile = kunde.TelMobile;
+                    bestKunde.TelPrivat = kunde.TelPrivat;
+                    bestKunde.PLZ = kunde.PLZ;
+                    bestKunde.Vorname = kunde.Vorname;
+
+
+                try
+                {
+                    db.SaveChanges();
+                    db.Entry(bestKunde);
+                    returnValue = bestKunde.Person_ID;
+                }
+                catch (Exception)
+                {
+
+                    Logger.append("Fehler beim Neuerstellen, schreiben in die Datenbank nicht möglich", Logger.ERROR);
+                    return -1;
+                }
+            }
+
+            
+
+            return returnValue;
+        }
     }
 
 }

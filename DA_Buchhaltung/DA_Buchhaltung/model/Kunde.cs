@@ -8,6 +8,7 @@ namespace DA_Buchhaltung.model
 {
     public class Kunde:Person
     {
+        public int KundeID { get; set; }
         public bool Reminder { get; set; }
     }
 }

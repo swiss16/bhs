@@ -8,7 +8,7 @@ namespace DA_Buchhaltung.model
 {
     public class Kreditor : Person
     {
-        
+        public int KreditorID { get; set; }
         public string Firma { get; set; }
 
     }
