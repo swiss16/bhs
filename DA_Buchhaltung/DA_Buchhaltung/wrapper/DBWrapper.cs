@@ -19,6 +19,7 @@ namespace DA_Buchhaltung.wrapper
         private List<Rechnung> rueckzahlungsListe = new List<Rechnung>(); 
         private List<PreisOption> preisOptionsListe = new List<PreisOption>();
         private List<Kategorie> kategorienListe = new List<Kategorie>();
+        private List<Option> optionenListe = new List<Option>(); 
 
 
         //Private Methoden
@@ -146,14 +147,8 @@ namespace DA_Buchhaltung.wrapper
                     opt.Einheitspreis = optInDb.Einheitspreis;
                     opt.Anzahl = optAuftr.Anzahl;
                     opt.Name = optInDb.Name;
-                    if (optAuftr.GesammtPreis <0)
-                    {
-                        opt.IstRabatt = true;
-                    }
-                    else
-                    {
-                        opt.IstRabatt = false;
-                    }
+                    opt.Konfigurierbar = optInDb.Konfigurierbar;
+                    opt.BereitsVorhanden = true;
 
                 }
             }
@@ -333,6 +328,34 @@ namespace DA_Buchhaltung.wrapper
             kategorienListe = list.ToList();
 
             return kategorienListe;
+        }
+
+
+        public List<Option> LadeOptionen()
+        {
+            if (checkConnection() == false)
+            {
+                Logger.append(
+                    "Error: Fehler beim Verbindungsaufbau zur Datenbank. Überprüfen sie die Internetverbindung oder die Konfiguration!",
+                    1);
+                throw new Exception("Fehler beim Datenbankzugriff. Weitere Informationen stehen im Logfile.");
+            }
+            IQueryable<Option> list = from r in db.TBL_Option
+                                         where r.Konfigurierbar == true && r.PreisEndDatum.Date>=DateTime.Now.Date
+                                         select new Option
+                                         {
+                                             ID = r.Option_ID,
+                                             Anzahl = 1,
+                                             BereitsVorhanden = false,
+                                             Einheitspreis = r.Einheitspreis,
+                                             Konfigurierbar = true,
+                                             Name = r.Name,
+                                             PreisInFranken = r.Einheitspreis,
+                                             WurdeGeloescht = false
+                                         };
+            optionenListe = list.ToList();
+
+            return optionenListe;
         }
 
         /// <summary>
@@ -893,9 +916,169 @@ namespace DA_Buchhaltung.wrapper
             return returnValue;
         }
 
-
-        public int SpeicherenRechnungen(Rechnung rechnung)
+        /// <summary>
+        /// Speichert eine bestehende oder erstellt eine neue Rechnung. Gibt die ID der Rechnung zurück, ausser bei einem Fehler wird -1 zurück gegeben.
+        /// </summary>
+        /// <param name="rechnung">Rechnungs Objekt</param>
+        /// <returns>ID</returns>
+        public int SpeicherenRechnung(Rechnung rechnung)
         {
+            int returnValue = -1;
+            int kat = -1;
+            if (checkConnection() == false)
+            {
+                Logger.append(
+                    "Error: Fehler beim Verbindungsaufbau zur Datenbank. Überprüfen sie die Internetverbindung oder die Konfiguration!",
+                    1);
+                throw new Exception("Fehler beim Datenbankzugriff. Weitere Informationen stehen im Logfile.");
+            }
+            try
+            {
+                kat = db.TBL_Kategorie.First(i => i.Name.ToLower() == rechnung.Kategorie.ToLower()).Kategorie_ID;
+            }
+            catch (Exception)
+            {
+
+                Logger.append("Fehler beim Neuerstellen, schreiben in die Datenbank nicht möglich", Logger.ERROR);
+                return -1;
+            }
+            
+            var bestRechnung = db.TBL_Rechnung.Find(rechnung.ID);
+            if (bestRechnung == null)
+            {
+                
+
+                var newRechnung = new TBL_Rechnung
+                {
+                    Erfassungsdatum = rechnung.Datum,
+                    Beschreibung = rechnung.Beschreibung,
+                    Kategorie_ID = kat,
+                    Person_ID = rechnung.KreditorID,
+                    Preis = rechnung.Betrag
+                    
+                };
+                try
+                {
+                    db.TBL_Rechnung.Add(newRechnung);
+                    db.SaveChanges();
+                    db.Entry(newRechnung);
+                    returnValue = newRechnung.Rechnung_ID;
+                }
+                catch (Exception)
+                {
+
+                    Logger.append("Fehler beim Neuerstellen, schreiben in die Datenbank nicht möglich", Logger.ERROR);
+                    return -1;
+                }
+            }
+            else
+            {
+                bestRechnung.Beschreibung = rechnung.Beschreibung;
+                bestRechnung.Kategorie_ID = kat;
+                bestRechnung.Person_ID = rechnung.KreditorID;
+                bestRechnung.Preis = rechnung.Betrag;
+                try
+                {
+                    db.SaveChanges();
+                    db.Entry(bestRechnung);
+                    returnValue = bestRechnung.Rechnung_ID;
+                }
+                catch (Exception)
+                {
+
+                    Logger.append("Fehler beim Neuerstellen, schreiben in die Datenbank nicht möglich", Logger.ERROR);
+                    return -1;
+                }
+            }
+
+            return returnValue;
+        }
+
+        /// <summary>
+        /// Speichert ein bestehende oder erstellt eine neue Rückerstattung gemäss dem Rechnungs Objekt. Gibt die ID des Datensatzes zurück, ausser bei einem Fehler wird -1 zurück gegeben.
+        /// </summary>
+        /// <param name="rechnung">Rechnungs objekt</param>
+        /// <returns>ID</returns>
+        public int SpeicherenRueckzahlung(Rechnung rechnung)
+        {
+            int returnValue = -1;
+            int kat = -1;
+            if (checkConnection() == false)
+            {
+                Logger.append(
+                    "Error: Fehler beim Verbindungsaufbau zur Datenbank. Überprüfen sie die Internetverbindung oder die Konfiguration!",
+                    1);
+                throw new Exception("Fehler beim Datenbankzugriff. Weitere Informationen stehen im Logfile.");
+            }
+            try
+            {
+                kat = db.TBL_Kategorie.First(i => i.Name.ToLower() == rechnung.Kategorie.ToLower()).Kategorie_ID;
+            }
+            catch (Exception)
+            {
+
+                Logger.append("Fehler beim Neuerstellen, schreiben in die Datenbank nicht möglich", Logger.ERROR);
+                return -1;
+            }
+
+            var bestRueckzahlung = db.TBL_Rueckerstattung.Find(rechnung.ID);
+            if (bestRueckzahlung == null)
+            {
+                var newRueckzahlung = new TBL_Rueckerstattung
+                {
+                    Erfassungsdatum = rechnung.Datum,
+                    Beschreibung = rechnung.Beschreibung,
+                    Kategorie_ID = kat,
+                    Person_ID = rechnung.KreditorID,
+                    Total = rechnung.Betrag
+
+                };
+                try
+                {
+                    db.TBL_Rueckerstattung.Add(newRueckzahlung);
+                    db.SaveChanges();
+                    db.Entry(newRueckzahlung);
+                    returnValue = newRueckzahlung.Rueckerstattung_ID;
+                }
+                catch (Exception)
+                {
+
+                    Logger.append("Fehler beim Neuerstellen, schreiben in die Datenbank nicht möglich", Logger.ERROR);
+                    return -1;
+                }
+            }
+            else
+            {
+                bestRueckzahlung.Beschreibung = rechnung.Beschreibung;
+                bestRueckzahlung.Kategorie_ID = kat;
+                bestRueckzahlung.Person_ID = rechnung.KreditorID;
+                bestRueckzahlung.Total = rechnung.Betrag;
+                try
+                {
+                    db.SaveChanges();
+                    db.Entry(bestRueckzahlung);
+                    returnValue = bestRueckzahlung.Rueckerstattung_ID;
+                }
+                catch (Exception)
+                {
+
+                    Logger.append("Fehler beim Neuerstellen, schreiben in die Datenbank nicht möglich", Logger.ERROR);
+                    return -1;
+                }
+            }
+
+            return returnValue;
+        }
+
+        /// <summary>
+        /// Speichert einen bestehenden oder erstellt einen neuen Auftrag inklusive der Positionen und gibt die ID des Auftrages zurück. Wenn es fehlschlägt, wird -1 zurückgegeben.
+        /// </summary>
+        /// <param name="auftrag">Auftrag Objekt</param>
+        /// <returns>ID</returns>
+        public int SpeicherenAuftrag(Auftrag auftrag)
+        {
+            List<Option> _tempOptions = new List<Option>();
+            List<Option> _tempRemoveOptions = new List<Option>();
             int returnValue = -1;
             if (checkConnection() == false)
             {
@@ -905,10 +1088,221 @@ namespace DA_Buchhaltung.wrapper
                 throw new Exception("Fehler beim Datenbankzugriff. Weitere Informationen stehen im Logfile.");
             }
 
+            #region OptionenSpeichern
+
+            foreach (var option in auftrag.Positionen)
+            {
+                if (option.WurdeGeloescht == false)
+                {
+                    if (option.Konfigurierbar == false)
+                    {
+                        if (option.BereitsVorhanden == false)
+                        {
+                            var newOpt = new TBL_Option
+                            {
+                                Name = option.Name,
+                                Einheitspreis = option.Einheitspreis,
+                                Konfigurierbar = false,
+                                PreisEndDatum = DateTime.Now.AddDays(1).Date,
+                                PreisStartDatum = DateTime.Now.Date
+                            };
+                            try
+                            {
+                                db.TBL_Option.Add(newOpt);
+                                db.SaveChanges();
+                                db.Entry(newOpt);
+                                _tempOptions.Add(new Option { Anzahl = option.Anzahl, PreisInFranken = option.PreisInFranken, ID = newOpt.Option_ID, BereitsVorhanden = false });
+                            }
+                            catch (Exception)
+                            {
+
+                                Logger.append("Fehler beim Neuerstellen, schreiben in die Datenbank nicht möglich", Logger.ERROR);
+                                return -1;
+                            }
+                        }
+                        else
+                        {
+                            //Bereits Vorhanden nur ändeern
+                            var bestOpt = db.TBL_Option.Find(option.ID);
+                            bestOpt.Name = option.Name;
+                            bestOpt.Einheitspreis = option.Einheitspreis;
+                            try
+                            {
+                                db.SaveChanges();
+                                _tempOptions.Add(new Option { Anzahl = option.Anzahl, PreisInFranken = option.PreisInFranken, ID = bestOpt.Option_ID, BereitsVorhanden = true });
+                            }
+                            catch (Exception)
+                            {
+
+                                Logger.append("Fehler beim Neuerstellen, schreiben in die Datenbank nicht möglich", Logger.ERROR);
+                                return -1;
+                            }
+                        }
+
+                    }
+                    else
+                    {
+                        _tempOptions.Add(new Option { Anzahl = option.Anzahl, PreisInFranken = option.PreisInFranken, ID = option.ID, BereitsVorhanden = option.BereitsVorhanden });
+                    }
+                }
+                else
+                {
+                    //Wurden gelöscht
+                    if (option.Konfigurierbar==false && option.BereitsVorhanden == true)
+                    {
+                        
+                        try
+                        {
+                            //Kreutabellen Inhalte werden durch Cascading gelöscht
+                            var deleteOpt = db.TBL_Option.Find(option.ID);
+                            db.TBL_Option.Remove(deleteOpt);
+                            db.SaveChanges();
+                        }
+                        catch (Exception)
+                        {
+
+                            Logger.append("Fehler beim Löschen einer Option", Logger.INFO);
+                            
+                        }
+                    }
+                    if (option.Konfigurierbar == true && option.BereitsVorhanden == true)
+                    {
+                        _tempRemoveOptions.Add(option);
+                    }
+                }
+                
+            }
+
+            #endregion
+
+            #region AuftragSpeichern
+
+            if (auftrag.ID == -1)
+            {
+                var newAuftrag = new TBL_Auftrag
+                {
+                    Dienstleistung_ID = auftrag.Dienstleistung.ID,
+                    KundenGespraech = auftrag.KundenGespraech,
+                    Person_ID = auftrag.KundeID,
+                    Rabatt = auftrag.Rabatt,
+                    RabattInProzent = auftrag.RabattInProzent,
+                    Total = auftrag.Total
+                };
+                try
+                {
+                    db.TBL_Auftrag.Add(newAuftrag);
+                    db.SaveChanges();
+                    db.Entry(newAuftrag);
+                    returnValue = newAuftrag.Auftrag_ID;
+                }
+                catch (Exception)
+                {
+
+                    Logger.append("Fehler beim Neuerstellen, schreiben in die Datenbank nicht möglich", Logger.ERROR);
+                    return -1;
+                }
+            }
+            else
+            {
+                var bestAuftrag = db.TBL_Auftrag.Find(auftrag.ID);
+                if (bestAuftrag==null)
+                {
+                    Logger.append("Auftrag konnte nicht gefunden werden", Logger.ERROR);
+                    return -1;
+                }
+                bestAuftrag.Dienstleistung_ID = auftrag.Dienstleistung.ID;
+                bestAuftrag.KundenGespraech = auftrag.KundenGespraech;
+                bestAuftrag.Person_ID = auftrag.KundeID;
+                bestAuftrag.Rabatt = auftrag.Rabatt;
+                bestAuftrag.RabattInProzent = auftrag.RabattInProzent;
+                bestAuftrag.Total = auftrag.Total;
+                try
+                {
+                    db.SaveChanges();
+                    db.Entry(bestAuftrag);
+                    returnValue = bestAuftrag.Auftrag_ID;
+                }
+                catch (Exception)
+                {
+
+                    Logger.append("Fehler beim Neuerstellen, schreiben in die Datenbank nicht möglich", Logger.ERROR);
+                    return -1;
+                }
+            }
+
+            #endregion
+
+            #region KReuztabelleOptAuftragSpeichern
+
+            foreach (var tempOption in _tempOptions)
+            {
+                if (tempOption.BereitsVorhanden == false)
+                {
+                    var newOptAuftr = new TBL_Opt_Auftr
+                    {
+                        Auftrag_ID = returnValue,
+                        Option_ID = tempOption.ID,
+                        Anzahl = tempOption.Anzahl,
+                        GesammtPreis = tempOption.PreisInFranken
+                    };
+                    try
+                    {
+                        db.TBL_Opt_Auftr.Add(newOptAuftr);
+                        db.SaveChanges();
+                    }
+                    catch (Exception)
+                    {
+
+                        Logger.append("Fehler beim Neuerstellen, schreiben in die Datenbank nicht möglich", Logger.ERROR);
+                        return -1;
+                    }
+                }
+                else
+                {
+                    var bestOptAuftr =
+                        db.TBL_Opt_Auftr.First(i => (i.Auftrag_ID == returnValue) && (i.Option_ID == tempOption.ID));
+                    bestOptAuftr.Anzahl = tempOption.Anzahl;
+                    bestOptAuftr.GesammtPreis = tempOption.PreisInFranken;
+                    try
+                    {
+                        db.SaveChanges();
+                    }
+                    catch (Exception)
+                    {
+
+                        Logger.append("Fehler beim Neuerstellen, schreiben in die Datenbank nicht möglich", Logger.ERROR);
+                        return -1;
+                    }
+                }
+                
+            }
+
+            #endregion
+
+            #region KreuztabelleOptAuftragLoeschen
+
+            foreach (var removeOption in _tempRemoveOptions)
+            {
+                try
+                {
+                    var removeOptAuftr =
+                    db.TBL_Opt_Auftr.First(i => (i.Auftrag_ID == returnValue) && (i.Option_ID == removeOption.ID));
+                    db.TBL_Opt_Auftr.Remove(removeOptAuftr);
+                    db.SaveChanges();
+                }
+                catch (Exception)
+                {
+
+                    Logger.append("Fehler beim Löschen einer Option", Logger.INFO);
+
+                }
+                
+
+            }
+            #endregion
 
             return returnValue;
         }
-        //Todo: Save methoden für Aufträge,Rechnungen, Rückzahlungen
     }
 
 }

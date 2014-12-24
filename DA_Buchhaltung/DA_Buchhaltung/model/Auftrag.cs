@@ -16,6 +16,8 @@ namespace DA_Buchhaltung.model
         public List<Bild> Bilder { get; set; }
         public decimal Total { get; set; }
         public DateTime Datum { get; set; }
+        public bool RabattInProzent { get; set; }
+        public decimal Rabatt { get; set; }
 
         public Auftrag()
         {
@@ -26,6 +28,8 @@ namespace DA_Buchhaltung.model
             this.KundeID = -1;
             this.Bilder = new List<Bild>();
             this.Total = 0.0m;
+            this.Rabatt = 0.0m;
+            this.RabattInProzent = false;
         }
     }
 }

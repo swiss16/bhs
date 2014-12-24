@@ -13,16 +13,20 @@ namespace DA_Buchhaltung.model
         public decimal Einheitspreis { get; set; }
         public decimal PreisInFranken { get; set; }
         public decimal Anzahl { get; set; }
-        public bool IstRabatt {get;set;}
+        public bool Konfigurierbar { get; set; }
+        public bool BereitsVorhanden { get; set; }
+        public bool WurdeGeloescht { get; set; }
 
         public Option()
         {
             this.ID = -1;
-            this.IstRabatt = false;
             this.Name = string.Empty;
             this.Einheitspreis = 0.0m;
             this.PreisInFranken = 0.0m;
             this.Anzahl = 1;
+            this.Konfigurierbar = false;
+            this.BereitsVorhanden = false;
+            this.WurdeGeloescht = false;
         }
 
     }
