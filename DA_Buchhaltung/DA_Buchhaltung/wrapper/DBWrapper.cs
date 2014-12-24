@@ -330,7 +330,10 @@ namespace DA_Buchhaltung.wrapper
             return kategorienListe;
         }
 
-
+        /// <summary>
+        /// Gibt eine Liste zurück mit allen Optionen, welche konfigurierbar und aktuell aktiv sind.
+        /// </summary>
+        /// <returns></returns>
         public List<Option> LadeOptionen()
         {
             if (checkConnection() == false)
