@@ -18,10 +18,10 @@ namespace DA_Buchhaltung.data
         public string Beschreibung { get; set; }
         public System.DateTime Erfassungsdatum { get; set; }
         public decimal Preis { get; set; }
-        public int Kreditor_ID { get; set; }
         public int Kategorie_ID { get; set; }
+        public int Person_ID { get; set; }
     
         public virtual TBL_Kategorie TBL_Kategorie { get; set; }
-        public virtual TBL_Kreditor TBL_Kreditor { get; set; }
+        public virtual TBL_Person TBL_Person { get; set; }
     }
 }

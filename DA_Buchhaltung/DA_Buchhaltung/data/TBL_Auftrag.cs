@@ -28,12 +28,12 @@ namespace DA_Buchhaltung.data
         public Nullable<decimal> Rabatt { get; set; }
         public string KundenGespraech { get; set; }
         public int Dienstleistung_ID { get; set; }
-        public int Kunde_ID { get; set; }
+        public int Person_ID { get; set; }
     
         public virtual ICollection<TBL_Bild> TBL_Bild { get; set; }
         public virtual ICollection<TBL_Gutschein> TBL_Gutschein { get; set; }
         public virtual ICollection<TBL_Opt_Auftr> TBL_Opt_Auftr { get; set; }
         public virtual TBL_Dienstleistung TBL_Dienstleistung { get; set; }
-        public virtual TBL_Kunde TBL_Kunde { get; set; }
+        public virtual TBL_Person TBL_Person { get; set; }
     }
 }

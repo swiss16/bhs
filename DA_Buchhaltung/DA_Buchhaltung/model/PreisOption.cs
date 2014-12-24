@@ -22,6 +22,8 @@ namespace DA_Buchhaltung.model
         public PreisOption()
         {
             this.ID = -1;
+            this.Name = string.Empty;
+            this.Preis = 0.0m;
         }
     }
 }

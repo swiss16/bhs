@@ -21,6 +21,10 @@ namespace DA_Buchhaltung.model
             this.ID = -1;
             this.AlsRueckzahlung = false;
             this.Datum = DateTime.Now;
+            this.KreditorID = -1;
+            this.Betrag = 0.0m;
+            this.Beschreibung = string.Empty;
+            this.Kategorie = string.Empty;
 
         }
     }

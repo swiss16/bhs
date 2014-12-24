@@ -16,16 +16,12 @@ namespace DA_Buchhaltung.data
     {
         public TBL_Kunde()
         {
-            this.TBL_Auftrag = new HashSet<TBL_Auftrag>();
             this.TBL_Person = new HashSet<TBL_Person>();
-            this.TBL_Termin = new HashSet<TBL_Termin>();
         }
     
         public int Kunde_ID { get; set; }
         public bool Erinnerung { get; set; }
     
-        public virtual ICollection<TBL_Auftrag> TBL_Auftrag { get; set; }
         public virtual ICollection<TBL_Person> TBL_Person { get; set; }
-        public virtual ICollection<TBL_Termin> TBL_Termin { get; set; }
     }
 }

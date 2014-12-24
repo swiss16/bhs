@@ -19,6 +19,10 @@ namespace DA_Buchhaltung.model
         {
             this.ID = -1;
             this.IstRabatt = false;
+            this.Name = string.Empty;
+            this.Einheitspreis = 0.0m;
+            this.PreisInFranken = 0.0m;
+            this.Anzahl = 1;
         }
 
     }

@@ -21,6 +21,11 @@ namespace DA_Buchhaltung.model
         {
             this.ID = -1;
             this.Datum = DateTime.Now;
+            this.KundenGespraech = string.Empty;
+            this.Positionen = new List<Option>();
+            this.KundeID = -1;
+            this.Bilder = new List<Bild>();
+            this.Total = 0.0m;
         }
     }
 }

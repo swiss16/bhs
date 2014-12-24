@@ -14,6 +14,7 @@ namespace DA_Buchhaltung.model
         public Kategorie()
         {
             this.ID = -1;
+            this.Name = string.Empty;
         }
     }
 }

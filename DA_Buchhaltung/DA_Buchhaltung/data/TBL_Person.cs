@@ -14,6 +14,14 @@ namespace DA_Buchhaltung.data
     
     public partial class TBL_Person
     {
+        public TBL_Person()
+        {
+            this.TBL_Auftrag = new HashSet<TBL_Auftrag>();
+            this.TBL_Rechnung = new HashSet<TBL_Rechnung>();
+            this.TBL_Rueckerstattung = new HashSet<TBL_Rueckerstattung>();
+            this.TBL_Termin = new HashSet<TBL_Termin>();
+        }
+    
         public int Person_ID { get; set; }
         public string Name { get; set; }
         public string Vorname { get; set; }
@@ -31,7 +39,11 @@ namespace DA_Buchhaltung.data
         public Nullable<int> Kunde_ID { get; set; }
         public Nullable<int> Kreditor_ID { get; set; }
     
+        public virtual ICollection<TBL_Auftrag> TBL_Auftrag { get; set; }
         public virtual TBL_Kreditor TBL_Kreditor { get; set; }
         public virtual TBL_Kunde TBL_Kunde { get; set; }
+        public virtual ICollection<TBL_Rechnung> TBL_Rechnung { get; set; }
+        public virtual ICollection<TBL_Rueckerstattung> TBL_Rueckerstattung { get; set; }
+        public virtual ICollection<TBL_Termin> TBL_Termin { get; set; }
     }
 }

@@ -15,6 +15,8 @@ namespace DA_Buchhaltung.model
         public Bild()
         {
             this.ID = -1;
+            this.Name = string.Empty;
+            this.Pfad = string.Empty;
         }
     }
 }

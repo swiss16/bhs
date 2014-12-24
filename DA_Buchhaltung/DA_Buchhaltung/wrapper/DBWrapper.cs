@@ -123,7 +123,7 @@ namespace DA_Buchhaltung.wrapper
                         Name = d.Name,
                         Preis = d.Preis
                     },
-                    KundeID = a.Kunde_ID,
+                    KundeID = a.Person_ID,
                     Positionen = new List<Option>(),
                     Bilder = new List<Bild>()
                 };
@@ -181,7 +181,7 @@ namespace DA_Buchhaltung.wrapper
                                          select new Rechnung
                                          {
                                              ID = r.Rechnung_ID,
-                                             KreditorID = r.Kreditor_ID,
+                                             KreditorID = r.Person_ID,
                                              AlsRueckzahlung = false,
                                              Beschreibung = r.Beschreibung,
                                              Betrag = r.Preis,
@@ -251,7 +251,7 @@ namespace DA_Buchhaltung.wrapper
                                         select new Rechnung
                                         {
                                             ID = r.Rueckerstattung_ID,
-                                            KreditorID = r.Kreditor_ID,
+                                            KreditorID = r.Person_ID,
                                             AlsRueckzahlung = true,
                                             Beschreibung = r.Beschreibung,
                                             Betrag = r.Total,
@@ -726,7 +726,7 @@ namespace DA_Buchhaltung.wrapper
             }
 
             #region KreditorenTabelle
-            var firmaList = db.TBL_Kreditor.Where(i => i.Firma == kreditor.Firma);
+            var firmaList = db.TBL_Kreditor.Where(i => i.Firma.ToLower() == kreditor.Firma.ToLower());
             TBL_Kreditor firma;
             if (firmaList.Any())
             {
@@ -894,6 +894,20 @@ namespace DA_Buchhaltung.wrapper
         }
 
 
+        public int SpeicherenRechnungen(Rechnung rechnung)
+        {
+            int returnValue = -1;
+            if (checkConnection() == false)
+            {
+                Logger.append(
+                    "Error: Fehler beim Verbindungsaufbau zur Datenbank. Überprüfen sie die Internetverbindung oder die Konfiguration!",
+                    1);
+                throw new Exception("Fehler beim Datenbankzugriff. Weitere Informationen stehen im Logfile.");
+            }
+
+
+            return returnValue;
+        }
         //Todo: Save methoden für Aufträge,Rechnungen, Rückzahlungen
     }
 

@@ -18,8 +18,8 @@ namespace DA_Buchhaltung.data
         public System.DateTime Datum { get; set; }
         public System.DateTime Zeit { get; set; }
         public double DauerInMinuten { get; set; }
-        public int Kunde_ID { get; set; }
+        public int Person_ID { get; set; }
     
-        public virtual TBL_Kunde TBL_Kunde { get; set; }
+        public virtual TBL_Person TBL_Person { get; set; }
     }
 }

@@ -16,6 +16,8 @@ namespace DA_Buchhaltung.model
         public Betraege()
         {
             this.ID = -1;
+            this.Kategorie = string.Empty;
+            this.BetragInFranken = 0.0m;
         }
     }
 }

@@ -10,5 +10,12 @@ namespace DA_Buchhaltung.model
     {
         public int KundeID { get; set; }
         public bool Reminder { get; set; }
+
+
+        public Kunde()
+        {
+            this.KundeID = -1;
+            this.Reminder = false;
+        }
     }
 }

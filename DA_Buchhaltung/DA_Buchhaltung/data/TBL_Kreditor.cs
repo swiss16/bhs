@@ -17,8 +17,6 @@ namespace DA_Buchhaltung.data
         public TBL_Kreditor()
         {
             this.TBL_Person = new HashSet<TBL_Person>();
-            this.TBL_Rechnung = new HashSet<TBL_Rechnung>();
-            this.TBL_Rueckerstattung = new HashSet<TBL_Rueckerstattung>();
         }
     
         public int Kreditor_ID { get; set; }
@@ -26,7 +24,5 @@ namespace DA_Buchhaltung.data
         public bool KRD_Geloescht { get; set; }
     
         public virtual ICollection<TBL_Person> TBL_Person { get; set; }
-        public virtual ICollection<TBL_Rechnung> TBL_Rechnung { get; set; }
-        public virtual ICollection<TBL_Rueckerstattung> TBL_Rueckerstattung { get; set; }
     }
 }

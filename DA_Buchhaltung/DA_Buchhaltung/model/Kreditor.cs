@@ -11,5 +11,11 @@ namespace DA_Buchhaltung.model
         public int KreditorID { get; set; }
         public string Firma { get; set; }
 
+
+        public Kreditor()
+        {
+            this.KreditorID = -1;
+            this.Firma = string.Empty;
+        }
     }
 }
