@@ -19,13 +19,33 @@ namespace DA_Buchhaltung.model
         public decimal Gewinn { get; set; }
         public bool IstJahresabrechnung { get; set; }
 
+        public Erfolgsrechnung()
+        {
+            this.ID = -1;
+            this.StartDatum = DateTime.Now;
+            this.EndDatum = DateTime.Now;
+            this.Einnahmen = new List<Betraege>();
+            this.Ausgaben = new List<Betraege>();
+            this.SubtotalEinnahmen = 0.00m;
+            this.SubtotalAusgaben = 0.00m;
+            this.Gewinn = 0.00m;
+            this.IstJahresabrechnung = false;
+        }
+
+        /// <summary>
+        /// Erstellt eine .csv oder .html Datei, gemäss diesem Erfolgsrechnung-Objekt. Gibt True zurück, wenn es erfolgreich war.
+        /// </summary>
+        /// <returns></returns>
         public bool Print()
         {
             Update();
-            //todo: Hier die ausgabe implementieren (erfolgsrechnung als csv oder html)
+            //todo: Hier die ausgabe implementieren (erfolgsrechnung als csv oder html) (Jenachdem die Summary umbeschreiben)
             return true;
         }
 
+        /// <summary>
+        /// Berechnet gemäss den Ein- und Ausgabenlisten, die jeweiligen Subtotals und den Gewinn(negativ Verlust).
+        /// </summary>
         public void Update()
         {
             if (Einnahmen == null)

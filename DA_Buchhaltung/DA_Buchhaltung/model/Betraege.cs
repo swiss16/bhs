@@ -8,14 +8,12 @@ namespace DA_Buchhaltung.model
 {
     public class Betraege
     {
-        public int ID { get; set; }
         public string Kategorie { get; set; }
         public decimal BetragInFranken { get; set; }
 
 
         public Betraege()
         {
-            this.ID = -1;
             this.Kategorie = string.Empty;
             this.BetragInFranken = 0.0m;
         }

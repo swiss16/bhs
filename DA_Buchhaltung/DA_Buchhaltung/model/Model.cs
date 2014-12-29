@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Documents;
+using DA_Buchhaltung.common.log;
 using DA_Buchhaltung.wrapper;
 
 namespace DA_Buchhaltung.model
@@ -20,6 +22,7 @@ namespace DA_Buchhaltung.model
         private List<PreisOption> preisOptionsListe ;
         private List<Kategorie> kategorienListe ;
         private List<Option> optionenListe ;
+        private Erfolgsrechnung erfolgsrechnung;
 
         //public Methoden
         /// <summary>
@@ -584,12 +587,126 @@ namespace DA_Buchhaltung.model
 
             return isSuccessful;
         }
+        /// <summary>
+        /// Erstellt eine Erfolgsrechnung, gemäss dem angebenen Jahr (int). Gibt das Erfolgsrechnungobjekt zurück.
+        /// </summary>
+        /// <param name="jahr"></param>
+        /// <returns></returns>
+        public Erfolgsrechnung ErstelleErfolgsrechnung(int jahr)
+        {
+            if (jahr < 2014)
+            {
+                erfolgsrechnung = new Erfolgsrechnung();
+                Logger.append("Falsche Jahresangabe. Muss mindestens ab 2014 sein!", Logger.INFO);
+                MessageBox.Show("Fehler beim erstellen der Erfolgsrechnung. Mehr Informationen sind im Logfile",
+                    "Erfolgsrechnung fehler", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            else
+            {
+                DateTime dts = new DateTime(jahr,1,1,00,00,00);
+                DateTime dte = new DateTime(jahr, 12, 31, 23, 59, 59);
+                erfolgsrechnung = ErstelleErfolgsrechnung(dts, dte, true);
+                
+            }
+            return erfolgsrechnung;
+        }
+        /// <summary>
+        /// Erstellt eine Erfolgsrechnung, gemäss dem angegebenen Start und Enddatum. Gibt ein Erfolgsrechnungsobjekt zurück.
+        /// </summary>
+        /// <param name="startDatum"></param>
+        /// <param name="endDatum"></param>
+        /// <returns></returns>
+        public Erfolgsrechnung ErstelleErfolgsrechnung(DateTime startDatum, DateTime endDatum)
+        {
+            erfolgsrechnung = ErstelleErfolgsrechnung(startDatum,endDatum, false);           
+            return erfolgsrechnung;
+        }
+        /// <summary>
+        /// Speichert die Erfolgsrechnung, gemäss dem Erfolgsrechnungsobjekt im Dateisystem ab. Gibt True zurück, wenn es erfolgreich war.
+        /// </summary>
+        /// <param name="aktuelleErfolgsrechnung"></param>
+        /// <returns></returns>
+        public bool SpeichereErfolgsrechnung(Erfolgsrechnung aktuelleErfolgsrechnung)
+        {
+            bool isSuccessfull = false;
+            if (aktuelleErfolgsrechnung != null)
+            {
+                try
+                {
+                    isSuccessfull = aktuelleErfolgsrechnung.Print(); 
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show(e.ToString(), "Erfolgsrechnungs Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return false;
+                }
+                
+            }
+            if (!isSuccessfull)
+            {
+                MessageBox.Show("Es ist ein Fehler beim speichern der Erfolgsrechnung aufgetreten. Mehr Informationen stehen im Logfile", "Erfolgsrechnung speichern Fehlgeschlagen", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
 
-        //TODO: Erfolgsrechnung generieren
-        //TODO: Erfolgsrechnung ausgeben (zuerst neu generieren, dann Print() )
+            return isSuccessfull;
+        }
+        
         
 
         //Private Methoden
+        /// <summary>
+        /// Erstellt eine Erfolgsrechnung, gemäss dem angegebenen Start und Enddatum. Gibt ein Erfolgsrechnungsobjekt zurück.
+        /// </summary>
+        /// <param name="startDatum"></param>
+        /// <param name="endDatum"></param>
+        /// <param name="istJahresabrechnung"></param>
+        /// <returns></returns>
+        private Erfolgsrechnung ErstelleErfolgsrechnung(DateTime startDatum, DateTime endDatum, bool istJahresabrechnung)
+        {
+            if (startDatum.Year < 2014 || endDatum <= startDatum)
+            {
+                erfolgsrechnung = new Erfolgsrechnung();
+                Logger.append("Falsche Jahresangabe. Muss mindestens ab 2014 sein und das Enddatum muss später als das Startdatum sein!", Logger.INFO);
+                MessageBox.Show("Fehler beim erstellen der Erfolgsrechnung. Mehr Informationen sind im Logfile",
+                    "Erfolgsrechnung fehler", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            else
+            {
+                erfolgsrechnung = new Erfolgsrechnung();
+                if (istJahresabrechnung)
+                {
+                    erfolgsrechnung.IstJahresabrechnung = true;
+                }
+                erfolgsrechnung.StartDatum = startDatum;
+                erfolgsrechnung.EndDatum = endDatum;
+                LadeAuftraege();
+                LadeRechnungen();
+                LadeRueckzahlungen();
+
+                #region Ein-undAusgabenListen
+                //Einnahmen
+                foreach (var auftrag in auftragsListe.Where(i => (i.Datum.Date >= startDatum.Date) && (i.Datum.Date <= endDatum.Date)) ?? new List<Auftrag>())
+                {
+                    erfolgsrechnung.Einnahmen.Add(new Betraege { BetragInFranken = auftrag.Total, Kategorie = "Dienstleistung" });
+                }
+                foreach (var rueckerstattung in rueckzahlungsListe.Where(i => (i.Datum.Date >= startDatum.Date) && (i.Datum.Date <= endDatum.Date)) ?? new List<Rechnung>())
+                {
+                    erfolgsrechnung.Einnahmen.Add(new Betraege { BetragInFranken = rueckerstattung.Betrag, Kategorie = string.Format("Rückerstattung {0}", rueckerstattung.Kategorie) });
+                }
+                //Hinweis für Kannziel: Gutschein Verkauf gleich wie oben implementieren, aber als Kategorie "Verkauf" angeben
+
+                //Ausgaben
+                foreach (var rechnung in rechnungsListe.Where(i => (i.Datum.Date >= startDatum.Date) && (i.Datum.Date <= endDatum.Date)) ?? new List<Rechnung>())
+                {
+                    erfolgsrechnung.Ausgaben.Add(new Betraege { BetragInFranken = rechnung.Betrag, Kategorie = rechnung.Kategorie });
+                } 
+                #endregion
+
+                erfolgsrechnung.Update();
+            }
+
+            return erfolgsrechnung;
+        }
+
         /// <summary>
         /// Gibt alle, durch Leerzeichen oder Komma, getrennte Teilstrings als Liste vom typ string zurück. Leerzeichen am Anfang und Ende werden entfernt.
         /// </summary>
