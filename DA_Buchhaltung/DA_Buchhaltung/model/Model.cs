@@ -207,13 +207,229 @@ namespace DA_Buchhaltung.model
                 MessageBox.Show(e.ToString(), "Datenbank Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             return kategorienListe;
-        } 
+        }
+        /// <summary>
+        /// Ändert die Preiseinstellung der Option oder Dienstleistung. Gibt true zurück, wenn es erfolgreich war.
+        /// </summary>
+        /// <param name="prOpt"></param>
+        /// <returns></returns>
+        public bool AenderePreisOption(PreisOption prOpt)
+        {
+            bool success = false;
 
+            try
+            {
+                success = dbWrapper.AenderungPreisOption(prOpt);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.ToString(), "Datenbank Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
+            if (!success)
+            {
+                MessageBox.Show("Fehler beim konfigurieren der Option oder Dienstleistung. Mehr Informationen stehen im Logfile", "Konfiguration Fehlgeschlagen", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            return success;
+        }
+        /// <summary>
+        /// Speichert ode erstellt einen Kunde, gemäss dem Kundenobjekt. Gibt die ID des Kunden zurück, wenn es erfolgreich war.
+        /// </summary>
+        /// <param name="kunde"></param>
+        /// <returns></returns>
+        public int SpeichereKunde(Kunde kunde)
+        {
+            int returnValue = -1;
+            try
+            {
+                returnValue = dbWrapper.SpeichernKunde(kunde);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.ToString(), "Datenbank Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            if (returnValue == -1)
+            {
+                MessageBox.Show("Es ist ein Fehler beim Speichern aufgetreten. Mehr Informationen stehen im Logfile", "Speichern Fehlgeschlagen", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
+            return returnValue;
+        }
+        /// <summary>
+        /// Speichert oder erstellt einen Kreditor, gemäss dem Kreditorobjekt. Gibt die ID des Kreditors zurück, wenn es erfolgreich war.
+        /// </summary>
+        /// <param name="kreditor"></param>
+        /// <returns></returns>
+        public int SpeichereKreditor(Kreditor kreditor)
+        {
+            int returnValue = -1;
+            try
+            {
+                returnValue = dbWrapper.SpeichernKreditor(kreditor);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.ToString(), "Datenbank Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            if (returnValue == -1)
+            {
+                MessageBox.Show("Es ist ein Fehler beim Speichern aufgetreten. Mehr Informationen stehen im Logfile", "Speichern Fehlgeschlagen", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
+            return returnValue;
+        }
+        /// <summary>
+        /// Speichert oder erstellt eine Kategorie, gemäss dem Kategorieobjekt. Gibt die ID der Kategorie zurück, wenn es erfolgreich war.
+        /// </summary>
+        /// <param name="kategorie"></param>
+        /// <returns></returns>
+        public int SpeichereKategorie(Kategorie kategorie)
+        {
+            int returnValue = -1;
+            try
+            {
+                returnValue = dbWrapper.SpeicherenKategorie(kategorie);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.ToString(), "Datenbank Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            if (returnValue == -1)
+            {
+                MessageBox.Show("Es ist ein Fehler beim Speichern aufgetreten. Mehr Informationen stehen im Logfile", "Speichern Fehlgeschlagen", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
+            return returnValue;
+        }
+        /// <summary>
+        /// Speichert oder erstellt einen Auftrag gemäss dem Auftragobjekt, der dazugehörende Kunde muss aber bereits existieren. Gibt die ID des Auftrages zurück, wenn es erfolgreich war.
+        /// </summary>
+        /// <param name="auftrag"></param>
+        /// <returns></returns>
+        public int SpeichereAuftrag(Auftrag auftrag)
+        {
+            int returnValue = -1;
+            bool kundeIstGespeichert = true;
+            try
+            {
+                if (auftrag.KundeID == -1)
+                {
+                    kundeIstGespeichert = false;
+                }
+                else
+                {
+                    returnValue = dbWrapper.SpeicherenAuftrag(auftrag);
+                }
+                
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.ToString(), "Datenbank Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            if (kundeIstGespeichert)
+            {
+                if (returnValue == -1)
+                {
+                    MessageBox.Show("Es ist ein Fehler beim Speichern aufgetreten. Mehr Informationen stehen im Logfile", "Speichern Fehlgeschlagen", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Der Neukunde muss zuerst gespeichert werden! Vorgang abgebrochen", "Speichern Fehlgeschlagen", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            
+
+            return returnValue;
+        }
+        /// <summary>
+        /// Speichert oder erstellt eine Rechnung gemäss dem Rechnungsobjekt, der dazu gehörende Kreditor muss zuerst erfasst werden. Gibt die ID der Rechnung zurück, wenn es erfolgreich war.
+        /// </summary>
+        /// <param name="rechnung"></param>
+        /// <returns></returns>
+        public int SpeichereRechnung(Rechnung rechnung)
+        {
+            int returnValue = -1;
+            bool kreditorIstGespeichert = true;
+            try
+            {
+                if (rechnung.KreditorID == -1)
+                {
+                    kreditorIstGespeichert = false;
+                }
+                else
+                {
+                    returnValue = dbWrapper.SpeicherenRechnung(rechnung);
+                }
+
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.ToString(), "Datenbank Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            if (kreditorIstGespeichert)
+            {
+                if (returnValue == -1)
+                {
+                    MessageBox.Show("Es ist ein Fehler beim Speichern aufgetreten. Mehr Informationen stehen im Logfile", "Speichern Fehlgeschlagen", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Der Neue Kreditor muss zuerst gespeichert werden! Vorgang abgebrochen", "Speichern Fehlgeschlagen", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
+
+            return returnValue;
+        }
+        /// <summary>
+        /// Speichert oder erstellt eine Rückzahlung gemäss dem Rechnungsobjekt, der dazu gehörende Kreditor muss jedoch bereits erfasst sein. Gibt die ID der Rückerstattung zurück, wenn es erfolgreich war.
+        /// </summary>
+        /// <param name="rueckzahlung"></param>
+        /// <returns></returns>
+        public int SpeichereRueckzahlung(Rechnung rueckzahlung)
+        {
+            int returnValue = -1;
+            bool kreditorIstGespeichert = true;
+            try
+            {
+                if (rueckzahlung.KreditorID == -1)
+                {
+                    kreditorIstGespeichert = false;
+                }
+                else
+                {
+                    returnValue = dbWrapper.SpeicherenRueckzahlung(rueckzahlung);
+                }
+
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.ToString(), "Datenbank Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            if (kreditorIstGespeichert)
+            {
+                if (returnValue == -1)
+                {
+                    MessageBox.Show("Es ist ein Fehler beim Speichern aufgetreten. Mehr Informationen stehen im Logfile", "Speichern Fehlgeschlagen", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Der Neue Kreditor muss zuerst gespeichert werden! Vorgang abgebrochen", "Speichern Fehlgeschlagen", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
+
+            return returnValue;
+        }
+
+        //TODO: Löschmethoden erstellen (Kunden, Kreditoren, Kategorien, Auftrag, Rechnung, Rückzahlung)
+        //TODO: Erfolgsrechnung generieren
+        //TODO: Erfolgsrechnung ausgeben (zuerst neu generieren, dann Print() )
         
 
         //Private Methoden
         /// <summary>
-        /// Gibt alle durch Leerzeichen getrennte Teilstrings als Liste vom typ string zurück. Leerzeichen am Anfang und Ende werden entfernt.
+        /// Gibt alle, durch Leerzeichen oder Komma, getrennte Teilstrings als Liste vom typ string zurück. Leerzeichen am Anfang und Ende werden entfernt.
         /// </summary>
         /// <param name="suchtext">zu filtender string</param>
         /// <returns>List von strings</returns>
