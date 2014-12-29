@@ -224,6 +224,7 @@ namespace DA_Buchhaltung.model
             catch (Exception e)
             {
                 MessageBox.Show(e.ToString(), "Datenbank Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
             }
 
             if (!success)
@@ -247,6 +248,7 @@ namespace DA_Buchhaltung.model
             catch (Exception e)
             {
                 MessageBox.Show(e.ToString(), "Datenbank Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return -1;
             }
             if (returnValue == -1)
             {
@@ -270,6 +272,7 @@ namespace DA_Buchhaltung.model
             catch (Exception e)
             {
                 MessageBox.Show(e.ToString(), "Datenbank Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return -1;
             }
             if (returnValue == -1)
             {
@@ -293,6 +296,7 @@ namespace DA_Buchhaltung.model
             catch (Exception e)
             {
                 MessageBox.Show(e.ToString(), "Datenbank Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return -1;
             }
             if (returnValue == -1)
             {
@@ -325,6 +329,7 @@ namespace DA_Buchhaltung.model
             catch (Exception e)
             {
                 MessageBox.Show(e.ToString(), "Datenbank Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return -1;
             }
             if (kundeIstGespeichert)
             {
@@ -365,6 +370,7 @@ namespace DA_Buchhaltung.model
             catch (Exception e)
             {
                 MessageBox.Show(e.ToString(), "Datenbank Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return -1;
             }
             if (kreditorIstGespeichert)
             {
@@ -405,6 +411,7 @@ namespace DA_Buchhaltung.model
             catch (Exception e)
             {
                 MessageBox.Show(e.ToString(), "Datenbank Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return -1;
             }
             if (kreditorIstGespeichert)
             {
@@ -421,8 +428,163 @@ namespace DA_Buchhaltung.model
 
             return returnValue;
         }
+        /// <summary>
+        /// Löscht den Kunde, gemäss dem Kundenobjekt. Gibt True zurück, wenn es erfolgreich war.
+        /// </summary>
+        /// <param name="kunde"></param>
+        /// <returns></returns>
+        public bool LoescheKunde(Kunde kunde)
+        {
+            bool isSuccessful = true;
+            try
+            {
+                isSuccessful = dbWrapper.LoescheKunde(kunde);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.ToString(), "Datenbank Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
+            }
 
-        //TODO: Löschmethoden erstellen (Kunden, Kreditoren, Kategorien, Auftrag, Rechnung, Rückzahlung)
+            if (!isSuccessful)
+            {
+                MessageBox.Show("Es ist ein Fehler beim Löschen aufgetreten. Mehr Informationen stehen im Logfile", "Löschen Fehlgeschlagen", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            
+
+            return isSuccessful;
+        }
+        /// <summary>
+        /// Löscht den Kreditor, gemäss dem Kreditorenobjekt. Gibt True zurück, wenn es erfolgreich war.
+        /// </summary>
+        /// <param name="kreditor"></param>
+        /// <returns></returns>
+        public bool LoescheKreditor(Kreditor kreditor)
+        {
+            bool isSuccessful = true;
+            try
+            {
+                isSuccessful = dbWrapper.LoescheKreditor(kreditor);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.ToString(), "Datenbank Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
+            }
+
+            if (!isSuccessful)
+            {
+                MessageBox.Show("Es ist ein Fehler beim Löschen aufgetreten. Mehr Informationen stehen im Logfile", "Löschen Fehlgeschlagen", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
+
+            return isSuccessful;
+        }
+        /// <summary>
+        /// Löscht die Kategorie, gemäss dem Kategorieobjekt. Gibt True zurück, wenn es erfolgreich war.
+        /// </summary>
+        /// <param name="kategorie"></param>
+        /// <returns></returns>
+        public bool LoescheKategorie(Kategorie kategorie)
+        {
+            bool isSuccessful = true;
+            try
+            {
+                isSuccessful = dbWrapper.LoescheKategorie(kategorie);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.ToString(), "Datenbank Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
+            }
+
+            if (!isSuccessful)
+            {
+                MessageBox.Show("Es ist ein Fehler beim Löschen aufgetreten. Mehr Informationen stehen im Logfile", "Löschen Fehlgeschlagen", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
+
+            return isSuccessful;
+        }
+        /// <summary>
+        /// Löscht den Auftrag, gemäss dem Auftragobjekt. Gibt True zurück, wenn es erfolgreich war.
+        /// </summary>
+        /// <param name="auftrag"></param>
+        /// <returns></returns>
+        public bool LoescheAuftrag(Auftrag auftrag)
+        {
+            bool isSuccessful = true;
+            try
+            {
+                isSuccessful = dbWrapper.LoescheAuftrag(auftrag);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.ToString(), "Datenbank Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
+            }
+
+            if (!isSuccessful)
+            {
+                MessageBox.Show("Es ist ein Fehler beim Löschen aufgetreten. Mehr Informationen stehen im Logfile", "Löschen Fehlgeschlagen", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
+
+            return isSuccessful;
+        }
+        /// <summary>
+        /// Löscht die Rechnung, gemäss dem Rechnungsobjekt. Gibt True zurück, wenn es erfolgreich war.
+        /// </summary>
+        /// <param name="rechnung"></param>
+        /// <returns></returns>
+        public bool LoescheRechnung(Rechnung rechnung)
+        {
+            bool isSuccessful = true;
+            try
+            {
+                isSuccessful = dbWrapper.LoescheRechnung(rechnung);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.ToString(), "Datenbank Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
+            }
+
+            if (!isSuccessful)
+            {
+                MessageBox.Show("Es ist ein Fehler beim Löschen aufgetreten. Mehr Informationen stehen im Logfile", "Löschen Fehlgeschlagen", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
+
+            return isSuccessful;
+        }
+        /// <summary>
+        /// Löscht die Rückzahlung, gemäss dem Rechnungsobjekt. Gibt True zurück, wenn es erfolgreich war.
+        /// </summary>
+        /// <param name="rueckzahlung"></param>
+        /// <returns></returns>
+        public bool LoescheRueckzahlung(Rechnung rueckzahlung)
+        {
+            bool isSuccessful = true;
+            try
+            {
+                isSuccessful = dbWrapper.LoescheRueckzahlung(rueckzahlung);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.ToString(), "Datenbank Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
+            }
+
+            if (!isSuccessful)
+            {
+                MessageBox.Show("Es ist ein Fehler beim Löschen aufgetreten. Mehr Informationen stehen im Logfile", "Löschen Fehlgeschlagen", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
+
+            return isSuccessful;
+        }
+
         //TODO: Erfolgsrechnung generieren
         //TODO: Erfolgsrechnung ausgeben (zuerst neu generieren, dann Print() )
         
