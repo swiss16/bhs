@@ -122,6 +122,7 @@
     <Compile Include="userforms\UC_Kreditor.xaml.cs">
       <DependentUpon>UC_Kreditor.xaml</DependentUpon>
     </Compile>
+    <Compile Include="viewModel\KundeViewModel.cs" />
     <Compile Include="viewModel\MainViewModel.cs" />
     <Compile Include="viewModel\ViewModelBase.cs" />
     <Compile Include="wrapper\DBWrapper.cs" />
