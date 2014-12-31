@@ -56,6 +56,20 @@ namespace DA_Buchhaltung.viewModel
             }
         }
 
+        private Erfolgsrechnung _aktuelleErfolgsrechnung;
+        public Erfolgsrechnung AktuelleErfolgsrechnung
+        {
+            get { return _aktuelleErfolgsrechnung; }
+            set
+            {
+                if (AktuelleErfolgsrechnung != _aktuelleErfolgsrechnung)
+                {
+                    _aktuelleErfolgsrechnung = value;
+                    OnPropertyChanged("AktuelleErfolgsrechnung");
+                }
+            }
+        }
+
         //Listen
         private readonly ObservableCollection<Kunde> _customerCollection = new ObservableCollection<Kunde>();
         public ObservableCollection<Kunde> CustomerCollection
@@ -64,15 +78,15 @@ namespace DA_Buchhaltung.viewModel
         }
 
         //Sichtbarkeits Properties
-        private bool _istKundeAktiv = true;
+        private bool _istKundenAktiv = true;
         public bool IstKundenAktiv
         {
             get { return _kundenListeIstNichtLeer; }
             set
             {
-                if (IstKundenAktiv != _istKundeAktiv)
+                if (IstKundenAktiv != _istKundenAktiv)
                 {
-                    _istKundeAktiv = value;
+                    _istKundenAktiv = value;
                     OnPropertyChanged("IstKundenAktiv");
                 }
             }
@@ -108,13 +122,16 @@ namespace DA_Buchhaltung.viewModel
                
             SelectedKundenIndex = 0;
             KundenListeIstNichtLeer = true;
-                
-            
+
+            Erfolgsrechnung erf = model.ErstelleErfolgsrechnung(2014);
+            model.SpeichereErfolgsrechnung(erf);
+
         }
 
         public MainViewModel()
         {
             AktuellerKunde = new Kunde();
+            AktuelleErfolgsrechnung = new Erfolgsrechnung();
         }
 
 

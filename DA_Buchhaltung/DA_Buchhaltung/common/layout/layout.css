@@ -1,0 +1,132 @@
+﻿body {
+    position: absolute;
+    left: 50%;
+    width: 170mm;
+    height: 257mm;
+    margin-left: -85mm;
+    margin-top: 0;
+    overflow: auto;
+}
+#a4
+{
+	height:100%;
+	width:100%;
+    background-color: #ffffff;
+    color: #000000;
+    font-size: 14px;
+    font-family:'Times New Roman',Times,serif;
+    text-align: left;
+}
+h1 {
+    font-size: 30px;
+    font-weight: bold;
+}
+h2 {
+    font-size: 20px;
+    font-weight: bold;
+}
+h3 {
+    font-size: 16px;
+    font-weight: bold;
+    text-decoration: underline; 
+}
+h4 {
+    font-size: 16px;
+    font-weight: bold;
+}
+.gewinn {
+    color: green;
+    font-size:18px;
+}
+.double{
+	border-bottom:medium black double;
+}
+.verlust {
+    color: red;
+    font-size:18px;
+
+}
+header {
+    height: 20mm;
+    width: 170mm;
+    background-color: white;
+    border-bottom:medium black solid;
+    border-top:medium black solid;
+    position: relative;
+    top: 1em;
+}
+footer {
+    font-size: 8px;
+    border-top: 3px;
+    height: 10mm;
+    position: relative;
+    bottom: 0px;
+}
+.mitte {
+    text-align: center;
+    position: relative;
+    top: 5mm;
+}
+#logo {
+    width: 20mm;
+    height: 20mm;
+    float: right;
+}
+#title {
+    margin-right: -20mm;
+    margin-top: -5mm;  
+}
+#content{
+	margin-top:1em;
+}
+.left{
+	text-align:left;
+}
+.einnahmen{
+	float:right;
+	display:block;
+}
+.ausgaben{
+	float:left;
+	display:block;
+}
+
+.table{
+	border:thin black solid;
+}
+.table th{
+	border:thin black solid;
+	border-collapse:collapse;
+	font-size:16px;
+}
+.total{
+	clear:both;
+	position:relative;
+	top:10mm;
+	}
+#signatur{
+	text-align:center;
+	position:relative;
+	top:25mm;
+	left:40%;
+}
+.abstand{
+	height:20mm;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

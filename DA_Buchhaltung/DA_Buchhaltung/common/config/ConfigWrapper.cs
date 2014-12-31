@@ -43,6 +43,73 @@ namespace DA_Buchhaltung.common.config
             }
         }
 
+        public static string Firma
+        {
+            get
+            {
+                return System.Configuration.ConfigurationManager.AppSettings["Firma"];
+            }
+            set
+            {
+                System.Configuration.ConfigurationManager.AppSettings["Firma"] = value;
+                System.Configuration.Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+                config.AppSettings.Settings["Firma"].Value = value;
+                config.Save(ConfigurationSaveMode.Modified);
+
+                ConfigurationManager.RefreshSection("appSettings");
+            }
+        }
+
+        public static string NameVorname
+        {
+            get
+            {
+                return System.Configuration.ConfigurationManager.AppSettings["NameVorname"];
+            }
+            set
+            {
+                System.Configuration.ConfigurationManager.AppSettings["NameVorname"] = value;
+                System.Configuration.Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+                config.AppSettings.Settings["NameVorname"].Value = value;
+                config.Save(ConfigurationSaveMode.Modified);
+
+                ConfigurationManager.RefreshSection("appSettings");
+            }
+        }
+
+        public static string StrasseUndNummer
+        {
+            get
+            {
+                return System.Configuration.ConfigurationManager.AppSettings["StrasseUndNummer"];
+            }
+            set
+            {
+                System.Configuration.ConfigurationManager.AppSettings["StrasseUndNummer"] = value;
+                System.Configuration.Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+                config.AppSettings.Settings["StrasseUndNummer"].Value = value;
+                config.Save(ConfigurationSaveMode.Modified);
+
+                ConfigurationManager.RefreshSection("appSettings");
+            }
+        }
+
+        public static string PlzUndOrt
+        {
+            get
+            {
+                return System.Configuration.ConfigurationManager.AppSettings["PlzUndOrt"];
+            }
+            set
+            {
+                System.Configuration.ConfigurationManager.AppSettings["PlzUndOrt"] = value;
+                System.Configuration.Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+                config.AppSettings.Settings["PlzUndOrt"].Value = value;
+                config.Save(ConfigurationSaveMode.Modified);
+
+                ConfigurationManager.RefreshSection("appSettings");
+            }
+        }
 
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows.Documents;
 using DA_Buchhaltung.common.log;
 using DA_Buchhaltung.data;
 using DA_Buchhaltung.model;
@@ -110,7 +111,6 @@ namespace DA_Buchhaltung.wrapper
                 throw new Exception("Fehler beim Datenbankzugriff. Weitere Informationen stehen im Logfile.");
             }
             IQueryable<Auftrag> list = from a in db.TBL_Auftrag
-                join oa in db.TBL_Opt_Auftr on a.Auftrag_ID equals oa.Auftrag_ID
                 join d in db.TBL_Dienstleistung on a.Dienstleistung_ID equals d.Dienstleistung_ID
                 select new Auftrag
                 {
@@ -125,34 +125,38 @@ namespace DA_Buchhaltung.wrapper
                         Preis = d.Preis
                     },
                     KundeID = a.Person_ID,
-                    Positionen = new List<Option>(),
-                    Bilder = new List<Bild>()
+                    
                 };
-            foreach (var auftrag in list)
-            {
-                foreach (var bild in db.TBL_Bild.Where(i=>i.Auftrag_ID == auftrag.ID))
+            
+                foreach (var auftrag in list)
                 {
-                    Bild tempBild = new Bild();
-                    tempBild.ID = bild.Bild_ID;
-                    tempBild.Name = bild.BildName;
-                    tempBild.Pfad = bild.Pfad;
-                    auftrag.Bilder.Add(tempBild);
-                }
-                foreach (var optAuftr in db.TBL_Opt_Auftr.Where(i=>i.Auftrag_ID == auftrag.ID))
-                {
-                    Option opt = new Option();
-                    var optInDb = db.TBL_Option.Where(i => i.Option_ID == optAuftr.Option_ID).First();
-                    opt.ID = optAuftr.Option_ID;
-                    opt.PreisInFranken = optAuftr.GesammtPreis;
-                    opt.Einheitspreis = optInDb.Einheitspreis;
-                    opt.Anzahl = optAuftr.Anzahl;
-                    opt.Name = optInDb.Name;
-                    opt.Konfigurierbar = optInDb.Konfigurierbar;
-                    opt.BereitsVorhanden = true;
+                    foreach (var bild in db.TBL_Bild.Where(i => i.Auftrag_ID == auftrag.ID))
+                    {
+                        Bild tempBild = new Bild();
+                        tempBild.ID = bild.Bild_ID;
+                        tempBild.Name = bild.BildName;
+                        tempBild.Pfad = bild.Pfad;
+                        auftrag.Bilder.Add(tempBild);
+                    }
+                    foreach (var optAuftr in db.TBL_Opt_Auftr.Where(i => i.Auftrag_ID == auftrag.ID))
+                    {
+                        Option opt = new Option();
+                        var optInDb = db.TBL_Option.Where(i => i.Option_ID == optAuftr.Option_ID).First();
+                        opt.ID = optAuftr.Option_ID;
+                        opt.PreisInFranken = optAuftr.GesammtPreis;
+                        opt.Einheitspreis = optInDb.Einheitspreis;
+                        opt.Anzahl = optAuftr.Anzahl;
+                        opt.Name = optInDb.Name;
+                        opt.Konfigurierbar = optInDb.Konfigurierbar;
+                        opt.BereitsVorhanden = true;
+                        auftrag.Positionen.Add(opt);
 
+                    }
                 }
-            }
-            auftragsListe = list.ToList();
+                auftragsListe = list.ToList();
+            
+            
+            
 
             return auftragsListe;
         }

@@ -69,7 +69,43 @@
     <Compile Include="common\config\ConfigWrapper.cs" />
     <Compile Include="common\converter\BooleanToVisibilityConverter.cs" />
     <Compile Include="common\log\Logger.cs" />
+    <Compile Include="data\TBL_Auftrag.cs">
+      <DependentUpon>bhsContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="data\TBL_Bild.cs">
+      <DependentUpon>bhsContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="data\TBL_Dienstleistung.cs">
+      <DependentUpon>bhsContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="data\TBL_Gutschein.cs">
+      <DependentUpon>bhsContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="data\TBL_Kategorie.cs">
+      <DependentUpon>bhsContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="data\TBL_Kreditor.cs">
+      <DependentUpon>bhsContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="data\TBL_Kunde.cs">
+      <DependentUpon>bhsContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="data\TBL_Option.cs">
+      <DependentUpon>bhsContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="data\TBL_Opt_Auftr.cs">
+      <DependentUpon>bhsContext.tt</DependentUpon>
+    </Compile>
     <Compile Include="data\TBL_Person.cs">
+      <DependentUpon>bhsContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="data\TBL_Rechnung.cs">
+      <DependentUpon>bhsContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="data\TBL_Rueckerstattung.cs">
+      <DependentUpon>bhsContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="data\TBL_Termin.cs">
       <DependentUpon>bhsContext.tt</DependentUpon>
     </Compile>
     <Compile Include="model\Auftrag.cs" />
@@ -111,42 +147,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>bhsContext.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="data\TBL_Auftrag.cs">
-      <DependentUpon>bhsContext.tt</DependentUpon>
-    </Compile>
-    <Compile Include="data\TBL_Bild.cs">
-      <DependentUpon>bhsContext.tt</DependentUpon>
-    </Compile>
-    <Compile Include="data\TBL_Dienstleistung.cs">
-      <DependentUpon>bhsContext.tt</DependentUpon>
-    </Compile>
-    <Compile Include="data\TBL_Gutschein.cs">
-      <DependentUpon>bhsContext.tt</DependentUpon>
-    </Compile>
-    <Compile Include="data\TBL_Kategorie.cs">
-      <DependentUpon>bhsContext.tt</DependentUpon>
-    </Compile>
-    <Compile Include="data\TBL_Kreditor.cs">
-      <DependentUpon>bhsContext.tt</DependentUpon>
-    </Compile>
-    <Compile Include="data\TBL_Kunde.cs">
-      <DependentUpon>bhsContext.tt</DependentUpon>
-    </Compile>
-    <Compile Include="data\TBL_Option.cs">
-      <DependentUpon>bhsContext.tt</DependentUpon>
-    </Compile>
-    <Compile Include="data\TBL_Opt_Auftr.cs">
-      <DependentUpon>bhsContext.tt</DependentUpon>
-    </Compile>
-    <Compile Include="data\TBL_Rechnung.cs">
-      <DependentUpon>bhsContext.tt</DependentUpon>
-    </Compile>
-    <Compile Include="data\TBL_Rueckerstattung.cs">
-      <DependentUpon>bhsContext.tt</DependentUpon>
-    </Compile>
-    <Compile Include="data\TBL_Termin.cs">
-      <DependentUpon>bhsContext.tt</DependentUpon>
     </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
@@ -202,13 +202,21 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <Content Include="App.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="common\assets\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="common\layout\layout.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="common\layout\logo.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

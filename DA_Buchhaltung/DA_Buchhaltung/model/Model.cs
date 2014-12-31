@@ -684,20 +684,39 @@ namespace DA_Buchhaltung.model
 
                 #region Ein-undAusgabenListen
                 //Einnahmen
+                decimal _tempPreisAuftraege = 0.00m;
+
                 foreach (var auftrag in auftragsListe.Where(i => (i.Datum.Date >= startDatum.Date) && (i.Datum.Date <= endDatum.Date)) ?? new List<Auftrag>())
                 {
-                    erfolgsrechnung.Einnahmen.Add(new Betraege { BetragInFranken = auftrag.Total, Kategorie = "Dienstleistung" });
+                    _tempPreisAuftraege += auftrag.Total;
                 }
+                erfolgsrechnung.Einnahmen.Add(new Betraege { BetragInFranken = _tempPreisAuftraege, Kategorie = "Dienstleistung" });
                 foreach (var rueckerstattung in rueckzahlungsListe.Where(i => (i.Datum.Date >= startDatum.Date) && (i.Datum.Date <= endDatum.Date)) ?? new List<Rechnung>())
                 {
-                    erfolgsrechnung.Einnahmen.Add(new Betraege { BetragInFranken = rueckerstattung.Betrag, Kategorie = string.Format("Rückerstattung {0}", rueckerstattung.Kategorie) });
+                    if (erfolgsrechnung.Einnahmen.Any(i => i.Kategorie.StartsWith(rueckerstattung.Kategorie)))
+                    {
+                        erfolgsrechnung.Einnahmen.First(i => i.Kategorie.StartsWith(rueckerstattung.Kategorie))
+                            .BetragInFranken += rueckerstattung.Betrag;
+                    }
+                    else
+                    {
+                        erfolgsrechnung.Einnahmen.Add(new Betraege { BetragInFranken = rueckerstattung.Betrag, Kategorie = string.Format("Rückerstattung {0}", rueckerstattung.Kategorie) });
+                    }                
                 }
                 //Hinweis für Kannziel: Gutschein Verkauf gleich wie oben implementieren, aber als Kategorie "Verkauf" angeben
 
                 //Ausgaben
                 foreach (var rechnung in rechnungsListe.Where(i => (i.Datum.Date >= startDatum.Date) && (i.Datum.Date <= endDatum.Date)) ?? new List<Rechnung>())
                 {
-                    erfolgsrechnung.Ausgaben.Add(new Betraege { BetragInFranken = rechnung.Betrag, Kategorie = rechnung.Kategorie });
+                    if (erfolgsrechnung.Ausgaben.Any(i=>i.Kategorie.StartsWith(rechnung.Kategorie)))
+                    {
+                        erfolgsrechnung.Ausgaben.First(i => i.Kategorie.StartsWith(rechnung.Kategorie)).BetragInFranken
+                            += rechnung.Betrag;
+                    }
+                    else
+                    {
+                        erfolgsrechnung.Ausgaben.Add(new Betraege { BetragInFranken = rechnung.Betrag, Kategorie = rechnung.Kategorie });
+                    }
                 } 
                 #endregion
 
