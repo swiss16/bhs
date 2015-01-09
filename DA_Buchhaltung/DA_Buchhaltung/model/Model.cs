@@ -40,8 +40,8 @@ namespace DA_Buchhaltung.model
                     kundenListe =
                         kundenListe.Where(
                             i =>
-                                (i.Name.Contains(filterString)) || (i.Vorname.Contains(filterString)) ||
-                                (i.Adresse.Contains(filterString)) || (i.Wohnort.Contains(filterString))).ToList();
+                                (i.Name.ToLower().Contains(filterString)) || (i.Vorname.ToLower().Contains(filterString)) ||
+                                (i.Adresse.ToLower().Contains(filterString)) || (i.Wohnort.ToLower().Contains(filterString))).ToList();
                 }
             }
             catch (Exception e)
@@ -66,8 +66,8 @@ namespace DA_Buchhaltung.model
                     kreditorenListe =
                         kreditorenListe.Where(
                             i =>
-                                (i.Name.Contains(filterString)) || (i.Vorname.Contains(filterString)) ||
-                                (i.Adresse.Contains(filterString)) || (i.Wohnort.Contains(filterString))).ToList();
+                                (i.Name.ToLower().Contains(filterString)) || (i.Vorname.ToLower().Contains(filterString)) ||
+                                (i.Adresse.ToLower().Contains(filterString)) || (i.Wohnort.ToLower().Contains(filterString))).ToList();
                 }
 
             }
@@ -93,7 +93,7 @@ namespace DA_Buchhaltung.model
                     auftragsListe =
                         auftragsListe.Where(
                             i =>
-                                (i.Dienstleistung.Name.Contains(filterString)) || (i.Total.ToString().Contains(filterString))).ToList();
+                                (i.Dienstleistung.Name.ToLower().Contains(filterString)) || (i.Total.ToString().Contains(filterString))).ToList();
                 }
 
             }
@@ -119,7 +119,7 @@ namespace DA_Buchhaltung.model
                     rechnungsListe =
                         rechnungsListe.Where(
                             i =>
-                                (i.Beschreibung.Contains(filterString))||(i.Kategorie.Contains(filterString)) || (i.Betrag.ToString().Contains(filterString))).ToList();
+                                (i.Beschreibung.ToLower().Contains(filterString)) || (i.Kategorie.ToLower().Contains(filterString)) || (i.Betrag.ToString().Contains(filterString))).ToList();
                 }
 
             }
@@ -145,7 +145,7 @@ namespace DA_Buchhaltung.model
                     rueckzahlungsListe =
                         rueckzahlungsListe.Where(
                             i =>
-                                (i.Beschreibung.Contains(filterString)) || (i.Kategorie.Contains(filterString)) || (i.Betrag.ToString().Contains(filterString))).ToList();
+                                (i.Beschreibung.ToLower().Contains(filterString)) || (i.Kategorie.ToLower().Contains(filterString)) || (i.Betrag.ToString().Contains(filterString))).ToList();
                 }
 
             }
@@ -737,7 +737,7 @@ namespace DA_Buchhaltung.model
             string[] filter = new string[2] { ",", " " };
             if (suchtext != "")
             {
-                suchtext = suchtext.Trim();
+                suchtext = suchtext.Trim().ToLower();
                 filterStrings = suchtext.Split(filter, StringSplitOptions.RemoveEmptyEntries).ToList();
             }
             

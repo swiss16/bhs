@@ -14,30 +14,32 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using DA_Buchhaltung.viewModel;
 
-namespace DA_Buchhaltung
+namespace DA_Buchhaltung.userforms
 {
     /// <summary>
-    /// Interaktionslogik für MainWindow.xaml
+    /// Interaktionslogik für UC_Kunde.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class UC_Kunde : UserControl
     {
-        private readonly MainViewModel _viewModel = new MainViewModel();
 
-        public MainViewModel ViewModel
+        private readonly KundeViewModel _viewModel = new KundeViewModel();
+
+        public KundeViewModel ViewModel
         {
             get { return _viewModel; }
-        }
-        private readonly KundeViewModel _ucKundeviewModel = new KundeViewModel();
-
-        public KundeViewModel UcKundeViewModel
-        {
-            get { return _ucKundeviewModel; }
-        }
-        public MainWindow()
-        {
-            InitializeComponent();
             
         }
 
+        public UC_Kunde()
+        {
+            InitializeComponent();
+        }
+
+        private void Validation_Error(object sender, ValidationErrorEventArgs e)
+        {
+            if (e.Action == ValidationErrorEventAction.Added) KundeViewModel.Errors += 1;
+            if (e.Action == ValidationErrorEventAction.Removed) KundeViewModel.Errors -= 1;
+            
+        }
     }
 }

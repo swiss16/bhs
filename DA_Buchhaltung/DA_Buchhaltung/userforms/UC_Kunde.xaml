@@ -1,0 +1,160 @@
+﻿<UserControl x:Class="DA_Buchhaltung.userforms.UC_Kunde"
+             DataContext="{Binding ViewModel, RelativeSource={RelativeSource Self}}"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="1000" d:DesignWidth="700">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="1*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30" />
+            <RowDefinition Height="26" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="26" />
+            <RowDefinition Height="26" />
+            <RowDefinition Height="26" />
+            <RowDefinition Height="26" />
+            <RowDefinition Height="26" />
+            <RowDefinition Height="26" />
+            <RowDefinition Height="26" />
+            <RowDefinition Height="26" />
+            <RowDefinition Height="26" />
+            <RowDefinition Height="26" />
+            <RowDefinition Height="26" />
+            <RowDefinition Height="26" />
+            <RowDefinition Height="26" />
+        </Grid.RowDefinitions>
+        <StackPanel Grid.ColumnSpan="3" Grid.Row="0">
+            <Label Content="Kunden Verwaltung" FontWeight="Bold" FontSize="18" HorizontalAlignment="Center"></Label>
+        </StackPanel>
+        <StackPanel Grid.Column="0" Grid.Row="1">
+            <Label Content="Suche nach..." FontSize="12"></Label>
+        </StackPanel>
+        <StackPanel Grid.Column="1" Grid.Row="1">
+            <TextBox FontSize="12" Text="{Binding SuchText}"></TextBox>
+        </StackPanel>
+        <StackPanel Grid.ColumnSpan="3" Grid.Row="2">
+            <DataGrid Height="200" Margin="5 0 5 0" CanUserSortColumns="True" SelectionMode="Single" AutoGenerateColumns="False" IsReadOnly="True"
+                 ItemsSource="{Binding KundenListe}" 
+                 SelectedIndex="{Binding SelectedKundenIndex}" 
+                 SelectedItem="{Binding Path=AktuellerKunde}" ClipboardCopyMode="None" EnableRowVirtualization="False">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="*"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Vorname" Binding="{Binding Vorname}" Width="*"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Strasse und Hausnr." Binding="{Binding Adresse}" Width="1.6*"></DataGridTextColumn>
+                    <DataGridTextColumn Header="PLZ" Binding="{Binding PLZ}" Width="0.8*"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Wohnort" Binding="{Binding Wohnort}" Width="*"></DataGridTextColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </StackPanel>
+        <StackPanel Grid.ColumnSpan="3" Grid.Row="3"><Rectangle Height="3" Fill="Black" Margin="5 12 5 0"></Rectangle></StackPanel>
+        <StackPanel Grid.Column="1" Grid.Row="4">
+            <Label Content="Aktueller Kunde" FontWeight="Bold" FontSize="14" HorizontalAlignment="Center"></Label>
+        </StackPanel>
+        <!-- Beginn Felder des Kunden -->
+        <StackPanel Grid.Column="0" Grid.Row="5">
+            <Label Content="Nachname: *" FontSize="12"></Label>
+        </StackPanel>
+        <StackPanel Grid.Column="1" Grid.Row="5">
+            <TextBox x:Name="TbName" FontSize="12" Text="{Binding AktuellerKunde.Name, ValidatesOnDataErrors=True,NotifyOnValidationError=True}" Validation.Error="Validation_Error" ></TextBox>
+        </StackPanel>
+        <StackPanel Grid.Column="2" Grid.Row="5">
+            <TextBlock Text="{Binding (Validation.Errors)[0].ErrorContent, ElementName=TbName}" Foreground="Red" Margin="5,0,0,0" FontSize="10" TextWrapping="Wrap"/>
+        </StackPanel>
+
+        <StackPanel Grid.Column="0" Grid.Row="6">
+            <Label Content="Vorname: *" FontSize="12"></Label>
+        </StackPanel>
+        <StackPanel Grid.Column="1" Grid.Row="6">
+            <TextBox x:Name="TbVorname" FontSize="12" Text="{Binding AktuellerKunde.Vorname, ValidatesOnDataErrors=True,NotifyOnValidationError=True}" Validation.Error="Validation_Error"></TextBox>
+        </StackPanel>
+        <StackPanel Grid.Column="2" Grid.Row="6">
+            <TextBlock Text="{Binding (Validation.Errors)[0].ErrorContent, ElementName=TbVorname}" Foreground="Red" Margin="5,0,0,0" FontSize="10" TextWrapping="Wrap"/>
+        </StackPanel>
+
+        <StackPanel Grid.Column="0" Grid.Row="7">
+            <Label Content="Strasse: *" FontSize="12"></Label>
+        </StackPanel>
+        <StackPanel Grid.Column="1" Grid.Row="7">
+            <TextBox x:Name="TbAdresse" FontSize="12" Text="{Binding AktuellerKunde.Adresse, ValidatesOnDataErrors=True,NotifyOnValidationError=True}" Validation.Error="Validation_Error"></TextBox>
+        </StackPanel>
+        <StackPanel Grid.Column="2" Grid.Row="7">
+            <TextBlock Text="{Binding (Validation.Errors)[0].ErrorContent, ElementName=TbAdresse}" Foreground="Red" Margin="5,0,0,0" FontSize="10" TextWrapping="Wrap"/>
+        </StackPanel>
+
+        <StackPanel Grid.Column="0" Grid.Row="8">
+            <Label Content="PLZ: *" FontSize="12"></Label>
+        </StackPanel>
+        <StackPanel Grid.Column="1" Grid.Row="8">
+            <TextBox x:Name="TbPlz" FontSize="12" Text="{Binding AktuellerKunde.PLZ, ValidatesOnDataErrors=True,NotifyOnValidationError=True}" Validation.Error="Validation_Error"></TextBox>
+        </StackPanel>
+        <StackPanel Grid.Column="2" Grid.Row="8">
+            <TextBlock Text="{Binding (Validation.Errors)[0].ErrorContent, ElementName=TbPlz}" Foreground="Red" Margin="5,0,0,0" FontSize="10" TextWrapping="Wrap"/>
+        </StackPanel>
+
+        <StackPanel Grid.Column="0" Grid.Row="9">
+            <Label Content="Wohnort: *" FontSize="12"></Label>
+        </StackPanel>
+        <StackPanel Grid.Column="1" Grid.Row="9">
+            <TextBox x:Name="TbWohnort" FontSize="12" Text="{Binding AktuellerKunde.Wohnort, ValidatesOnDataErrors=True,NotifyOnValidationError=True}" Validation.Error="Validation_Error"></TextBox>
+        </StackPanel>
+        <StackPanel Grid.Column="2" Grid.Row="9">
+            <TextBlock Text="{Binding (Validation.Errors)[0].ErrorContent, ElementName=TbWohnort}" Foreground="Red" Margin="5,0,0,0" FontSize="10" TextWrapping="Wrap"/>
+        </StackPanel>
+
+        <StackPanel Grid.Column="0" Grid.Row="10">
+            <Label Content="Tel. Privat:" FontSize="12"></Label>
+        </StackPanel>
+        <StackPanel Grid.Column="1" Grid.Row="10">
+            <TextBox FontSize="12" Text="{Binding AktuellerKunde.TelPrivat}"></TextBox>
+        </StackPanel>
+
+        <StackPanel Grid.Column="0" Grid.Row="11">
+            <Label Content="Tel. Mobile:" FontSize="12"></Label>
+        </StackPanel>
+        <StackPanel Grid.Column="1" Grid.Row="11">
+            <TextBox FontSize="12" Text="{Binding AktuellerKunde.TelMobile}"></TextBox>
+        </StackPanel>
+
+        <StackPanel Grid.Column="0" Grid.Row="12">
+            <Label Content="Email:" FontSize="12"></Label>
+        </StackPanel>
+        <StackPanel Grid.Column="1" Grid.Row="12">
+            <TextBox FontSize="12" Text="{Binding AktuellerKunde.Email}"></TextBox>
+        </StackPanel>
+
+        <StackPanel Grid.Column="0" Grid.Row="13">
+            <Label Content="Erfasst am:" FontSize="12"></Label>
+        </StackPanel>
+        <StackPanel Grid.Column="1" Grid.Row="13">
+            <Label Content="{Binding AktuellerKunde.ErfDatum.Date}" FontSize="12"></Label>
+        </StackPanel>
+
+        <!-- TODO: Hier wäre Reminder -->
+        <StackPanel Grid.Column="0" Grid.Row="14">
+            
+        </StackPanel>
+        <StackPanel Grid.Column="1" Grid.Row="14">
+            
+        </StackPanel>
+
+        <StackPanel Grid.Column="0" Grid.Row="15">
+            <Button Content="Neuer Kunde" Command="{Binding ErstelleKundenCommand}" CommandParameter="nix" Width="100"></Button>
+        </StackPanel>
+        <StackPanel Grid.Column="1" Grid.Row="15">
+            <Button Content="Speichern" Command="{Binding SpeichernKundeCommand}" CommandParameter="{Binding AktuellerKunde.ID}" Width="100"></Button>
+        </StackPanel>
+        <StackPanel Grid.Column="2" Grid.Row="15">
+            <Button Content="Kunde Löschen" Command="{Binding LoeschenKundeCommand}" CommandParameter="{Binding AktuellerKunde.ID}" IsEnabled="{Binding KeinNeuerKundeAktiv}" Width="100"></Button>
+        </StackPanel>
+
+
+
+    </Grid>
+</UserControl>

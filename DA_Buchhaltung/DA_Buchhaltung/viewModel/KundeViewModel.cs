@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using DA_Buchhaltung.common.commands;
 using DA_Buchhaltung.model;
 
@@ -15,19 +16,51 @@ namespace DA_Buchhaltung.viewModel
         //NavigationsProperties
         Model model = new Model();
 
-        //Properties
+        //Statische Felder
+        public static int Errors { get; set; }
 
+        //Properties
+        private bool _keinNeuerKundeAktiv = false;
+        public bool KeinNeuerKundeAktiv
+        {
+            get { return _keinNeuerKundeAktiv; }
+            set
+            {
+                if (value != _keinNeuerKundeAktiv)
+                {
+                    _keinNeuerKundeAktiv = value;
+                    OnPropertyChanged("KeinNeuerKundeAktiv");
+                }
+            }
+        }
         private Kunde _aktuellerKunde = new Kunde();
         public Kunde AktuellerKunde
         {
             get { return _aktuellerKunde; }
             set
             {
-                if (AktuellerKunde != _aktuellerKunde)
+                if (value != null)
                 {
-                    _aktuellerKunde = value;
-                    OnPropertyChanged("AktuellerKunde");
+                    if (value.ID != _aktuellerKunde.ID)
+                    {
+                        _aktuellerKunde = value;
+                        OnPropertyChanged("AktuellerKunde");
+                        if (value.ID == -1)
+                        {
+                            KeinNeuerKundeAktiv = false;
+                        }
+                        else
+                        {
+                            KeinNeuerKundeAktiv = true;
+                        }
+                    }
                 }
+                else
+                {
+                    AktuellerKunde = new Kunde();
+                }
+                
+                
             }
         }
 
@@ -37,7 +70,7 @@ namespace DA_Buchhaltung.viewModel
             get { return _kundenListeIstNichtLeer; }
             set
             {
-                if (KundenListeIstNichtLeer != _kundenListeIstNichtLeer)
+                if (value != _kundenListeIstNichtLeer)
                 {
                     _kundenListeIstNichtLeer = value;
                     OnPropertyChanged("KundenListeIstNichtLeer");
@@ -51,7 +84,7 @@ namespace DA_Buchhaltung.viewModel
             get { return _selectedKundenIndex; }
             set
             {
-                if (SelectedKundenIndex != _selectedKundenIndex)
+                if (value != _selectedKundenIndex)
                 {
                     _selectedKundenIndex = value;
                     OnPropertyChanged("SelectedKundenIndex");
@@ -65,10 +98,13 @@ namespace DA_Buchhaltung.viewModel
             get { return _suchText; }
             set
             {
-                if (SuchText != _suchText)
+                if (value != _suchText)
                 {
                     _suchText = value;
                     OnPropertyChanged("SuchText");
+                    
+                    LadeKunden(value);
+                    
                 }
             }
         }
@@ -147,23 +183,19 @@ namespace DA_Buchhaltung.viewModel
         }
         private void ErstelleKunden(string nix)
         {
-
-            Kunde newKunde = new Kunde();
-            KundenListe.Add(newKunde);
-            AktuellerKunde = newKunde;
-            if (KundenListe.Contains(newKunde))
-            {
-                SelectedKundenIndex = KundenListe.IndexOf(newKunde);
-            }
-            
-
+            AktuellerKunde = new Kunde();
         }
         private void SpeichernKunde(int id)
         {
-            if (AktuellerKunde == null || (AktuellerKunde.ID == id))
+            
+            if (AktuellerKunde == null)
             {
                 MessageBox.Show("Kunde wurde nicht gespeichert! Es wurde kein Kunde angewählt.", "Speichern Abgebrochen",
                     MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+            if (Errors!=0)
+            {
                 return;
             }
 
@@ -173,14 +205,15 @@ namespace DA_Buchhaltung.viewModel
             {
                 return;
             }
+            LadeKunden("");
             MessageBox.Show("Kunde gespeichert!", "Speichern erfolgreich", MessageBoxButton.OK,
                 MessageBoxImage.Information);
-
+            
 
         }
         private void LoeschenKunde(int id)
         {
-            if (AktuellerKunde == null || (AktuellerKunde.ID == id))
+            if (AktuellerKunde == null || AktuellerKunde.ID == -1)
             {
                 MessageBox.Show("Kunde wurde nicht gelöscht! Es wurde kein Kunde angewählt.", "Löschen Abgebrochen",
                     MessageBoxButton.OK, MessageBoxImage.Information);
@@ -199,5 +232,11 @@ namespace DA_Buchhaltung.viewModel
 
 
         }
+
+        public KundeViewModel()
+        {
+            LadeKunden("");
+        }
+
     }
 }

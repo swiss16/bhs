@@ -4,27 +4,52 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DA_Buchhaltung.viewModel;
 
 namespace DA_Buchhaltung.model
 {
-    public class Person
+    public class Person : ViewModelBase
     {
         public int ID { get; set; }
-        [Required]
-        [StringLength(50,MinimumLength = 3)]
-        public string Name { get; set; }
-        [Required]
-        [StringLength(50, MinimumLength = 3)]
-        public string Vorname { get; set; }
-        [Required]
-        [StringLength(50, MinimumLength = 3)]
-        public string Adresse { get; set; }
-        [Required]
-        [Range(1000,9999)]
-        public int PLZ { get; set; }
-        [Required]
-        [StringLength(50, MinimumLength = 3)]
-        public string Wohnort { get; set; }
+        [Required(ErrorMessage = "Dieses Feld darf nicht leer sein")]
+        [MaxLength(50, ErrorMessage = "Maximal 50 Stellen erlaubt")]
+        [MinLength(3, ErrorMessage = "Es muss mindestens 3 Stellen haben")]
+        public string Name
+        {
+            get { return GetValue(() => Name); }
+            set { SetValue(() => Name, value); }
+        }
+        [Required(ErrorMessage = "Dieses Feld darf nicht leer sein")]
+        [MaxLength(50, ErrorMessage = "Maximal 50 Stellen erlaubt")]
+        [MinLength(3, ErrorMessage = "Es muss mindestens 3 Stellen haben")]
+        public string Vorname
+        {
+            get { return GetValue(() => Vorname); }
+            set { SetValue(() => Vorname, value); }
+        }
+        [Required(ErrorMessage = "Dieses Feld darf nicht leer sein")]
+        [MaxLength(50, ErrorMessage = "Maximal 50 Stellen erlaubt")]
+        [MinLength(3, ErrorMessage = "Es muss mindestens 3 Stellen haben")]
+        public string Adresse
+        {
+            get { return GetValue(() => Adresse); }
+            set { SetValue(() => Adresse, value); }
+        }
+        [Required(ErrorMessage = "Dieses Feld darf nicht leer sein")]
+        [Range(1000, 9999, ErrorMessage = "PLZ muss zwischen 1000 und 9999 sein")]
+        public int PLZ
+        {
+            get { return GetValue(() => PLZ); }
+            set { SetValue(() => PLZ, value); }
+        }
+        [Required(ErrorMessage = "Dieses Feld darf nicht leer sein")]
+        [MaxLength(50, ErrorMessage = "Maximal 50 Stellen erlaubt")]
+        [MinLength(3, ErrorMessage = "Es muss mindestens 3 Stellen haben")]
+        public string Wohnort
+        {
+            get { return GetValue(() => Wohnort); }
+            set { SetValue(() => Wohnort, value); }
+        }
         public string TelPrivat { get; set; }
         public string TelFirma { get; set; }
         public string TelMobile { get; set; }

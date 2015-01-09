@@ -122,6 +122,9 @@
     <Compile Include="userforms\UC_Kreditor.xaml.cs">
       <DependentUpon>UC_Kreditor.xaml</DependentUpon>
     </Compile>
+    <Compile Include="userforms\UC_Kunde.xaml.cs">
+      <DependentUpon>UC_Kunde.xaml</DependentUpon>
+    </Compile>
     <Compile Include="viewModel\KundeViewModel.cs" />
     <Compile Include="viewModel\MainViewModel.cs" />
     <Compile Include="viewModel\ViewModelBase.cs" />
@@ -154,6 +157,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="userforms\UC_Kreditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="userforms\UC_Kunde.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -203,9 +210,7 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App.config">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    <None Include="App.config" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
