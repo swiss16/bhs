@@ -14,7 +14,9 @@ namespace DA_Buchhaltung.viewModel
     public class MainViewModel : ViewModelBase
     {
         //NavigationsProperties
-        Model model = new Model();
+        private Model model = new Model();
+        public KundeViewModel kundenViewModel;
+        public KreditorViewModel kreditorViewModel;
 
         //Properties
         private string _currentDate = string.Format("Datum: {0}", DateTime.Now.ToShortDateString());
@@ -32,33 +34,6 @@ namespace DA_Buchhaltung.viewModel
         }
        
 
-        //Sichtbarkeits Properties
-        private bool _istKundenAktiv = true;
-        public bool IstKundenAktiv
-        {
-            get { return _istKundenAktiv; }
-            set
-            {
-                if (value != _istKundenAktiv)
-                {
-                    _istKundenAktiv = value;
-                    OnPropertyChanged("IstKundenAktiv");
-                }
-            }
-        }
-        private bool _istKreditorAktiv = true;
-        public bool IstKreditorAktiv
-        {
-            get { return _istKreditorAktiv; }
-            set
-            {
-                if (value != _istKreditorAktiv)
-                {
-                    _istKreditorAktiv = value;
-                    OnPropertyChanged("IstKreditorAktiv");
-                }
-            }
-        }
 
         //Commands
        
@@ -68,6 +43,17 @@ namespace DA_Buchhaltung.viewModel
             get { return _beendenCommand ?? (_beendenCommand = new RelayCommand<string>(Beenden)); }
         }
 
+        private RelayCommand<string> _zeigeKundenCommand;
+        public RelayCommand<string> ZeigeKundenCommand
+        {
+            get { return _zeigeKundenCommand ?? (_zeigeKundenCommand = new RelayCommand<string>(ZeigeKunden)); }
+        }
+
+        private RelayCommand<string> _zeigeKreditorCommand;
+        public RelayCommand<string> ZeigeKreditorCommand
+        {
+            get { return _zeigeKreditorCommand ?? (_zeigeKreditorCommand = new RelayCommand<string>(ZeigeKreditor)); }
+        }
 
 
         //Commandhelper
@@ -77,6 +63,17 @@ namespace DA_Buchhaltung.viewModel
             Application.Current.Shutdown();
         }
 
+        private void ZeigeKunden(string x)
+        {
+            kundenViewModel.IstKundenAktiv = true;
+            kreditorViewModel.IstKreditorAktiv = false;
+        }
+
+        private void ZeigeKreditor(string x)
+        {
+            kundenViewModel.IstKundenAktiv = false;
+            kreditorViewModel.IstKreditorAktiv = true;
+        }
         public MainViewModel()
         {
             

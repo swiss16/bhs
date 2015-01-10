@@ -107,28 +107,26 @@ namespace DA_Buchhaltung.viewModel
             }
         }
 
-        
+        //Sichtbarkeits Properties
+        private bool _istKundenAktiv = false;
+        public bool IstKundenAktiv
+        {
+            get { return _istKundenAktiv; }
+            set
+            {
+                if (value != _istKundenAktiv)
+                {
+                    _istKundenAktiv = value;
+                    OnPropertyChanged("IstKundenAktiv");
+                }
+            }
+        }
 
         //Listen
         private readonly ObservableCollection<Kunde> _kundenListe = new ObservableCollection<Kunde>();
         public ObservableCollection<Kunde> KundenListe
         {
             get { return _kundenListe; }
-        }
-
-        //Sichtbarkeits Properties
-        private bool _istKundenAktiv = true;
-        public bool IstKundenAktiv
-        {
-            get { return _kundenListeIstNichtLeer; }
-            set
-            {
-                if (IstKundenAktiv != _istKundenAktiv)
-                {
-                    _istKundenAktiv = value;
-                    OnPropertyChanged("IstKundenAktiv");
-                }
-            }
         }
 
         //Commands
@@ -197,13 +195,14 @@ namespace DA_Buchhaltung.viewModel
                 return;
             }
 
-            SelectedKundenIndex = model.SpeichereKunde(AktuellerKunde);
+            int _tempKundeIndex = model.SpeichereKunde(AktuellerKunde);
 
-            if (SelectedKundenIndex == -1)
+            if (_tempKundeIndex == -1)
             {
                 return;
             }
             LadeKunden("");
+            AktuellerKunde = KundenListe.FirstOrDefault(i => i.ID == _tempKundeIndex);
             MessageBox.Show("Kunde gespeichert!", "Speichern erfolgreich", MessageBoxButton.OK,
                 MessageBoxImage.Information);
             

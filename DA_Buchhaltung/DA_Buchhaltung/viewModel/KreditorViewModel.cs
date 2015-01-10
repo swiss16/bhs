@@ -106,7 +106,20 @@ namespace DA_Buchhaltung.viewModel
             }
         }
 
-        
+        // Sichtbarkeitsproperties
+        private bool _istKreditorAktiv = false;
+        public bool IstKreditorAktiv
+        {
+            get { return _istKreditorAktiv; }
+            set
+            {
+                if (value != _istKreditorAktiv)
+                {
+                    _istKreditorAktiv = value;
+                    OnPropertyChanged("IstKreditorAktiv");
+                }
+            }
+        }
 
         //Listen
         private readonly ObservableCollection<Kreditor> _kreditorenListe = new ObservableCollection<Kreditor>();

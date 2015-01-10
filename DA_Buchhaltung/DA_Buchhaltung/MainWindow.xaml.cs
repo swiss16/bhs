@@ -42,7 +42,9 @@ namespace DA_Buchhaltung
         public MainWindow()
         {
             InitializeComponent();
-            
+            ViewModel.kreditorViewModel = UcKreditorViewModel;
+            ViewModel.kundenViewModel = UcKundeViewModel;
+
         }
 
     }
