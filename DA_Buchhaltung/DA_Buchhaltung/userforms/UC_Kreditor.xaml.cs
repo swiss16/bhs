@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using DA_Buchhaltung.viewModel;
 
 namespace DA_Buchhaltung.userforms
 {
@@ -20,9 +21,24 @@ namespace DA_Buchhaltung.userforms
     /// </summary>
     public partial class UC_Kreditor : UserControl
     {
+        private readonly KreditorViewModel _viewModel = new KreditorViewModel();
+
+        public KreditorViewModel ViewModel
+        {
+            get { return _viewModel; }
+            
+        }
+
         public UC_Kreditor()
         {
             InitializeComponent();
+        }
+
+        private void Validation_Error(object sender, ValidationErrorEventArgs e)
+        {
+            if (e.Action == ValidationErrorEventAction.Added) KreditorViewModel.Errors += 1;
+            if (e.Action == ValidationErrorEventAction.Removed) KreditorViewModel.Errors -= 1;
+            
         }
     }
 }

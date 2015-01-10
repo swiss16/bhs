@@ -22,17 +22,23 @@ namespace DA_Buchhaltung
     public partial class MainWindow : Window
     {
         private readonly MainViewModel _viewModel = new MainViewModel();
-
         public MainViewModel ViewModel
         {
             get { return _viewModel; }
         }
-        private readonly KundeViewModel _ucKundeviewModel = new KundeViewModel();
 
+        private readonly KundeViewModel _ucKundeviewModel = new KundeViewModel();
         public KundeViewModel UcKundeViewModel
         {
             get { return _ucKundeviewModel; }
         }
+
+        private readonly KreditorViewModel _ucKreditorviewModel = new KreditorViewModel();
+        public KreditorViewModel UcKreditorViewModel
+        {
+            get { return _ucKreditorviewModel; }
+        }
+
         public MainWindow()
         {
             InitializeComponent();

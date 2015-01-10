@@ -66,7 +66,7 @@ namespace DA_Buchhaltung.model
                     kreditorenListe =
                         kreditorenListe.Where(
                             i =>
-                                (i.Name.ToLower().Contains(filterString)) || (i.Vorname.ToLower().Contains(filterString)) ||
+                                (i.Name.ToLower().Contains(filterString)) || (i.Firma.ToLower().Contains(filterString)) ||
                                 (i.Adresse.ToLower().Contains(filterString)) || (i.Wohnort.ToLower().Contains(filterString))).ToList();
                 }
 

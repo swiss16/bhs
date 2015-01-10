@@ -125,6 +125,7 @@
     <Compile Include="userforms\UC_Kunde.xaml.cs">
       <DependentUpon>UC_Kunde.xaml</DependentUpon>
     </Compile>
+    <Compile Include="viewModel\KreditorViewModel.cs" />
     <Compile Include="viewModel\KundeViewModel.cs" />
     <Compile Include="viewModel\MainViewModel.cs" />
     <Compile Include="viewModel\ViewModelBase.cs" />

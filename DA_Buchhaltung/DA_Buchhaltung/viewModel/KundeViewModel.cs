@@ -102,9 +102,7 @@ namespace DA_Buchhaltung.viewModel
                 {
                     _suchText = value;
                     OnPropertyChanged("SuchText");
-                    
-                    LadeKunden(value);
-                    
+
                 }
             }
         }
@@ -140,10 +138,10 @@ namespace DA_Buchhaltung.viewModel
             get { return _ladeKundenCommand ?? (_ladeKundenCommand = new RelayCommand<string>(LadeKunden)); }
         }
 
-        private RelayCommand<string> _erstelleKundenCommand;
-        public RelayCommand<string> ErstelleKundenCommand
+        private RelayCommand<string> _erstelleKundeCommand;
+        public RelayCommand<string> ErstelleKundeCommand
         {
-            get { return _erstelleKundenCommand ?? (_erstelleKundenCommand = new RelayCommand<string>(ErstelleKunden)); }
+            get { return _erstelleKundeCommand ?? (_erstelleKundeCommand = new RelayCommand<string>(ErstelleKunde)); }
         }
 
         private RelayCommand<int> _speichernKundeCommand;
@@ -181,7 +179,7 @@ namespace DA_Buchhaltung.viewModel
             KundenListeIstNichtLeer = true;
 
         }
-        private void ErstelleKunden(string nix)
+        private void ErstelleKunde(string nix)
         {
             AktuellerKunde = new Kunde();
         }

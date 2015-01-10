@@ -26,8 +26,8 @@
             </MenuItem>
             <MenuItem Width="auto" Height="auto" Header="Statistik">
                 <MenuItem Width="auto" Height="auto" Header="Erfolgsrechnung"></MenuItem>
-                <MenuItem Width="auto" Height="auto" Header="Stammkunden"></MenuItem>
-                <MenuItem Width="auto" Height="auto" Header="Ausgaben"></MenuItem>
+                <MenuItem Width="auto" Height="auto" Header="Stammkunden" Visibility="Collapsed"></MenuItem>
+                <MenuItem Width="auto" Height="auto" Header="Ausgaben" Visibility="Collapsed"></MenuItem>
             </MenuItem>
             <MenuItem Width="auto" Height="auto" Header="Einstellungen">
                 <MenuItem Width="auto" Height="auto" Header="Einstellungen"></MenuItem>
@@ -64,8 +64,10 @@
 
             </StackPanel>
             <StackPanel Grid.Column="2" Grid.Row="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="10,22,10,0" Width="auto" Height="auto" Background="Chartreuse" CanHorizontallyScroll="True" CanVerticallyScroll="True" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto">
-                <uc:UC_Kunde DataContext="{Binding UcKundeViewModel, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"></uc:UC_Kunde>
+                <uc:UC_Kunde DataContext="{Binding UcKundeViewModel, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}" Visibility="Collapsed"></uc:UC_Kunde>
+                <uc:UC_Kreditor DataContext="{Binding UcKreditorViewModel, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}" Visibility="Visible"></uc:UC_Kreditor>
             </StackPanel>
+            
             
 
 
