@@ -233,6 +233,7 @@ namespace DA_Buchhaltung.viewModel
 
         }
 
+        //Konstruktor
         public KundeViewModel()
         {
             LadeKunden("");
