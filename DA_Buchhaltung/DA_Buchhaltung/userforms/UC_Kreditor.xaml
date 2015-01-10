@@ -132,10 +132,10 @@
         </StackPanel>
 
         <StackPanel Grid.Column="0" Grid.Row="12">
-            <Label Content="Tel. Privat:" FontSize="12"></Label>
+            <Label Content="Fax:" FontSize="12"></Label>
         </StackPanel>
         <StackPanel Grid.Column="1" Grid.Row="12">
-            <TextBox FontSize="12" Text="{Binding AktuellerKreditor.TelPrivat}"></TextBox>
+            <TextBox FontSize="12" Text="{Binding AktuellerKreditor.Fax}"></TextBox>
         </StackPanel>
 
         <StackPanel Grid.Column="0" Grid.Row="13">
