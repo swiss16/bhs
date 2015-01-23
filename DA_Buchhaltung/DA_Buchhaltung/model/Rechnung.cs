@@ -1,19 +1,47 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DA_Buchhaltung.viewModel;
 
 namespace DA_Buchhaltung.model
 {
-    public class Rechnung
+    public class Rechnung : ViewModelBase
     {
         public int ID { get; set; }
         public int KreditorID { get; set; }
-        public decimal Betrag { get; set; }
-        public string Beschreibung { get; set; }
-        public string Kategorie { get; set; }
-        public DateTime Datum { get; set; }
+        [Required(ErrorMessage = "Dieses Feld darf nicht leer sein")]
+        [RegularExpression(@"\d+(\.\d{1,2})?", ErrorMessage = "Das Format muss zB: 5.20 sein und nicht negativ")]
+        [Range(0, 10000, ErrorMessage = "Preis muss zwischen 0 und 10000 sein")]
+        public decimal Betrag
+        {
+            get { return GetValue(() => Betrag); }
+            set { SetValue(() => Betrag, value); }
+        }
+        [Required(ErrorMessage = "Dieses Feld darf nicht leer sein")]
+        [MaxLength(500, ErrorMessage = "Maximal 500 Stellen erlaubt")]
+        [MinLength(3, ErrorMessage = "Es muss mindestens 3 Stellen haben")]
+        public string Beschreibung
+        {
+            get { return GetValue(() => Beschreibung); }
+            set { SetValue(() => Beschreibung, value); }
+        }
+        [Required(ErrorMessage = "Dieses Feld darf nicht leer sein")]
+        [MaxLength(50, ErrorMessage = "Maximal 50 Stellen erlaubt")]
+        [MinLength(3, ErrorMessage = "Es muss mindestens 3 Stellen haben")]
+        public string Kategorie
+        {
+            get { return GetValue(() => Kategorie); }
+            set { SetValue(() => Kategorie, value); }
+        }
+        [Required(ErrorMessage = "Dieses Feld darf nicht leer sein")]
+        public DateTime Datum
+        {
+            get { return GetValue(() => Datum); }
+            set { SetValue(() => Datum, value); }
+        }
         public bool AlsRueckzahlung { get; set; }
 
         public Rechnung()

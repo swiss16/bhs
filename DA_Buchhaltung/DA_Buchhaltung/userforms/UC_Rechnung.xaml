@@ -1,0 +1,39 @@
+﻿<UserControl x:Class="DA_Buchhaltung.userforms.UC_Rechnung"
+             DataContext="{Binding ViewModel, RelativeSource={RelativeSource Self}}"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="1000" d:DesignWidth="700">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="1*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30" />
+            <RowDefinition Height="26" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="26" />
+            <RowDefinition Height="26" />
+            <RowDefinition Height="26" />
+            <RowDefinition Height="26" />
+            <RowDefinition Height="26" />
+            <RowDefinition Height="26" />
+            <RowDefinition Height="26" />
+            <RowDefinition Height="26" />
+            <RowDefinition Height="26" />
+            <RowDefinition Height="26" />
+            <RowDefinition Height="26" />
+            <RowDefinition Height="26" />
+            <RowDefinition Height="26" />
+            <RowDefinition Height="26" />
+        </Grid.RowDefinitions>
+        <StackPanel Grid.ColumnSpan="3" Grid.Row="0">
+            <Label Content="Rückzahlungen" FontWeight="Bold" FontSize="18" HorizontalAlignment="Center" Visibility="{Binding IstRueckzahlungAktiv, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=Hidden}"></Label>
+            <Label Content="Rechnungen" FontWeight="Bold" FontSize="18" HorizontalAlignment="Center" Visibility="{Binding IstRechnungAktiv, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=Hidden}"></Label>
+        </StackPanel>
+    </Grid>
+</UserControl>

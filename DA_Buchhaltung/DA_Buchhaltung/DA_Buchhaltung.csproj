@@ -128,10 +128,14 @@
     <Compile Include="userforms\UC_Kunde.xaml.cs">
       <DependentUpon>UC_Kunde.xaml</DependentUpon>
     </Compile>
+    <Compile Include="userforms\UC_Rechnung.xaml.cs">
+      <DependentUpon>UC_Rechnung.xaml</DependentUpon>
+    </Compile>
     <Compile Include="viewModel\EinstellungenViewModel.cs" />
     <Compile Include="viewModel\KreditorViewModel.cs" />
     <Compile Include="viewModel\KundeViewModel.cs" />
     <Compile Include="viewModel\MainViewModel.cs" />
+    <Compile Include="viewModel\RechnungViewModel.cs" />
     <Compile Include="viewModel\ViewModelBase.cs" />
     <Compile Include="wrapper\DBWrapper.cs" />
     <Page Include="MainWindow.xaml">
@@ -170,6 +174,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="userforms\UC_Kunde.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="userforms\UC_Rechnung.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
