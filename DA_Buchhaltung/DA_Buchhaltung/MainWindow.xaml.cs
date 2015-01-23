@@ -39,6 +39,12 @@ namespace DA_Buchhaltung
             get { return _ucKreditorviewModel; }
         }
 
+        private readonly RechnungViewModel _ucRechnungviewModel = new RechnungViewModel();
+        public RechnungViewModel UcRechnungViewModel
+        {
+            get { return _ucRechnungviewModel; }
+        }
+
         private readonly EinstellungenViewModel _ucEinstellungenviewModel = new EinstellungenViewModel();
         public EinstellungenViewModel UcEinstellungenViewModel
         {
@@ -48,9 +54,14 @@ namespace DA_Buchhaltung
         public MainWindow()
         {
             InitializeComponent();
+            //Eigene Naviagtionen
             ViewModel.KreditorViewModel = UcKreditorViewModel;
             ViewModel.KundenViewModel = UcKundeViewModel;
             ViewModel.EinstellungenViewModel = UcEinstellungenViewModel;
+            ViewModel.RechnungViewModel = UcRechnungViewModel;
+
+            //Hilfsnavigationen für Childs
+            ViewModel.KreditorViewModel.RechnungViewModel = UcRechnungViewModel;
 
         }
 

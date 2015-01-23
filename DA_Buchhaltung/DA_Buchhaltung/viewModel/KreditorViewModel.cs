@@ -14,6 +14,7 @@ namespace DA_Buchhaltung.viewModel
     {
         //NavigationsProperties
         Model model = new Model();
+        public RechnungViewModel RechnungViewModel;
 
         //Statische Felder
         public static int Errors { get; set; }
@@ -44,6 +45,7 @@ namespace DA_Buchhaltung.viewModel
                     {
                         _aktuellerKreditor = value;
                         OnPropertyChanged("AktuellerKreditor");
+                        RechnungViewModel.UpdateKreditor(value.ID);
                         if (value.ID == -1)
                         {
                             KeinNeuerKreditorAktiv = false;

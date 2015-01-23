@@ -11,6 +11,8 @@
             <ColumnDefinition Width="1*" />
             <ColumnDefinition Width="1*" />
             <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="1*" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="30" />
@@ -20,7 +22,7 @@
             <RowDefinition Height="26" />
             <RowDefinition Height="26" />
             <RowDefinition Height="26" />
-            <RowDefinition Height="26" />
+            <RowDefinition Height="100" />
             <RowDefinition Height="26" />
             <RowDefinition Height="26" />
             <RowDefinition Height="26" />
@@ -31,9 +33,94 @@
             <RowDefinition Height="26" />
             <RowDefinition Height="26" />
         </Grid.RowDefinitions>
-        <StackPanel Grid.ColumnSpan="3" Grid.Row="0">
+        <StackPanel Grid.ColumnSpan="5" Grid.Row="0">
             <Label Content="Rückzahlungen" FontWeight="Bold" FontSize="18" HorizontalAlignment="Center" Visibility="{Binding IstRueckzahlungAktiv, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=Hidden}"></Label>
             <Label Content="Rechnungen" FontWeight="Bold" FontSize="18" HorizontalAlignment="Center" Visibility="{Binding IstRechnungAktiv, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=Hidden}"></Label>
         </StackPanel>
+        <StackPanel Grid.Column="0" Grid.Row="1">
+            <Button Content="Neue Rechnung" Command="{Binding NeueRechnungCommand}" Visibility="{Binding IstRechnungAktiv, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=Hidden}" Width="120"></Button>
+            <Button Content="Neue Rueckzahlung" Command="{Binding NeueRueckzahlungCommand}" Visibility="{Binding IstRueckzahlungAktiv, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=Hidden}" Width="120"></Button>
+        </StackPanel>
+        <StackPanel Grid.Column="4" Grid.Row="1">
+            <Button Content="Rechnung Löschen" Command="{Binding LoescheRechnungCommand}" IsEnabled="{Binding KeineNeueRechnungAktiv}" Visibility="{Binding IstRechnungAktiv, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=Hidden}" Width="120"></Button>
+            <Button Content="Rückzahlung Löschen" Command="{Binding LoescheRueckzahlungCommand}" IsEnabled="{Binding KeineNeueRechnungAktiv}" Visibility="{Binding IstRueckzahlungAktiv, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=Hidden}" Width="120"></Button>
+        </StackPanel>
+        <StackPanel Grid.ColumnSpan="5" Grid.Row="2">
+            <DataGrid Height="200" Margin="5 0 5 0" CanUserSortColumns="True" SelectionMode="Single" AutoGenerateColumns="False" IsReadOnly="True"
+                 ItemsSource="{Binding RechnungsListe}"  
+                 SelectedItem="{Binding Path=AktuelleRechnung}" ClipboardCopyMode="None" EnableRowVirtualization="False">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Datum" Binding="{Binding Datum.Date}" Width="0.8*"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Betrag" Binding="{Binding Betrag}" Width="0.7*"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Kategorie" Binding="{Binding Kategorie}" Width="*"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Beschreibung" Binding="{Binding Beschreibung}" Width="6*"></DataGridTextColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </StackPanel>
+        <StackPanel Grid.Column="0" Grid.ColumnSpan="5" Grid.Row="3">
+            <Rectangle Height="3" Fill="Black" Margin="5 12 5 0"></Rectangle>
+        </StackPanel>
+        <!-- Beginn Details -->
+        <StackPanel Grid.Column="2" Grid.Row="4">
+            <Label Content="Aktuelle Rückzahlung" FontSize="14" FontWeight="Bold" Visibility="{Binding IstRueckzahlungAktiv, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=Hidden}"></Label>
+            <Label Content="Aktuelle Rechnung" FontSize="14" FontWeight="Bold" Visibility="{Binding IstRechnungAktiv, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=Hidden}"></Label>
+        </StackPanel>
+        <StackPanel Grid.Column="0" Grid.Row="5">
+            <Label Content="Kategorie:" FontSize="14"></Label>
+        </StackPanel>
+        <StackPanel Grid.Column="1" Grid.Row="5">
+            <ComboBox ItemsSource="{Binding Path=KategorienListe}" SelectedItem="{Binding Path=AktuelleKategorie}" IsReadOnly="True" DisplayMemberPath="Name"/>
+                      
+        </StackPanel>
+        <StackPanel Grid.Column="2" Grid.Row="5">
+            <TextBlock FontSize="10" Text="{Binding GeloeschteKategorie}" Visibility="{Binding GeloeschteKategorieAktiv, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=Hidden}" Foreground="Orange" TextWrapping="Wrap"/>
+        </StackPanel>
+        <StackPanel Grid.Column="3" Grid.ColumnSpan="2" Grid.Row="5">
+            <TextBlock Text="(Kategorie zuvor wurde gelöscht) Wenn sie jetzt speichern, wird die Kategorie geändert!" Visibility="{Binding GeloeschteKategorieAktiv, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=Hidden}" Foreground="Red" Margin="5,0,0,0" FontSize="10" TextWrapping="Wrap"/>
+        </StackPanel>
+        <StackPanel Grid.Column="0" Grid.Row="6">
+            <Label Content="Betrag in CHF:" FontSize="14"></Label>
+        </StackPanel>
+        <StackPanel Grid.Column="1" Grid.Row="6">
+            <TextBox x:Name="TbReBetrag" FontSize="12" Text="{Binding AktuelleRechnung.Betrag, ValidatesOnDataErrors=True,NotifyOnValidationError=True}" Validation.Error="Validation_Rechnung_Error" Visibility="{Binding IstRechnungAktiv, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=Hidden}"></TextBox>
+            <TextBox x:Name="TbRzBetrag" FontSize="12" Text="{Binding AktuelleRechnung.Betrag, ValidatesOnDataErrors=True,NotifyOnValidationError=True}" Validation.Error="Validation_Rueckzahlung_Error" Visibility="{Binding IstRueckzahlungAktiv, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=Hidden}"></TextBox>
+        </StackPanel>
+        <StackPanel Grid.Column="2" Grid.ColumnSpan="3" Grid.Row="6">
+            <TextBlock Text="{Binding (Validation.Errors)[0].ErrorContent, ElementName=TbReBetrag}" Foreground="Red" Margin="5,0,0,0" FontSize="10" TextWrapping="Wrap" Visibility="{Binding IstRechnungAktiv, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=Hidden}"/>
+            <TextBlock Text="{Binding (Validation.Errors)[0].ErrorContent, ElementName=TbRzBetrag}" Foreground="Red" Margin="5,0,0,0" FontSize="10" TextWrapping="Wrap" Visibility="{Binding IstRueckzahlungAktiv, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=Hidden}"/>
+        </StackPanel>
+
+        <StackPanel Grid.Column="0" Grid.Row="7">
+            <Label Content="Beschreibung:" FontSize="14"></Label>
+        </StackPanel>
+        <StackPanel Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="7">
+            <TextBox x:Name="TbReBeschr" FontSize="12" Text="{Binding AktuelleRechnung.Beschreibung, ValidatesOnDataErrors=True,NotifyOnValidationError=True}" Validation.Error="Validation_Rechnung_Error" Visibility="{Binding IstRechnungAktiv, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=Hidden}" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" Height="90"></TextBox>
+            <TextBox x:Name="TbRzBeschr" FontSize="12" Text="{Binding AktuelleRechnung.Beschreibung, ValidatesOnDataErrors=True,NotifyOnValidationError=True}" Validation.Error="Validation_Rueckzahlung_Error" Visibility="{Binding IstRueckzahlungAktiv, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=Hidden}" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" Height="90"></TextBox>
+        </StackPanel>
+        <StackPanel Grid.Column="3" Grid.ColumnSpan="2" Grid.Row="7">
+            <TextBlock Text="{Binding (Validation.Errors)[0].ErrorContent, ElementName=TbReBeschr}" Foreground="Red" Margin="5,0,0,0" FontSize="10" TextWrapping="Wrap" Visibility="{Binding IstRechnungAktiv, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=Hidden}"/>
+            <TextBlock Text="{Binding (Validation.Errors)[0].ErrorContent, ElementName=TbRzBeschr}" Foreground="Red" Margin="5,0,0,0" FontSize="10" TextWrapping="Wrap" Visibility="{Binding IstRueckzahlungAktiv, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=Hidden}"/>
+        </StackPanel>
+
+        <StackPanel Grid.Column="0" Grid.Row="8">
+            <Label Content="Datum:" FontSize="14"></Label>
+        </StackPanel>
+        <StackPanel Grid.Column="1" Grid.Row="8">
+            <DatePicker x:Name="DateRe" SelectedDate="{Binding AktuelleRechnung.Datum, ValidatesOnDataErrors=True,NotifyOnValidationError=True}" Validation.Error="Validation_Rechnung_Error" Visibility="{Binding IstRechnungAktiv, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=Hidden}"></DatePicker>
+            <DatePicker x:Name="DateRz" SelectedDate="{Binding AktuelleRechnung.Datum, ValidatesOnDataErrors=True,NotifyOnValidationError=True}" Validation.Error="Validation_Rechnung_Error" Visibility="{Binding IstRueckzahlungAktiv, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=Hidden}"></DatePicker>
+        </StackPanel>
+        <StackPanel Grid.Column="2" Grid.ColumnSpan="3" Grid.Row="8">
+            <TextBlock Text="{Binding (Validation.Errors)[0].ErrorContent, ElementName=DateRe}" Foreground="Red" Margin="5,0,0,0" FontSize="10" TextWrapping="Wrap" Visibility="{Binding IstRechnungAktiv, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=Hidden}"/>
+            <TextBlock Text="{Binding (Validation.Errors)[0].ErrorContent, ElementName=DateRz}" Foreground="Red" Margin="5,0,0,0" FontSize="10" TextWrapping="Wrap" Visibility="{Binding IstRueckzahlungAktiv, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=Hidden}"/>
+        </StackPanel>
+        <StackPanel Grid.Column="2" Grid.Row="9">
+            <Label Content="Rückzahlung abschliessen" FontSize="14" FontWeight="Bold" Visibility="{Binding IstRueckzahlungAktiv, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=Hidden}"></Label>
+            <Label Content="Rechnung abschliessen" FontSize="14" FontWeight="Bold" Visibility="{Binding IstRechnungAktiv, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=Hidden}"></Label>
+        </StackPanel>
+        <StackPanel Grid.Column="2" Grid.Row="10">
+            <Button Content="speichern" Command="{Binding SpeichereRechnungCommand}" Visibility="{Binding IstRechnungAktiv, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=Hidden}" Width="100"></Button>
+            <Button Content="speichern" Command="{Binding SpeichereRueckzahlungCommand}" Visibility="{Binding IstRueckzahlungAktiv, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=Hidden}" Width="100"></Button>
+        </StackPanel>
+
     </Grid>
 </UserControl>

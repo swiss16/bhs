@@ -18,6 +18,8 @@ namespace DA_Buchhaltung.viewModel
         public KundeViewModel KundenViewModel;
         public KreditorViewModel KreditorViewModel;
         public EinstellungenViewModel EinstellungenViewModel;
+        public RechnungViewModel RechnungViewModel;
+
 
         //Properties
         private string _currentDate = string.Format("Datum: {0}", DateTime.Now.ToShortDateString());
@@ -33,8 +35,6 @@ namespace DA_Buchhaltung.viewModel
                 }
             }
         }
-       
-
 
         //Commands
 
@@ -62,6 +62,18 @@ namespace DA_Buchhaltung.viewModel
             get { return _zeigeEinstellungenCommand ?? (_zeigeEinstellungenCommand = new SimpleCommand(ZeigeEinstellungen)); }
         }
 
+        private SimpleCommand _zeigeRechnungenCommand;
+        public SimpleCommand ZeigeRechnungenCommand
+        {
+            get { return _zeigeRechnungenCommand ?? (_zeigeRechnungenCommand = new SimpleCommand(ZeigeRechnungen)); }
+        }
+
+        private SimpleCommand _zeigeRueckzahlungenCommand;
+        public SimpleCommand ZeigeRueckzahlungenCommand
+        {
+            get { return _zeigeRueckzahlungenCommand ?? (_zeigeRueckzahlungenCommand = new SimpleCommand(ZeigeRueckzahlungen)); }
+        }
+
 
         //Commandhelper
 
@@ -74,6 +86,8 @@ namespace DA_Buchhaltung.viewModel
         {
             KundenViewModel.IstKundenAktiv = true;
             KreditorViewModel.IstKreditorAktiv = false;
+            RechnungViewModel.IstRechnungAktiv = false;
+            RechnungViewModel.IstRueckzahlungAktiv = false;
             EinstellungenViewModel.IstEinstellungenAktiv = false;
         }
 
@@ -81,6 +95,8 @@ namespace DA_Buchhaltung.viewModel
         {
             KundenViewModel.IstKundenAktiv = false;
             KreditorViewModel.IstKreditorAktiv = true;
+            RechnungViewModel.IstRechnungAktiv = false;
+            RechnungViewModel.IstRueckzahlungAktiv = false;
             EinstellungenViewModel.IstEinstellungenAktiv = false;
         }
 
@@ -88,7 +104,26 @@ namespace DA_Buchhaltung.viewModel
         {
             KundenViewModel.IstKundenAktiv = false;
             KreditorViewModel.IstKreditorAktiv = false;
+            RechnungViewModel.IstRechnungAktiv = false;
+            RechnungViewModel.IstRueckzahlungAktiv = false;
             EinstellungenViewModel.IstEinstellungenAktiv = true;
+        }
+
+        private void ZeigeRechnungen()
+        {
+            KundenViewModel.IstKundenAktiv = false;
+            KreditorViewModel.IstKreditorAktiv = true;
+            RechnungViewModel.IstRechnungAktiv = true;
+            RechnungViewModel.IstRueckzahlungAktiv = false;
+            EinstellungenViewModel.IstEinstellungenAktiv = false;
+        }
+        private void ZeigeRueckzahlungen()
+        {
+            KundenViewModel.IstKundenAktiv = false;
+            KreditorViewModel.IstKreditorAktiv = true;
+            RechnungViewModel.IstRechnungAktiv = false;
+            RechnungViewModel.IstRueckzahlungAktiv = true;
+            EinstellungenViewModel.IstEinstellungenAktiv = false;
         }
 
         public MainViewModel()

@@ -20,6 +20,8 @@ namespace DA_Buchhaltung.viewModel
         public static int RueckzahlungErrors { get; set; }
 
         //Properties
+        public int AktuelleKreditorId { get; set; }
+
         private bool _keineNeueRechnungAktiv = false;
         public bool KeineNeueRechnungAktiv
         {
@@ -44,6 +46,20 @@ namespace DA_Buchhaltung.viewModel
                 {
                     _geloeschteKategorieAktiv = value;
                     OnPropertyChanged("GeloeschteKategorieAktiv");
+                }
+            }
+        }
+
+        private string _geloeschteKategorie = string.Empty;
+        public string GeloeschteKategorie
+        {
+            get { return _geloeschteKategorie; }
+            set
+            {
+                if (value != _geloeschteKategorie)
+                {
+                    _geloeschteKategorie = value;
+                    OnPropertyChanged("GeloeschteKategorie");
                 }
             }
         }
@@ -258,7 +274,14 @@ namespace DA_Buchhaltung.viewModel
             {
                 return;
             }
-
+            if (AktuelleKreditorId == -1)
+            {
+                MessageBox.Show("Die Rechnung wurde nicht gespeichert! Es wurde kein Kreditor angewählt.", "Speichern Abgebrochen",
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+            AktuelleRechnung.KreditorID = AktuelleKreditorId;
+            
             int _tempRechnungId = model.SpeichereRechnung(AktuelleRechnung);
 
             if (_tempRechnungId == -1)
@@ -286,6 +309,13 @@ namespace DA_Buchhaltung.viewModel
             {
                 return;
             }
+            if (AktuelleKreditorId == -1)
+            {
+                MessageBox.Show("Die Rechnung wurde nicht gespeichert! Es wurde kein Kreditor angewählt.", "Speichern Abgebrochen",
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+            AktuelleRechnung.KreditorID = AktuelleKreditorId;
 
             int _tempRechnungId = model.SpeichereRueckzahlung(AktuelleRechnung);
 
@@ -305,6 +335,7 @@ namespace DA_Buchhaltung.viewModel
         //Wenn gelöschte Kategorie aktiv ist, wird ein Label zusätzlich mit dem alten Namen gezeigt (nicht mehr speicherbar)
         private void UpdateKategorie(string kat)
         {
+            GeloeschteKategorie = kat;
             if (KategorienListe.Any(i=>i.Name == kat))
             {
                 AktuelleKategorie = KategorienListe.First(i => i.Name == kat);
@@ -313,7 +344,13 @@ namespace DA_Buchhaltung.viewModel
             else
             {
                 GeloeschteKategorieAktiv = true;
+                if (KategorienListe.Any())
+                {
+                    AktuelleKategorie = KategorienListe.First();
+                }
+                
             }
+            
 
         }
 
@@ -336,7 +373,7 @@ namespace DA_Buchhaltung.viewModel
                 _tempRechnungsListe = model.LadeRueckzahlungen("");
 
             }
-
+            _tempRechnungsListe = _tempRechnungsListe.Where(i => i.KreditorID == AktuelleKreditorId).ToList();
             if (_tempKategorienListe.Count != 0)
             {
                 _tempKategorienListe.ForEach(kat => KategorienListe.Add(kat));
@@ -351,14 +388,21 @@ namespace DA_Buchhaltung.viewModel
             
             
             
-            
+        }
+
+        //Public Methoden
+        public void UpdateKreditor(int id)
+        {
+            AktuelleKreditorId = id;
+            AktuelleRechnung.KreditorID = id;
+            LadeRechnungen();
         }
 
 
         //Konstruktor
         public RechnungViewModel()
         {
-            
+            AktuelleKreditorId = -1;
         }
     }
 }

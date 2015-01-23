@@ -56,13 +56,15 @@
                 <Button Content="Gutscheine" Margin="0,10,0,0" Width="120" FontSize="16" Visibility="Collapsed"></Button>
                 <Label Content="Aktionen" Margin="0,10,0,0" HorizontalContentAlignment="Center" FontWeight="Bold" FontSize="16"></Label>
                 <Button Content="Aufträge" Margin="0,10,0,0" Width="120" FontSize="16"></Button>
-                <Button Content="Rechnungen" Margin="0,10,0,0" Width="120" FontSize="16"></Button>
-                <Button Content="Rückzahlungen" Margin="0,10,0,0" Width="120" FontSize="16"></Button>
-                <Button Content="Terminplaner" Margin="0,10,0,0" Width="120" FontSize="16" Visibility="Collapsed"></Button>   
+                <Button Content="Rechnungen" Margin="0,10,0,0" Width="120" FontSize="16" Command="{Binding ZeigeRechnungenCommand}"></Button>
+                <Button Content="Rückzahlungen" Margin="0,10,0,0" Width="120" FontSize="16" Command="{Binding ZeigeRueckzahlungenCommand}"></Button>
+                <Button Content="Terminplaner" Margin="0,10,0,0" Width="120" FontSize="16" Visibility="Collapsed"></Button>
             </StackPanel>
             <!-- Aktionen -->
             <StackPanel Grid.Column="1" Grid.Row="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="10,22,0,0" Width="auto" Height="auto" Background="BlueViolet" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto" CanHorizontallyScroll="True" CanVerticallyScroll="True">
                 <uc:UC_Einstellungen DataContext="{Binding UcEinstellungenViewModel, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}" Visibility="{Binding IstEinstellungenAktiv, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=Hidden}"></uc:UC_Einstellungen>
+                <uc:UC_Rechnung DataContext="{Binding UcRechnungViewModel, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}" Visibility="{Binding IstRechnungAktiv, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=Hidden}"></uc:UC_Rechnung>
+                <uc:UC_Rechnung DataContext="{Binding UcRechnungViewModel, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}" Visibility="{Binding IstRueckzahlungAktiv, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=Hidden}"></uc:UC_Rechnung>
 
             </StackPanel>
             <!-- Verwaltungen-->
