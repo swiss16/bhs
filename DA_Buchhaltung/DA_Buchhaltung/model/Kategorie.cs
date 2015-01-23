@@ -1,15 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DA_Buchhaltung.viewModel;
 
 namespace DA_Buchhaltung.model
 {
-    public class Kategorie
+    public class Kategorie : ViewModelBase
     {
         public int ID { get; set; }
-        public string Name { get; set; }
+        [Required(ErrorMessage = "Dieses Feld darf nicht leer sein")]
+        [MaxLength(50, ErrorMessage = "Maximal 50 Stellen erlaubt")]
+        [MinLength(3, ErrorMessage = "Es muss mindestens 3 Stellen haben")]
+        public string Name
+        {
+            get { return GetValue(() => Name); }
+            set { SetValue(() => Name, value); }
+        }
 
         public Kategorie()
         {

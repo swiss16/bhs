@@ -15,8 +15,9 @@ namespace DA_Buchhaltung.viewModel
     {
         //NavigationsProperties
         private Model model = new Model();
-        public KundeViewModel kundenViewModel;
-        public KreditorViewModel kreditorViewModel;
+        public KundeViewModel KundenViewModel;
+        public KreditorViewModel KreditorViewModel;
+        public EinstellungenViewModel EinstellungenViewModel;
 
         //Properties
         private string _currentDate = string.Format("Datum: {0}", DateTime.Now.ToShortDateString());
@@ -36,44 +37,60 @@ namespace DA_Buchhaltung.viewModel
 
 
         //Commands
-       
-        private RelayCommand<string> _beendenCommand;
-        public RelayCommand<string> BeendenCommand
+
+        private SimpleCommand _beendenCommand;
+        public SimpleCommand BeendenCommand
         {
-            get { return _beendenCommand ?? (_beendenCommand = new RelayCommand<string>(Beenden)); }
+            get { return _beendenCommand ?? (_beendenCommand = new SimpleCommand(Beenden)); }
         }
 
-        private RelayCommand<string> _zeigeKundenCommand;
-        public RelayCommand<string> ZeigeKundenCommand
+        private SimpleCommand _zeigeKundenCommand;
+        public SimpleCommand ZeigeKundenCommand
         {
-            get { return _zeigeKundenCommand ?? (_zeigeKundenCommand = new RelayCommand<string>(ZeigeKunden)); }
+            get { return _zeigeKundenCommand ?? (_zeigeKundenCommand = new SimpleCommand(ZeigeKunden)); }
         }
 
-        private RelayCommand<string> _zeigeKreditorCommand;
-        public RelayCommand<string> ZeigeKreditorCommand
+        private SimpleCommand _zeigeKreditorCommand;
+        public SimpleCommand ZeigeKreditorCommand
         {
-            get { return _zeigeKreditorCommand ?? (_zeigeKreditorCommand = new RelayCommand<string>(ZeigeKreditor)); }
+            get { return _zeigeKreditorCommand ?? (_zeigeKreditorCommand = new SimpleCommand(ZeigeKreditor)); }
+        }
+
+        private SimpleCommand _zeigeEinstellungenCommand;
+        public SimpleCommand ZeigeEinstellungenCommand
+        {
+            get { return _zeigeEinstellungenCommand ?? (_zeigeEinstellungenCommand = new SimpleCommand(ZeigeEinstellungen)); }
         }
 
 
         //Commandhelper
 
-        private void Beenden(string x)
+        private void Beenden()
         {
             Application.Current.Shutdown();
         }
 
-        private void ZeigeKunden(string x)
+        private void ZeigeKunden()
         {
-            kundenViewModel.IstKundenAktiv = true;
-            kreditorViewModel.IstKreditorAktiv = false;
+            KundenViewModel.IstKundenAktiv = true;
+            KreditorViewModel.IstKreditorAktiv = false;
+            EinstellungenViewModel.IstEinstellungenAktiv = false;
         }
 
-        private void ZeigeKreditor(string x)
+        private void ZeigeKreditor()
         {
-            kundenViewModel.IstKundenAktiv = false;
-            kreditorViewModel.IstKreditorAktiv = true;
+            KundenViewModel.IstKundenAktiv = false;
+            KreditorViewModel.IstKreditorAktiv = true;
+            EinstellungenViewModel.IstEinstellungenAktiv = false;
         }
+
+        private void ZeigeEinstellungen()
+        {
+            KundenViewModel.IstKundenAktiv = false;
+            KreditorViewModel.IstKreditorAktiv = false;
+            EinstellungenViewModel.IstEinstellungenAktiv = true;
+        }
+
         public MainViewModel()
         {
             

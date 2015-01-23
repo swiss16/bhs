@@ -119,12 +119,16 @@
     <Compile Include="model\Person.cs" />
     <Compile Include="model\PreisOption.cs" />
     <Compile Include="model\Rechnung.cs" />
+    <Compile Include="userforms\UC_Einstellungen.xaml.cs">
+      <DependentUpon>UC_Einstellungen.xaml</DependentUpon>
+    </Compile>
     <Compile Include="userforms\UC_Kreditor.xaml.cs">
       <DependentUpon>UC_Kreditor.xaml</DependentUpon>
     </Compile>
     <Compile Include="userforms\UC_Kunde.xaml.cs">
       <DependentUpon>UC_Kunde.xaml</DependentUpon>
     </Compile>
+    <Compile Include="viewModel\EinstellungenViewModel.cs" />
     <Compile Include="viewModel\KreditorViewModel.cs" />
     <Compile Include="viewModel\KundeViewModel.cs" />
     <Compile Include="viewModel\MainViewModel.cs" />
@@ -157,6 +161,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="userforms\UC_Einstellungen.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="userforms\UC_Kreditor.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

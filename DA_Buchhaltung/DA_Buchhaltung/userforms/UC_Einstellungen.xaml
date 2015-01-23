@@ -1,0 +1,140 @@
+﻿<UserControl x:Class="DA_Buchhaltung.userforms.UC_Einstellungen"
+             DataContext="{Binding ViewModel, RelativeSource={RelativeSource Self}}"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="1000" d:DesignWidth="700">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="35" />
+            <RowDefinition Height="180" />
+            <RowDefinition Height="20" />
+            <RowDefinition Height="180" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <!-- Header Titel -->
+        <StackPanel Grid.Column="0" Grid.Row="0">
+            <Label Content="Einstellungen" FontWeight="Bold" FontSize="18" HorizontalAlignment="Center"></Label>
+            <Rectangle Height="2" Fill="Black"></Rectangle>
+        </StackPanel>
+        <!-- Kategorien -->
+        <Grid Grid.Column="0" Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1.5*" />
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="1*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="25" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <!-- Kategorien Titel -->
+            <StackPanel Grid.ColumnSpan="5" Grid.Row="0">
+                <Label Content="Kategorien" FontWeight="Bold" FontSize="16" HorizontalAlignment="Center"></Label>
+            </StackPanel>
+            <!-- Kategorien Listbox-->
+            <StackPanel Grid.Column="0" Grid.Row="1" Grid.RowSpan="5">
+                <ListBox Margin="5,5,5,5" SelectionMode="Single" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto" Height="150"
+                         ItemsSource="{Binding KategorieListe}" SelectedItem="{Binding AktuelleKategorie}"  >
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Name}"/>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </StackPanel>
+            <!-- Kategorien Buttons -->
+            <StackPanel Grid.Column="1" Grid.Row="2">
+                <Button Content="Neue Kategorie" Command="{Binding NeueKategorieCommand}" Margin="5,5,5,5" Width="110"></Button>
+            </StackPanel>
+            <StackPanel Grid.Column="1" Grid.Row="4">
+                <Button Content="Kategorie Löschen" Command="{Binding LoescheKategorieCommand}" IsEnabled="{Binding KeineNeueKategorieAktiv}" Margin="5,5,5,5" Width="110"></Button>
+            </StackPanel>
+            <!-- Kategorien Label -->
+            <StackPanel Grid.Column="2" Grid.Row="3">
+                <Label Content="Beschreibung:" FontSize="14" Margin="5,5,5,5"></Label>
+            </StackPanel>
+            <!-- Kategorien Inputfield -->
+            <StackPanel Grid.Column="3" Grid.Row="3">
+                <TextBox x:Name="TbKat" Text="{Binding AktuelleKategorie.Name, ValidatesOnDataErrors=True,NotifyOnValidationError=True}" Validation.Error="Validation_Error" FontSize="14" Margin="5,5,5,5"></TextBox>
+            </StackPanel>
+            <StackPanel Grid.Column="3" Grid.ColumnSpan="2" Grid.Row="4">
+                <TextBlock Text="{Binding (Validation.Errors)[0].ErrorContent, ElementName=TbKat}" Foreground="Red" Margin="5,0,0,0" FontSize="10" TextWrapping="Wrap"/>
+            </StackPanel>
+            <!-- Kategorien Save Button -->
+            <StackPanel Grid.Column="4" Grid.Row="3">
+                <Button Content="Speichern" Command="{Binding SpeichereKategorieCommand}" HorizontalAlignment="Center" Margin="5,5,5,5" Width="80"></Button>
+            </StackPanel>
+        </Grid>
+        <StackPanel Grid.Column="0" Grid.Row="2">
+            <Rectangle Height="2" Fill="Black" Margin="0,12,0,0"></Rectangle>
+        </StackPanel>
+        <!-- Preisoptionen -->
+        <Grid Grid.Column="0" Grid.Row="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="4*" />
+                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="1.5*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="25" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <!-- Preisoptionen Titel -->
+            <StackPanel Grid.ColumnSpan="5" Grid.Row="0">
+                <Label Content="Preise Konfigurieren" FontWeight="Bold" FontSize="16" HorizontalAlignment="Center"></Label>
+            </StackPanel>
+            <!-- Preisoptionen Datagrid-->
+            <StackPanel Grid.Column="0" Grid.Row="1" Grid.RowSpan="5">
+                <DataGrid Margin="5,5,5,5" CanUserSortColumns="True" SelectionMode="Single" AutoGenerateColumns="False" IsReadOnly="True" ClipboardCopyMode="None"
+                    ItemsSource="{Binding PreisOptionsListe}"
+                    SelectedItem="{Binding AktuellePreisOption}">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="1.6*"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Preis" Binding="{Binding Preis}" Width="*"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Kategorie" Binding="{Binding PreisKatalog}" Width="2*"></DataGridTextColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </StackPanel>
+            <!-- Preisoptionen Subtitle und Preis pro Einheit -->
+            <StackPanel Grid.Column="1" Grid.Row="2">
+                <Label Content="{Binding AktuellePreisOption.Name}" FontSize="14" FontWeight="Bold" Margin="5,5,5,5"></Label>
+            </StackPanel>
+            <StackPanel Grid.Column="1" Grid.Row="3">
+                <Label Content="Preis pro Einheit:" FontSize="14" Margin="5,5,5,5"></Label>
+            </StackPanel>
+            <!-- Preisoptionen Inputfield -->
+            <StackPanel Grid.Column="2" Grid.Row="3">
+                <TextBox x:Name="TbPrOpt" Text="{Binding AktuellePreisOption.Preis, ValidatesOnDataErrors=True,NotifyOnValidationError=True}" Validation.Error="Validation_Error" FontSize="14" Margin="5,5,5,5"></TextBox>
+            </StackPanel>
+            <StackPanel Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="4">
+                <TextBlock Text="{Binding (Validation.Errors)[0].ErrorContent, ElementName=TbPrOpt}" Foreground="Red" Margin="5,0,0,0" FontSize="10" TextWrapping="Wrap"/>
+            </StackPanel>
+            <!-- Preisoptionen Einheit -->
+            <StackPanel Grid.Column="3" Grid.Row="3">
+                <Label Content=".- Fr." FontSize="14" Margin="5,5,5,5"></Label>
+            </StackPanel>
+            <!-- Preisoptionen Save Button -->
+            <StackPanel Grid.Column="4" Grid.Row="3">
+                <Button Content="Speichern" Command="{Binding SpeicherePreisOptionCommand}" HorizontalAlignment="Center" Margin="5,5,5,5" Width="80"></Button>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</UserControl>

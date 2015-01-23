@@ -39,11 +39,18 @@ namespace DA_Buchhaltung
             get { return _ucKreditorviewModel; }
         }
 
+        private readonly EinstellungenViewModel _ucEinstellungenviewModel = new EinstellungenViewModel();
+        public EinstellungenViewModel UcEinstellungenViewModel
+        {
+            get { return _ucEinstellungenviewModel; }
+        }
+
         public MainWindow()
         {
             InitializeComponent();
-            ViewModel.kreditorViewModel = UcKreditorViewModel;
-            ViewModel.kundenViewModel = UcKundeViewModel;
+            ViewModel.KreditorViewModel = UcKreditorViewModel;
+            ViewModel.KundenViewModel = UcKundeViewModel;
+            ViewModel.EinstellungenViewModel = UcEinstellungenViewModel;
 
         }
 

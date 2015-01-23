@@ -276,24 +276,29 @@ namespace DA_Buchhaltung.wrapper
                     1);
                 throw new Exception("Fehler beim Datenbankzugriff. Weitere Informationen stehen im Logfile.");
             }
+            //DateTime date = new DateTime();
+            DateTime currentDate = DateTime.Now;
             IQueryable<PreisOption> list = from r in db.TBL_Option
-                                           where r.Konfigurierbar == true && r.PreisEndDatum.Date < DateTime.Now.Date
+                                           where r.Konfigurierbar == true
                                            select new PreisOption
                                            {
                                                ID = r.Option_ID,
                                                Name = r.Name,
                                                Preis = r.Einheitspreis,
-                                               PreisKatalog = PreisKatalog.Option
+                                               PreisKatalog = PreisKatalog.Option,
+                                               StartDate = r.PreisStartDatum,
+                                               EndDate = r.PreisEndDatum
                                            };
 
             IQueryable<PreisOption> list2 = from r in db.TBL_Dienstleistung
-                                           where r.PreisEndDatum.Date < DateTime.Now.Date
                                            select new PreisOption
                                            {
                                                ID = r.Dienstleistung_ID,
                                                Name = r.Name,
                                                Preis = r.Preis,
-                                               PreisKatalog = PreisKatalog.Dienstleistung
+                                               PreisKatalog = PreisKatalog.Dienstleistung,
+                                               StartDate = r.PreisStartDatum,
+                                               EndDate = r.PreisEndDatum
                                            };
             preisOptionsListe = new List<PreisOption>();
             foreach (var dienstleistung in list2.ToList())
@@ -304,7 +309,7 @@ namespace DA_Buchhaltung.wrapper
             {
                 preisOptionsListe.Add(option);
             }
-
+            preisOptionsListe = preisOptionsListe.Where(i => (i.StartDate <= currentDate)&&(i.EndDate>=currentDate)).ToList();
             return preisOptionsListe;
         }
 
@@ -554,12 +559,12 @@ namespace DA_Buchhaltung.wrapper
                 }
                 try
                 {
-                    dlg.PreisEndDatum = DateTime.Now.Date;
+                    dlg.PreisEndDatum = DateTime.Now;
                     var newDlg = new TBL_Dienstleistung();
                     newDlg.Name = preisOption.Name;
                     newDlg.Preis = preisOption.Preis;
-                    newDlg.PreisStartDatum = DateTime.Now.AddDays(1).Date;
-                    newDlg.PreisEndDatum = newDlg.PreisStartDatum.AddYears(100).Date;
+                    newDlg.PreisStartDatum = DateTime.Now.AddSeconds(1);
+                    newDlg.PreisEndDatum = newDlg.PreisStartDatum.AddYears(100);
                     db.TBL_Dienstleistung.Add(newDlg);
                 }
                 catch (Exception)
@@ -581,13 +586,13 @@ namespace DA_Buchhaltung.wrapper
                 }
                 try
                 {
-                    opt.PreisEndDatum = DateTime.Now.Date;
+                    opt.PreisEndDatum = DateTime.Now;
                     var newOpt = new TBL_Option();
                     newOpt.Einheitspreis = preisOption.Preis;
                     newOpt.Konfigurierbar = true;
                     newOpt.Name = preisOption.Name;
-                    newOpt.PreisStartDatum = DateTime.Now.AddDays(1).Date;
-                    newOpt.PreisEndDatum = newOpt.PreisStartDatum.AddYears(100).Date;
+                    newOpt.PreisStartDatum = DateTime.Now.AddSeconds(1);
+                    newOpt.PreisEndDatum = newOpt.PreisStartDatum.AddYears(100);
                     db.TBL_Option.Add(newOpt);
                 }
                 catch (Exception)
