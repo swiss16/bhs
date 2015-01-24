@@ -82,12 +82,14 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*" />
                 <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="1*" />
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             <Label Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Center" Content="{Binding CurrentDate}" Margin="30,0,0,0" FontSize="16px"></Label>
-            <Label Grid.Column="1" Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Center" Content="Copyright © 2015 by Martin Osterwalder" Margin="0,0,30,0" FontSize="16px"></Label>
+            <Label Grid.Column="1" Grid.Row="0" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Alle Preise in Schweizer Franken ohne MwSt." Margin="0,0,0,0"></Label>
+            <Label Grid.Column="2" Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Center" Content="Copyright © 2015 by Martin Osterwalder" Margin="0,0,30,0" FontSize="16px"></Label>
         </Grid>
     </Grid>
 </Window>
