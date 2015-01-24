@@ -55,7 +55,6 @@ namespace DA_Buchhaltung.model
         public string TelMobile { get; set; }
         public string Fax { get; set; }
         public string Email { get; set; }
-        
         public DateTime ErfDatum { get; set; }
 
         public Person()

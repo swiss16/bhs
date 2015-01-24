@@ -157,7 +157,7 @@
             <Label Content="Erfasst am:" FontSize="12"></Label>
         </StackPanel>
         <StackPanel Grid.Column="1" Grid.Row="15">
-            <Label Content="{Binding AktuellerKreditor.ErfDatum.Date}" FontSize="12"></Label>
+            <Label Content="{Binding AktuellerKreditor.ErfDatum.Date}" FontSize="12" ContentStringFormat="dd.MM.yyyy"></Label>
         </StackPanel>
 
         <StackPanel Grid.Column="0" Grid.Row="16">

@@ -104,11 +104,11 @@ namespace DA_Buchhaltung.viewModel
             {
                 if (value != null)
                 {
+                    AktuelleRechnung.Kategorie = value.Name;
                     if (value.ID != _aktuelleKategorie.ID)
                     {
                         _aktuelleKategorie = value;
-                        OnPropertyChanged("AktuelleKategorie");
-                        AktuelleRechnung.Kategorie = value.Name;
+                        OnPropertyChanged("AktuelleKategorie");        
                     }
                 }
                 else
@@ -132,7 +132,7 @@ namespace DA_Buchhaltung.viewModel
                 {
                     _istRechnungAktiv = value;
                     OnPropertyChanged("IstRechnungAktiv");
-                    LadeRechnungen();
+                    UpdateKreditor(AktuelleKreditorId);
                 }
             }
         }
@@ -147,7 +147,7 @@ namespace DA_Buchhaltung.viewModel
                 {
                     _istRueckzahlungAktiv = value;
                     OnPropertyChanged("IstRueckzahlungAktiv");
-                    LadeRechnungen();
+                    UpdateKreditor(AktuelleKreditorId);
                 }
             }
         }
@@ -208,9 +208,11 @@ namespace DA_Buchhaltung.viewModel
         private void NeueRechnung()
         {
             AktuelleRechnung = new Rechnung();
+            AktuelleRechnung.KreditorID = AktuelleKreditorId;
             if (KategorienListe.Any())
             {
                 AktuelleKategorie = KategorienListe.First();
+                UpdateKategorie(AktuelleKategorie.Name);
             }
             
         }
@@ -396,6 +398,7 @@ namespace DA_Buchhaltung.viewModel
             AktuelleKreditorId = id;
             AktuelleRechnung.KreditorID = id;
             LadeRechnungen();
+            UpdateKategorie(AktuelleRechnung.Kategorie);
         }
 
 

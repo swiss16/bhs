@@ -141,7 +141,7 @@
             <Label Content="Erfasst am:" FontSize="12"></Label>
         </StackPanel>
         <StackPanel Grid.Column="1" Grid.Row="13">
-            <Label Content="{Binding AktuellerKunde.ErfDatum.Date}" FontSize="12"></Label>
+            <Label Content="{Binding AktuellerKunde.ErfDatum.Date}" FontSize="12" ContentStringFormat="dd.MM.yyyy"></Label>
         </StackPanel>
 
         <!-- TODO: Hier wäre Reminder -->
