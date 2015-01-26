@@ -8,11 +8,11 @@ using System.Windows;
 // Attribute gesteuert. Ändern Sie diese Attributwerte, um die Informationen zu ändern,
 // die mit einer Assembly verknüpft sind.
 [assembly: AssemblyTitle("DA_Buchhaltung")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Nailartist Financial Manager")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("Martin Osterwalder")]
 [assembly: AssemblyProduct("DA_Buchhaltung")]
-[assembly: AssemblyCopyright("Copyright ©  2014")]
+[assembly: AssemblyCopyright("Copyright ©  2014 by Martin Osterwalder")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
