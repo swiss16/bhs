@@ -141,6 +141,9 @@
     <Compile Include="userforms\UC_Einstellungen.xaml.cs">
       <DependentUpon>UC_Einstellungen.xaml</DependentUpon>
     </Compile>
+    <Compile Include="userforms\UC_Erfolgsrechnung.xaml.cs">
+      <DependentUpon>UC_Erfolgsrechnung.xaml</DependentUpon>
+    </Compile>
     <Compile Include="userforms\UC_Kreditor.xaml.cs">
       <DependentUpon>UC_Kreditor.xaml</DependentUpon>
     </Compile>
@@ -151,6 +154,7 @@
       <DependentUpon>UC_Rechnung.xaml</DependentUpon>
     </Compile>
     <Compile Include="viewModel\EinstellungenViewModel.cs" />
+    <Compile Include="viewModel\ErfolgsrechnungViewModel.cs" />
     <Compile Include="viewModel\KreditorViewModel.cs" />
     <Compile Include="viewModel\KundeViewModel.cs" />
     <Compile Include="viewModel\MainViewModel.cs" />
@@ -185,6 +189,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="userforms\UC_Einstellungen.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="userforms\UC_Erfolgsrechnung.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

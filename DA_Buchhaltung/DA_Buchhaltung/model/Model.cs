@@ -672,6 +672,7 @@ namespace DA_Buchhaltung.model
             else
             {
                 erfolgsrechnung = new Erfolgsrechnung();
+                erfolgsrechnung.ID = 1;
                 if (istJahresabrechnung)
                 {
                     erfolgsrechnung.IstJahresabrechnung = true;
