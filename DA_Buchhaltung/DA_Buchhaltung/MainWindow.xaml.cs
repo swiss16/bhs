@@ -51,6 +51,13 @@ namespace DA_Buchhaltung
             get { return _ucEinstellungenviewModel; }
         }
 
+        private readonly ErfolgsrechnungViewModel _ucErfolgsrechnungViewModel = new ErfolgsrechnungViewModel();
+
+        public ErfolgsrechnungViewModel UcErfolgsrechnungViewModel
+        {
+            get { return _ucErfolgsrechnungViewModel; }
+        }
+
         public MainWindow()
         {
             InitializeComponent();
@@ -59,6 +66,7 @@ namespace DA_Buchhaltung
             ViewModel.KundenViewModel = UcKundeViewModel;
             ViewModel.EinstellungenViewModel = UcEinstellungenViewModel;
             ViewModel.RechnungViewModel = UcRechnungViewModel;
+            ViewModel.ErfolgsrechnungViewModel = UcErfolgsrechnungViewModel;
 
             //Hilfsnavigationen für Childs
             ViewModel.KreditorViewModel.RechnungViewModel = UcRechnungViewModel;

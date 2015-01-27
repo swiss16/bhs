@@ -19,6 +19,7 @@ namespace DA_Buchhaltung.viewModel
         public KreditorViewModel KreditorViewModel;
         public EinstellungenViewModel EinstellungenViewModel;
         public RechnungViewModel RechnungViewModel;
+        public ErfolgsrechnungViewModel ErfolgsrechnungViewModel;
 
 
         //Properties
@@ -74,6 +75,12 @@ namespace DA_Buchhaltung.viewModel
             get { return _zeigeRueckzahlungenCommand ?? (_zeigeRueckzahlungenCommand = new SimpleCommand(ZeigeRueckzahlungen)); }
         }
 
+        private SimpleCommand _zeigeErfolgsrechnungCommand;
+        public SimpleCommand ZeigeErfolgsrechnungCommand
+        {
+            get { return _zeigeErfolgsrechnungCommand ?? (_zeigeErfolgsrechnungCommand = new SimpleCommand(ZeigeErfolgsrechnung)); }
+        }
+
 
         //Commandhelper
 
@@ -89,6 +96,7 @@ namespace DA_Buchhaltung.viewModel
             RechnungViewModel.IstRechnungAktiv = false;
             RechnungViewModel.IstRueckzahlungAktiv = false;
             EinstellungenViewModel.IstEinstellungenAktiv = false;
+            ErfolgsrechnungViewModel.IstErfolgsrechnungAktiv = false;
         }
 
         private void ZeigeKreditor()
@@ -98,6 +106,7 @@ namespace DA_Buchhaltung.viewModel
             RechnungViewModel.IstRechnungAktiv = false;
             RechnungViewModel.IstRueckzahlungAktiv = false;
             EinstellungenViewModel.IstEinstellungenAktiv = false;
+            ErfolgsrechnungViewModel.IstErfolgsrechnungAktiv = false;
         }
 
         private void ZeigeEinstellungen()
@@ -107,6 +116,7 @@ namespace DA_Buchhaltung.viewModel
             RechnungViewModel.IstRechnungAktiv = false;
             RechnungViewModel.IstRueckzahlungAktiv = false;
             EinstellungenViewModel.IstEinstellungenAktiv = true;
+            ErfolgsrechnungViewModel.IstErfolgsrechnungAktiv = false;
         }
 
         private void ZeigeRechnungen()
@@ -116,6 +126,7 @@ namespace DA_Buchhaltung.viewModel
             RechnungViewModel.IstRechnungAktiv = true;
             RechnungViewModel.IstRueckzahlungAktiv = false;
             EinstellungenViewModel.IstEinstellungenAktiv = false;
+            ErfolgsrechnungViewModel.IstErfolgsrechnungAktiv = false;
         }
         private void ZeigeRueckzahlungen()
         {
@@ -124,6 +135,16 @@ namespace DA_Buchhaltung.viewModel
             RechnungViewModel.IstRechnungAktiv = false;
             RechnungViewModel.IstRueckzahlungAktiv = true;
             EinstellungenViewModel.IstEinstellungenAktiv = false;
+            ErfolgsrechnungViewModel.IstErfolgsrechnungAktiv = false;
+        }
+        private void ZeigeErfolgsrechnung()
+        {
+            KundenViewModel.IstKundenAktiv = false;
+            KreditorViewModel.IstKreditorAktiv = false;
+            RechnungViewModel.IstRechnungAktiv = false;
+            RechnungViewModel.IstRueckzahlungAktiv = false;
+            EinstellungenViewModel.IstEinstellungenAktiv = false;
+            ErfolgsrechnungViewModel.IstErfolgsrechnungAktiv = true;
         }
 
         public MainViewModel()

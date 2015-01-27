@@ -26,7 +26,7 @@
                 <MenuItem Width="auto" Height="auto" Header="Beenden" Command="{Binding BeendenCommand}"/>
             </MenuItem>
             <MenuItem Width="auto" Height="auto" Header="Statistik">
-                <MenuItem Width="auto" Height="auto" Header="Erfolgsrechnung"></MenuItem>
+                <MenuItem Width="auto" Height="auto" Header="Erfolgsrechnung" Command="{Binding ZeigeErfolgsrechnungCommand}"></MenuItem>
                 <MenuItem Width="auto" Height="auto" Header="Stammkunden" Visibility="Collapsed"></MenuItem>
                 <MenuItem Width="auto" Height="auto" Header="Ausgaben" Visibility="Collapsed"></MenuItem>
             </MenuItem>
@@ -65,6 +65,7 @@
                 <uc:UC_Einstellungen DataContext="{Binding UcEinstellungenViewModel, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}" Visibility="{Binding IstEinstellungenAktiv, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=Hidden}"></uc:UC_Einstellungen>
                 <uc:UC_Rechnung DataContext="{Binding UcRechnungViewModel, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}" Visibility="{Binding IstRechnungAktiv, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=Hidden}"></uc:UC_Rechnung>
                 <uc:UC_Rechnung DataContext="{Binding UcRechnungViewModel, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}" Visibility="{Binding IstRueckzahlungAktiv, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=Hidden}"></uc:UC_Rechnung>
+                <uc:UC_Erfolgsrechnung DataContext="{Binding UcErfolgsrechnungViewModel, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}" Visibility="{Binding IstErfolgsrechnungAktiv, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=Hidden}"></uc:UC_Erfolgsrechnung>
 
             </StackPanel>
              <!--Verwaltungen-->

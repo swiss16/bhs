@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,9 +17,6 @@ namespace DA_Buchhaltung.viewModel
         //NavigationsProperties
         Model model = new Model();
 
-        //Statische Felder
-        public static int Errors { get; set; }
-
         //Properties
         
         private Erfolgsrechnung _aktuelleErfolgsrechnung = new Erfolgsrechnung();
@@ -27,21 +25,178 @@ namespace DA_Buchhaltung.viewModel
             get { return _aktuelleErfolgsrechnung; }
             set
             {
-                if (value != null)
-                {
-                    if (value.ID != _aktuelleErfolgsrechnung.ID)
-                    {
                         _aktuelleErfolgsrechnung = value;
                         OnPropertyChanged("AktuelleErfolgsrechnung");
                         UpdateLists();
+            }
+        }
+
+        private DateTime _startDatum = DateTime.Now.Date;
+        public DateTime StartDatum
+        {
+            get { return _startDatum; }
+            set
+            {
+                if (value != _startDatum)
+                {
+                    _startDatum = value;
+                    OnPropertyChanged("StartDatum");
+                    AktuelleErfolgsrechnung.StartDatum = value;
+
+                }
+            }
+        }
+
+        private DateTime _endDatum = DateTime.Now.AddDays(1).Date;
+        public DateTime EndDatum
+        {
+            get { return _endDatum; }
+            set
+            {
+                if (value != _endDatum)
+                {
+                    _endDatum = value;
+                    OnPropertyChanged("EndDatum");
+                    AktuelleErfolgsrechnung.EndDatum = value;
+
+                }
+            }
+        }
+
+        private decimal _total = 0.0m;
+        public decimal Total
+        {
+            get { return _total; }
+            set
+            {
+                if (value != _total)
+                {
+                    _total = value;
+                    OnPropertyChanged("Total");
+                    AktuelleErfolgsrechnung.Gewinn = value;
+                    IstGewinn = value >=0;
+
+                }
+            }
+        }
+
+        private decimal _subtotalEinnahme = 0.0m;
+        public decimal SubtotalEinnahme
+        {
+            get { return _subtotalEinnahme; }
+            set
+            {
+                if (value != _subtotalEinnahme)
+                {
+                    _subtotalEinnahme = value;
+                    OnPropertyChanged("SubtotalEinnahme");
+                    AktuelleErfolgsrechnung.SubtotalEinnahmen = value;
+
+                }
+            }
+        }
+
+        private decimal _subtotalAusgabe = 0.0m;
+        public decimal SubtotalAusgabe
+        {
+            get { return _subtotalAusgabe; }
+            set
+            {
+                if (value != _subtotalAusgabe)
+                {
+                    _subtotalAusgabe = value;
+                    OnPropertyChanged("SubtotalAusgabe");
+                    AktuelleErfolgsrechnung.SubtotalAusgaben = value;
+
+                }
+            }
+        }
+
+        private bool _istGewinn = true;
+        public bool IstGewinn
+        {
+            get { return _istGewinn; }
+            set
+            {
+                if (value != _istGewinn)
+                {
+                    _istGewinn = value;
+                    OnPropertyChanged("IstGewinn");
+                    if (_istGewinn)
+                    {
+                        IstVerlust = false;
+                    }
+                    else
+                    {
+                        IstVerlust = true;
                     }
                 }
-                else
+            }
+        }
+
+        private bool _istVerlust = false;
+        public bool IstVerlust
+        {
+            get { return _istVerlust; }
+            set
+            {
+                if (value != _istVerlust)
                 {
-                    AktuelleErfolgsrechnung = new Erfolgsrechnung();
+                    _istVerlust = value;
+                    OnPropertyChanged("IstVerlust");
                 }
+            }
+        }
 
+        private bool _jahresrechnung = true;
+        public bool Jahresrechnung
+        {
+            get { return _jahresrechnung; }
+            set
+            {
+                if (value != _jahresrechnung)
+                {
+                    _jahresrechnung = value;
+                    OnPropertyChanged("Jahresrechnung");
+                    if (value)
+                    {
+                        AktuelleErfolgsrechnung.IstJahresabrechnung = true;
+                        KeineJahresrechnung = false;
+                    }
+                    else
+                    {
+                        AktuelleErfolgsrechnung.IstJahresabrechnung = false;
+                        KeineJahresrechnung = true;
+                    }
+                }
+            }
+        }
 
+        private bool _keineJahresrechnung = false;
+        public bool KeineJahresrechnung
+        {
+            get { return _keineJahresrechnung; }
+            set
+            {
+                if (value != _keineJahresrechnung)
+                {
+                    _keineJahresrechnung = value;
+                    OnPropertyChanged("KeineJahresrechnung");
+                }
+            }
+        }
+
+        private bool _wurdeGeneriert = false;
+        public bool WurdeGeneriert
+        {
+            get { return _wurdeGeneriert; }
+            set
+            {
+                if (value != _wurdeGeneriert)
+                {
+                    _wurdeGeneriert = value;
+                    OnPropertyChanged("WurdeGeneriert");
+                }
             }
         }
 
@@ -117,11 +272,16 @@ namespace DA_Buchhaltung.viewModel
                     MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
-            if (Errors != 0)
+            if (AktuelleErfolgsrechnung.StartDatum >= AktuelleErfolgsrechnung.EndDatum)
             {
-                return;
+                if (!AktuelleErfolgsrechnung.IstJahresabrechnung)
+                {
+                    MessageBox.Show("Das Startdatum muss vor dem Enddatum liegen", "Erstellen Abgebrochen",
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+                    return;
+                }
+                
             }
-
             if (AktuelleErfolgsrechnung.IstJahresabrechnung)
             {
                 AktuelleErfolgsrechnung = model.ErstelleErfolgsrechnung(AktuelleErfolgsrechnung.StartDatum.Year);
@@ -131,6 +291,15 @@ namespace DA_Buchhaltung.viewModel
                 AktuelleErfolgsrechnung = model.ErstelleErfolgsrechnung(AktuelleErfolgsrechnung.StartDatum,
                     AktuelleErfolgsrechnung.EndDatum);
             }
+            Total = AktuelleErfolgsrechnung.Gewinn;
+            StartDatum = AktuelleErfolgsrechnung.StartDatum;
+            EndDatum = AktuelleErfolgsrechnung.EndDatum;
+            SubtotalAusgabe = AktuelleErfolgsrechnung.SubtotalAusgaben;
+            SubtotalEinnahme = AktuelleErfolgsrechnung.SubtotalEinnahmen;
+
+            UpdateLists();
+            IstGewinn = AktuelleErfolgsrechnung.Gewinn >= 0;
+            WurdeGeneriert = true;
 
         }
 
@@ -157,7 +326,7 @@ namespace DA_Buchhaltung.viewModel
         //Konstruktor
         public ErfolgsrechnungViewModel()
         {
-            
+            AktuelleErfolgsrechnung.IstJahresabrechnung = true;
         }
     }
 }
