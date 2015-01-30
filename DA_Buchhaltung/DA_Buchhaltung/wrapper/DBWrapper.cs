@@ -276,7 +276,6 @@ namespace DA_Buchhaltung.wrapper
                     1);
                 throw new Exception("Fehler beim Datenbankzugriff. Weitere Informationen stehen im Logfile.");
             }
-            //DateTime date = new DateTime();
             DateTime currentDate = DateTime.Now;
             IQueryable<PreisOption> list = from r in db.TBL_Option
                                            where r.Konfigurierbar == true
@@ -352,8 +351,11 @@ namespace DA_Buchhaltung.wrapper
                     1);
                 throw new Exception("Fehler beim Datenbankzugriff. Weitere Informationen stehen im Logfile.");
             }
+
+            DateTime currentDate = DateTime.Now;
+
             IQueryable<Option> list = from r in db.TBL_Option
-                                         where r.Konfigurierbar == true && r.PreisEndDatum.Date>=DateTime.Now.Date
+                                         where r.Konfigurierbar == true
                                          select new Option
                                          {
                                              ID = r.Option_ID,
@@ -363,9 +365,12 @@ namespace DA_Buchhaltung.wrapper
                                              Konfigurierbar = true,
                                              Name = r.Name,
                                              PreisInFranken = r.Einheitspreis,
-                                             WurdeGeloescht = false
+                                             WurdeGeloescht = false,
+                                             StartDate = r.PreisStartDatum,
+                                             EndDate =  r.PreisEndDatum
                                          };
             optionenListe = list.ToList();
+            optionenListe = optionenListe.Where(i => (i.StartDate <= currentDate) && (i.EndDate >= currentDate)).ToList();
 
             return optionenListe;
         }
@@ -1115,8 +1120,8 @@ namespace DA_Buchhaltung.wrapper
                                 Name = option.Name,
                                 Einheitspreis = option.Einheitspreis,
                                 Konfigurierbar = false,
-                                PreisEndDatum = DateTime.Now.AddDays(1).Date,
-                                PreisStartDatum = DateTime.Now.Date
+                                PreisStartDatum = DateTime.Now,
+                                PreisEndDatum = DateTime.Now.AddSeconds(1)
                             };
                             try
                             {
@@ -1198,7 +1203,8 @@ namespace DA_Buchhaltung.wrapper
                     Person_ID = auftrag.KundeID,
                     Rabatt = auftrag.Rabatt,
                     RabattInProzent = auftrag.RabattInProzent,
-                    Total = auftrag.Total
+                    Total = auftrag.Total,
+                    ErfassungsDatum = DateTime.Now
                 };
                 try
                 {

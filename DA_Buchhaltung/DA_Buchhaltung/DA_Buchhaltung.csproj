@@ -53,10 +53,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework">
-      <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.1.2\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework.SqlServer">
-      <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.1.2\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -136,6 +136,7 @@
     <Compile Include="model\Kreditor.cs" />
     <Compile Include="model\Option.cs" />
     <Compile Include="model\Person.cs" />
+    <Compile Include="model\Position.cs" />
     <Compile Include="model\PreisOption.cs" />
     <Compile Include="model\Rechnung.cs" />
     <Compile Include="userforms\UC_Einstellungen.xaml.cs">
@@ -153,6 +154,7 @@
     <Compile Include="userforms\UC_Rechnung.xaml.cs">
       <DependentUpon>UC_Rechnung.xaml</DependentUpon>
     </Compile>
+    <Compile Include="viewModel\AuftragViewModel.cs" />
     <Compile Include="viewModel\EinstellungenViewModel.cs" />
     <Compile Include="viewModel\ErfolgsrechnungViewModel.cs" />
     <Compile Include="viewModel\KreditorViewModel.cs" />

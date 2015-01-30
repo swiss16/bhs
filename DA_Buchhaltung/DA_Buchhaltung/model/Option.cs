@@ -16,6 +16,8 @@ namespace DA_Buchhaltung.model
         public bool Konfigurierbar { get; set; }
         public bool BereitsVorhanden { get; set; }
         public bool WurdeGeloescht { get; set; }
+        public DateTime StartDate { get; set; }
+        public DateTime EndDate { get; set; }
 
         public Option()
         {
@@ -27,6 +29,8 @@ namespace DA_Buchhaltung.model
             this.Konfigurierbar = false;
             this.BereitsVorhanden = false;
             this.WurdeGeloescht = false;
+            this.StartDate = DateTime.Now;
+            this.EndDate = DateTime.Now.AddSeconds(1);
         }
 
     }

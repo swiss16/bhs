@@ -29,7 +29,21 @@ namespace DA_Buchhaltung.model
             this.Bilder = new List<Bild>();
             this.Total = 0.0m;
             this.Rabatt = 0.0m;
-            this.RabattInProzent = false;
+            this.RabattInProzent = true;
+            this.Dienstleistung = new Dienstleistung();
+        }
+
+        /// <summary>
+        /// Stellt eine druckbare Htmlseite, gemäss dem Auftragobjekt zusammen. Gibt true zurück, wenn es erfolgreich war.
+        /// </summary>
+        /// <returns></returns>
+        public bool Print()
+        {
+            bool returnValue = false;
+            //todo:implement printmethod
+
+
+            return returnValue;
         }
     }
 }
