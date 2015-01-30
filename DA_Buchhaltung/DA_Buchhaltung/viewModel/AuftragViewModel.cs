@@ -18,41 +18,11 @@ namespace DA_Buchhaltung.viewModel
         Model model = new Model();
 
         //Private und Statische Felder
-        private List<Option> OptionenListe =new List<Option>();
+        private List<Option> _optionenListe =new List<Option>();
+        private List<Dienstleistung> _dienstleistungsListe = new List<Dienstleistung>(); 
         public static int Errors { get; set; }
 
-        //Properties
-        public int AktuelleKundenId { get; set; }
-
-
-        private bool _keinNeuerAuftragAktiv = false;
-        public bool KeinNeuerAuftragAktiv
-        {
-            get { return _keinNeuerAuftragAktiv; }
-            set
-            {
-                if (value != _keinNeuerAuftragAktiv)
-                {
-                    _keinNeuerAuftragAktiv = value;
-                    OnPropertyChanged("KeinNeuerAuftragAktiv");
-                }
-            }
-        }
-
-        private bool _sonstigesAktiv = false;
-        public bool SonstigesAktiv
-        {
-            get { return _sonstigesAktiv; }
-            set
-            {
-                if (value != _sonstigesAktiv)
-                {
-                    _sonstigesAktiv = value;
-                    OnPropertyChanged("SonstigesAktiv");
-                }
-            }
-        }
-
+        //Allgemeine Properties
         private Auftrag _aktuellerAuftrag = new Auftrag();
         public Auftrag AktuellerAuftrag
         {
@@ -84,6 +54,90 @@ namespace DA_Buchhaltung.viewModel
             }
         }
 
+        public int AktuelleKundenId { get; set; }
+
+
+        private bool _keinNeuerAuftragAktiv = false;
+        public bool KeinNeuerAuftragAktiv
+        {
+            get { return _keinNeuerAuftragAktiv; }
+            set
+            {
+                if (value != _keinNeuerAuftragAktiv)
+                {
+                    _keinNeuerAuftragAktiv = value;
+                    OnPropertyChanged("KeinNeuerAuftragAktiv");
+                }
+            }
+        }
+
+        private bool _sonstigesAktiv = false;
+        public bool SonstigesAktiv
+        {
+            get { return _sonstigesAktiv; }
+            set
+            {
+                if (value != _sonstigesAktiv)
+                {
+                    _sonstigesAktiv = value;
+                    OnPropertyChanged("SonstigesAktiv");
+                }
+            }
+        }
+
+        //Dienstleistung Properties
+        private bool _istNeuset = true;
+        public bool IstNeuset
+        {
+            get { return _istNeuset; }
+            set
+            {
+                if (value)
+                {
+                    _istNeuset = value;
+                    IstAuffuellen = false;
+                    IstGellack = false;
+                    OnPropertyChanged("IstNeuset");
+                    UpdateDienstleistung();
+                }
+            }
+        }
+
+        private bool _istAuffuellen = false;
+        public bool IstAuffuellen
+        {
+            get { return _istAuffuellen; }
+            set
+            {
+                if (value)
+                {
+                    _istAuffuellen = value;
+                    IstNeuset = false;
+                    IstGellack = false;
+                    OnPropertyChanged("IstAuffuellen");
+                    UpdateDienstleistung();
+                }
+            }
+        }
+
+        private bool _istGellack = false;
+        public bool IstGellack
+        {
+            get { return _istGellack; }
+            set
+            {
+                if (value)
+                {
+                    _istGellack = value;
+                    IstAuffuellen = false;
+                    IstNeuset = false;
+                    OnPropertyChanged("IstGellack");
+                    UpdateDienstleistung();
+                }
+            }
+        }
+
+        //Optionen Properties
         private int _reperatur = 0;
         public int Reperatur
         {
@@ -249,12 +303,19 @@ namespace DA_Buchhaltung.viewModel
             get { return _druckeAuftragCommand ?? (_druckeAuftragCommand = new SimpleCommand(DruckeAuftrag)); }
         }
 
+        private SimpleCommand _aktualisiereRabattCommand;
+        public SimpleCommand AktualisiereRabattCommand
+        {
+            get { return _aktualisiereRabattCommand ?? (_aktualisiereRabattCommand = new SimpleCommand(UpdatePositionList)); }
+        }
 
-        //Commandhelpers
+
+        //Commandhelpers und Private Methoden
         private void NeuerAuftrag()
         {
             AktuellerAuftrag = new Auftrag();
-            AktuellerAuftrag.KundeID = AktuelleKundenId;          
+            AktuellerAuftrag.KundeID = AktuelleKundenId;
+            KeinNeuerAuftragAktiv = false;
         }
         
         private void LoescheAuftrag()
@@ -284,7 +345,7 @@ namespace DA_Buchhaltung.viewModel
         
         private void SpeichereAuftrag()
         {
-            if (AktuellerAuftrag == null)
+            if (AktuellerAuftrag == null || AktuellerAuftrag.Dienstleistung.ID == -1)
             {
                 MessageBox.Show("Der Auftrag wurde nicht gespeichert! Es wurde kein Auftrag angewählt.", "Speichern Abgebrochen",
                     MessageBoxButton.OK, MessageBoxImage.Information);
@@ -334,7 +395,7 @@ namespace DA_Buchhaltung.viewModel
                 AktuellerAuftrag = AuftragsListe.First();
             }
 
-            OptionenListe = model.LadeOptionen();
+            _optionenListe = model.LadeOptionen();
             
         }
 
@@ -366,7 +427,7 @@ namespace DA_Buchhaltung.viewModel
                     {
                         AktuellerAuftrag.Positionen.First(i => i.Name == name).Anzahl = value;
                         AktuellerAuftrag.Positionen.First(i => i.Name == name).PreisInFranken = value *
-                                                                                                       OptionenListe
+                                                                                                       _optionenListe
                                                                                                            .First(
                                                                                                                i =>
                                                                                                                    i
@@ -377,7 +438,7 @@ namespace DA_Buchhaltung.viewModel
                     else
                     {
                         //Neu hinzufügen
-                        Option opt = OptionenListe.First(i => i.Name == name);
+                        Option opt = _optionenListe.First(i => i.Name == name);
                         opt.Anzahl = value;
                         opt.PreisInFranken = value * opt.Einheitspreis;
                         AktuellerAuftrag.Positionen.Add(opt);
@@ -524,7 +585,65 @@ namespace DA_Buchhaltung.viewModel
                 PositionsListe.Add(rabatt);
                 AktuellerAuftrag.Total -= _tempRabatt;
             }
+            else
+            {
+                AktuellerAuftrag.Rabatt = 0.0m;
+            }
             
+        }
+
+        private void UpdateDienstleistung()
+        {
+            _dienstleistungsListe = model.LadeDienstleistungen();
+            if (IstAuffuellen)
+            {
+                if (_dienstleistungsListe.Any(i => i.Name == "Auffüllen"))
+                {
+                    AktuellerAuftrag.Dienstleistung = _dienstleistungsListe.First(i => i.Name == "Auffüllen");
+                }
+                else
+                {
+                    AktuellerAuftrag.Dienstleistung = new Dienstleistung();
+                    MessageBox.Show("Dienstleistung nicht gefunden", "Fehler beim Berechnen", MessageBoxButton.OK,
+                        MessageBoxImage.Error);
+                    return;
+                }
+
+            }
+
+            if (IstNeuset)
+            {
+                if (_dienstleistungsListe.Any(i => i.Name == "Neuset"))
+                {
+                    AktuellerAuftrag.Dienstleistung = _dienstleistungsListe.First(i => i.Name == "Neuset");
+                }
+                else
+                {
+                    AktuellerAuftrag.Dienstleistung = new Dienstleistung();
+                    MessageBox.Show("Dienstleistung nicht gefunden", "Fehler beim Berechnen", MessageBoxButton.OK,
+                        MessageBoxImage.Error);
+                    return;
+                }
+
+            }
+
+            if (IstGellack)
+            {
+                if (_dienstleistungsListe.Any(i => i.Name == "Gellack"))
+                {
+                    AktuellerAuftrag.Dienstleistung = _dienstleistungsListe.First(i => i.Name == "Gellack");
+                }
+                else
+                {
+                    AktuellerAuftrag.Dienstleistung = new Dienstleistung();
+                    MessageBox.Show("Dienstleistung nicht gefunden", "Fehler beim Berechnen", MessageBoxButton.OK,
+                        MessageBoxImage.Error);
+                    return;
+                }
+
+            }
+
+            UpdatePositionList();
         }
 
         //Public Methoden
@@ -540,7 +659,7 @@ namespace DA_Buchhaltung.viewModel
         public AuftragViewModel()
         {
             AktuelleKundenId = -1;
-            OptionenListe = model.LadeOptionen();
+            _optionenListe = model.LadeOptionen();
         }
     }
 }

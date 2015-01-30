@@ -212,6 +212,34 @@ namespace DA_Buchhaltung.model
             return kategorienListe;
         }
         /// <summary>
+        /// Gibt die Liste aller Dienstleistung aus, welche aktuell sind. No Exception
+        /// </summary>
+        /// <returns></returns>
+        public List<Dienstleistung> LadeDienstleistungen()
+        {
+            List<Dienstleistung> dienstleistungsListe = new List<Dienstleistung>();
+            try
+            {
+                preisOptionsListe = dbWrapper.LadePreisOptionen();
+                
+                foreach (var preisOption in preisOptionsListe)
+                {
+                    if (preisOption.PreisKatalog == PreisKatalog.Dienstleistung)
+                    {
+                        dienstleistungsListe.Add(new Dienstleistung{ID = preisOption.ID, Name = preisOption.Name, Preis = preisOption.Preis});
+                    }
+                }
+
+
+            }
+            catch (Exception e)
+            {
+                dienstleistungsListe = new List<Dienstleistung>();
+                MessageBox.Show(e.ToString(), "Datenbank Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            return dienstleistungsListe;
+        }
+        /// <summary>
         /// Ändert die Preiseinstellung der Option oder Dienstleistung. Gibt true zurück, wenn es erfolgreich war.
         /// </summary>
         /// <param name="prOpt"></param>

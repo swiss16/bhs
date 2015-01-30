@@ -209,6 +209,7 @@ namespace DA_Buchhaltung.viewModel
         {
             AktuelleRechnung = new Rechnung();
             AktuelleRechnung.KreditorID = AktuelleKreditorId;
+            KeineNeueRechnungAktiv = false;
             if (KategorienListe.Any())
             {
                 AktuelleKategorie = KategorienListe.First();
