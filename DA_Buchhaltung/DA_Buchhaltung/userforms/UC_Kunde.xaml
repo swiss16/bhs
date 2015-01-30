@@ -46,7 +46,7 @@
                 </i:Interaction.Triggers>
             </TextBox>
         </StackPanel>
-        <StackPanel Grid.ColumnSpan="3" Grid.Row="2">
+        <StackPanel Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="2">
             <DataGrid Height="200" Margin="5 0 5 0" CanUserSortColumns="True" SelectionMode="Single" AutoGenerateColumns="False" IsReadOnly="True"
                  ItemsSource="{Binding KundenListe}" 
                  SelectedIndex="{Binding SelectedKundenIndex}" 
@@ -60,7 +60,7 @@
                 </DataGrid.Columns>
             </DataGrid>
         </StackPanel>
-        <StackPanel Grid.ColumnSpan="3" Grid.Row="3"><Rectangle Height="3" Fill="Black" Margin="5 12 5 0"></Rectangle></StackPanel>
+        <StackPanel Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="3"><Rectangle Height="3" Fill="Black" Margin="5 12 5 0"></Rectangle></StackPanel>
         <StackPanel Grid.Column="1" Grid.Row="4">
             <Label Content="Aktueller Kunde" FontWeight="Bold" FontSize="14" HorizontalAlignment="Center"></Label>
         </StackPanel>
@@ -119,21 +119,30 @@
             <Label Content="Tel. Privat:" FontSize="12"></Label>
         </StackPanel>
         <StackPanel Grid.Column="1" Grid.Row="10">
-            <TextBox FontSize="12" Text="{Binding AktuellerKunde.TelPrivat}"></TextBox>
+            <TextBox x:Name="TbTelPrivat" FontSize="12" Text="{Binding AktuellerKunde.TelPrivat, ValidatesOnDataErrors=True,NotifyOnValidationError=True}" Validation.Error="Validation_Error"></TextBox>
+        </StackPanel>
+        <StackPanel Grid.Column="2" Grid.Row="10">
+            <TextBlock Text="{Binding (Validation.Errors)[0].ErrorContent, ElementName=TbTelPrivat}" Foreground="Red" Margin="5,0,0,0" FontSize="10" TextWrapping="Wrap"/>
         </StackPanel>
 
         <StackPanel Grid.Column="0" Grid.Row="11">
             <Label Content="Tel. Mobile:" FontSize="12"></Label>
         </StackPanel>
         <StackPanel Grid.Column="1" Grid.Row="11">
-            <TextBox FontSize="12" Text="{Binding AktuellerKunde.TelMobile}"></TextBox>
+            <TextBox x:Name="TbTelMobile" FontSize="12" Text="{Binding AktuellerKunde.TelMobile, ValidatesOnDataErrors=True,NotifyOnValidationError=True}" Validation.Error="Validation_Error"></TextBox>
+        </StackPanel>
+        <StackPanel Grid.Column="2" Grid.Row="11">
+            <TextBlock Text="{Binding (Validation.Errors)[0].ErrorContent, ElementName=TbTelMobile}" Foreground="Red" Margin="5,0,0,0" FontSize="10" TextWrapping="Wrap"/>
         </StackPanel>
 
         <StackPanel Grid.Column="0" Grid.Row="12">
             <Label Content="Email:" FontSize="12"></Label>
         </StackPanel>
         <StackPanel Grid.Column="1" Grid.Row="12">
-            <TextBox x:Name="TbEmail" FontSize="12" Text="{Binding AktuellerKunde.Email}"></TextBox>
+            <TextBox x:Name="TbEmail" FontSize="12" Text="{Binding AktuellerKunde.Email, ValidatesOnDataErrors=True,NotifyOnValidationError=True}" Validation.Error="Validation_Error"></TextBox>
+        </StackPanel>
+        <StackPanel Grid.Column="2" Grid.Row="12">
+            <TextBlock Text="{Binding (Validation.Errors)[0].ErrorContent, ElementName=TbEmail}" Foreground="Red" Margin="5,0,0,0" FontSize="10" TextWrapping="Wrap"/>
         </StackPanel>
         
 

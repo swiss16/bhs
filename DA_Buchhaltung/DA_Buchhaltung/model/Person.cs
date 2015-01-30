@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Security;
 using System.Text;
 using System.Threading.Tasks;
 using DA_Buchhaltung.viewModel;
@@ -43,18 +44,44 @@ namespace DA_Buchhaltung.model
             set { SetValue(() => PLZ, value); }
         }
         [Required(ErrorMessage = "Dieses Feld darf nicht leer sein")]
-        [MaxLength(50, ErrorMessage = "Maximal 50 Stellen erlaubt")]
+        [MaxLength(100, ErrorMessage = "Maximal 100 Stellen erlaubt")]
         [MinLength(3, ErrorMessage = "Es muss mindestens 3 Stellen haben")]
         public string Wohnort
         {
             get { return GetValue(() => Wohnort); }
             set { SetValue(() => Wohnort, value); }
         }
-        public string TelPrivat { get; set; }
-        public string TelFirma { get; set; }
-        public string TelMobile { get; set; }
-        public string Fax { get; set; }
-        public string Email { get; set; }
+        [MaxLength(50, ErrorMessage = "Maximal 50 Stellen erlaubt")]
+        public string TelPrivat
+        {
+            get { return GetValue(() => TelPrivat); }
+            set { SetValue(() => TelPrivat, value); }
+        }
+        [MaxLength(50, ErrorMessage = "Maximal 50 Stellen erlaubt")]
+        public string TelFirma
+        {
+            get { return GetValue(() => TelFirma); }
+            set { SetValue(() => TelFirma, value); }
+        }
+        [MaxLength(50, ErrorMessage = "Maximal 50 Stellen erlaubt")]
+        public string TelMobile
+        {
+            get { return GetValue(() => TelMobile); }
+            set { SetValue(() => TelMobile, value); }
+        }
+        [MaxLength(50, ErrorMessage = "Maximal 50 Stellen erlaubt")]
+        public string Fax
+        {
+            get { return GetValue(() => Fax); }
+            set { SetValue(() => Fax, value); }
+        }
+        [EmailAddress]
+        [MaxLength(100, ErrorMessage = "Maximal 100 Stellen erlaubt")]
+        public string Email
+        {
+            get { return GetValue(() => Email); }
+            set { SetValue(() => Email, value == string.Empty ? null : value); }
+        }
         public DateTime ErfDatum { get; set; }
 
         public Person()
@@ -65,7 +92,7 @@ namespace DA_Buchhaltung.model
             this.Vorname = string.Empty;
             this.Adresse = string.Empty;
             this.Wohnort = string.Empty;
-            this.Email = string.Empty;
+            this.Email = null;
             this.TelFirma = string.Empty;
             this.TelMobile = string.Empty;
             this.TelPrivat = string.Empty;

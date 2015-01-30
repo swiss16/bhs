@@ -31,7 +31,7 @@ namespace DA_Buchhaltung.model
         {
             this.ID = -1;
             this.StartDatum = DateTime.Now;
-            this.EndDatum = DateTime.Now;
+            this.EndDatum = DateTime.Now.AddDays(1);
             this.Einnahmen = new List<Betraege>();
             this.Ausgaben = new List<Betraege>();
             this.SubtotalEinnahmen = 0.00m;

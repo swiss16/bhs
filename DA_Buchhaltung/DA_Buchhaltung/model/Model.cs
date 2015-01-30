@@ -694,9 +694,9 @@ namespace DA_Buchhaltung.model
                 erfolgsrechnung.Einnahmen.Add(new Betraege { BetragInFranken = _tempPreisAuftraege, Kategorie = "Dienstleistung" });
                 foreach (var rueckerstattung in rueckzahlungsListe.Where(i => (i.Datum.Date >= startDatum.Date) && (i.Datum.Date <= endDatum.Date)) ?? new List<Rechnung>())
                 {
-                    if (erfolgsrechnung.Einnahmen.Any(i => i.Kategorie.StartsWith(rueckerstattung.Kategorie)))
+                    if (erfolgsrechnung.Einnahmen.Any(i => i.Kategorie.Contains(rueckerstattung.Kategorie)))
                     {
-                        erfolgsrechnung.Einnahmen.First(i => i.Kategorie.StartsWith(rueckerstattung.Kategorie))
+                        erfolgsrechnung.Einnahmen.First(i => i.Kategorie.Contains(rueckerstattung.Kategorie))
                             .BetragInFranken += rueckerstattung.Betrag;
                     }
                     else
@@ -709,9 +709,9 @@ namespace DA_Buchhaltung.model
                 //Ausgaben
                 foreach (var rechnung in rechnungsListe.Where(i => (i.Datum.Date >= startDatum.Date) && (i.Datum.Date <= endDatum.Date)) ?? new List<Rechnung>())
                 {
-                    if (erfolgsrechnung.Ausgaben.Any(i=>i.Kategorie.StartsWith(rechnung.Kategorie)))
+                    if (erfolgsrechnung.Ausgaben.Any(i=>i.Kategorie.Contains(rechnung.Kategorie)))
                     {
-                        erfolgsrechnung.Ausgaben.First(i => i.Kategorie.StartsWith(rechnung.Kategorie)).BetragInFranken
+                        erfolgsrechnung.Ausgaben.First(i => i.Kategorie.Contains(rechnung.Kategorie)).BetragInFranken
                             += rechnung.Betrag;
                     }
                     else

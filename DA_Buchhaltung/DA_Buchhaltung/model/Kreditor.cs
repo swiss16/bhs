@@ -25,5 +25,23 @@ namespace DA_Buchhaltung.model
             this.KreditorID = -1;
             this.Firma = string.Empty;
         }
+
+        public void GetDefault()
+        {
+            this.ID = -1;
+            this.KreditorID = -1;
+            this.Firma = string.Empty;
+            this.Name = string.Empty;
+            this.Vorname = string.Empty;
+            this.Adresse = string.Empty;
+            this.PLZ = 0;
+            this.Wohnort = string.Empty;
+            this.TelFirma = string.Empty;
+            this.TelMobile = string.Empty;
+            this.TelPrivat = string.Empty;
+            this.Email = null;
+            this.ErfDatum = DateTime.Now;
+            this.Fax = string.Empty;
+        }
     }
 }

@@ -136,10 +136,10 @@ namespace DA_Buchhaltung.viewModel
             get { return _ladeKundenCommand ?? (_ladeKundenCommand = new RelayCommand<string>(LadeKunden)); }
         }
 
-        private RelayCommand<string> _erstelleKundeCommand;
-        public RelayCommand<string> ErstelleKundeCommand
+        private RelayCommand<string> _erstelleKundenCommand;
+        public RelayCommand<string> ErstelleKundenCommand
         {
-            get { return _erstelleKundeCommand ?? (_erstelleKundeCommand = new RelayCommand<string>(ErstelleKunde)); }
+            get { return _erstelleKundenCommand ?? (_erstelleKundenCommand = new RelayCommand<string>(ErstelleKunde)); }
         }
 
         private RelayCommand<int> _speichernKundeCommand;
@@ -179,7 +179,10 @@ namespace DA_Buchhaltung.viewModel
         }
         private void ErstelleKunde(string nix)
         {
+            SelectedKundenIndex = -1;
             AktuellerKunde = new Kunde();
+            AktuellerKunde.GetDefault();
+
         }
         private void SpeichernKunde(int id)
         {

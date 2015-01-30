@@ -181,7 +181,9 @@ namespace DA_Buchhaltung.viewModel
         }
         private void ErstelleKreditor(string nix)
         {
+            SelectedKreditorenIndex = -1;
             AktuellerKreditor = new Kreditor();
+            AktuellerKreditor.GetDefault();
         }
         private void SpeichernKreditor(int id)
         {
