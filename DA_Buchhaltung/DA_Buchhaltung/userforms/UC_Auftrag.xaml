@@ -4,6 +4,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              mc:Ignorable="d" 
              d:DesignHeight="1000" d:DesignWidth="700">
     <Grid>
@@ -70,20 +71,20 @@
             <Label Content="Aktueller Auftrag" FontSize="14" FontWeight="Bold"></Label>
         </StackPanel>
         <StackPanel Grid.Column="0" Grid.Row="5">
-            <Label Content="Dienstleistung:" FontSize="14"></Label>
+            <Label Content="Dienstleistung" FontSize="14"></Label>
         </StackPanel>
         <StackPanel Grid.Column="0" Grid.Row="6">
-            <RadioButton GroupName="dl" Content="Neu Set" IsChecked="{Binding IstNeuset}" FontSize="14"></RadioButton>
+            <RadioButton GroupName="dl" Content="Neu Set" IsChecked="{Binding IstNeuset}" FontSize="12"></RadioButton>
         </StackPanel>
         <StackPanel Grid.Column="0" Grid.Row="7">
-            <RadioButton GroupName="dl" Content="Auffüllen" IsChecked="{Binding IstAuffuellen}" FontSize="14"></RadioButton>
+            <RadioButton GroupName="dl" Content="Auffüllen" IsChecked="{Binding IstAuffuellen}" FontSize="12"></RadioButton>
         </StackPanel>
         <StackPanel Grid.Column="0" Grid.Row="8">
-            <RadioButton GroupName="dl" Content="Gel Lack" IsChecked="{Binding IstGellack}" FontSize="14"></RadioButton>
+            <RadioButton GroupName="dl" Content="Gel Lack" IsChecked="{Binding IstGellack}" FontSize="12"></RadioButton>
         </StackPanel>
         <!--Eingabe Optionen-->
         <StackPanel Grid.Column="2" Grid.Row="5">
-            <Label Content="Optionen:" FontSize="14"></Label>
+            <Label Content="Optionen" FontSize="14"></Label>
         </StackPanel>
         
         <StackPanel Grid.Column="2" Grid.Row="6">
@@ -159,8 +160,84 @@
         <StackPanel Grid.Column="5" Grid.ColumnSpan="3" Grid.Row="12">
             <TextBlock Text="{Binding (Validation.Errors)[0].ErrorContent, ElementName=TbSonstigesPreis}" Foreground="Red" Margin="5,0,0,0" FontSize="10" TextWrapping="Wrap"/>
         </StackPanel>
-
+        <!-- Gutschriften-->
+        <StackPanel Grid.Column="2" Grid.Row="13">
+            <Label Content="Gutschriften" FontSize="14"></Label>
+        </StackPanel>
+        <StackPanel Grid.Column="2" Grid.Row="14">
+            <Label Content="Rabatt:" FontSize="12"></Label>
+        </StackPanel>
+        <StackPanel Grid.Column="3" Grid.Row="14">
+            <RadioButton GroupName="rabatt" Content="in %" IsChecked="{Binding AktuellerAuftrag.RabattInProzent}" FontSize="12">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="ChangeChecked">
+                        <i:InvokeCommandAction Command="{Binding AktualisiereRabattCommand}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </RadioButton>
+        </StackPanel>
+        <StackPanel Grid.Column="4" Grid.Row="14">
+            <RadioButton GroupName="rabatt" Content="in .- Fr." FontSize="12"></RadioButton>
+        </StackPanel>
+        <StackPanel Grid.Column="5" Grid.Row="14">
+            <TextBox x:Name="TbRabatt" Text="{Binding AktuellerAuftrag.Rabatt, ValidatesOnDataErrors=True,NotifyOnValidationError=True}" Validation.Error="Validation_Error" FontSize="12">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="ChangeRabatt">
+                        <i:InvokeCommandAction Command="{Binding AktualisiereRabattCommand}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </TextBox>
+        </StackPanel>
+        <StackPanel Grid.Column="6" Grid.ColumnSpan="2" Grid.Row="14">
+            <TextBlock Text="{Binding (Validation.Errors)[0].ErrorContent, ElementName=TbRabatt}" Foreground="Red" Margin="5,0,0,0" FontSize="10" TextWrapping="Wrap"/>
+        </StackPanel>
         <!--Auftragsübersicht-->
+        <StackPanel Grid.Column="0" Grid.ColumnSpan="5" Grid.Row="15">
+            <Label Content="Auftragsübersicht" FontSize="14" FontWeight="Bold"></Label>
+        </StackPanel>
+        <StackPanel Grid.Column="0" Grid.ColumnSpan="5" Grid.Row="16" Grid.RowSpan="3">
+            <DataGrid Height="100" Margin="5 0 5 0" CanUserSortColumns="True" SelectionMode="Single" AutoGenerateColumns="False" IsReadOnly="True"
+                 ItemsSource="{Binding PositionsListe}"  
+                 ClipboardCopyMode="IncludeHeader" EnableRowVirtualization="False">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Beschreibung" Binding="{Binding Beschreibung}" Width="*"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Anzahl" Binding="{Binding Anzahl}" Width="0.5*"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Preis / Einheit" Binding="{Binding Einheitspreis}" Width="0.8*"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Preis Total" Binding="{Binding Preis}" Width="0.8*"></DataGridTextColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </StackPanel>
         <!--Abschluss-->
+        <StackPanel Grid.Column="5" Grid.ColumnSpan="3" Grid.Row="16">
+            <Label Content="Auftrag abschliessen" FontSize="14" FontWeight="Bold"></Label>
+        </StackPanel>
+        <StackPanel Grid.Column="5" Grid.Row="17">
+            <Label Content="Total: Fr." FontSize="14"></Label>
+        </StackPanel>
+        <StackPanel Grid.Column="6" Grid.Row="17">
+            <Label FontSize="14">
+                <TextBlock TextDecorations="Underline"  Text="{Binding AktuellerAuftrag.Total}" Foreground="Green"></TextBlock>
+            </Label>
+        </StackPanel>
+        <StackPanel Grid.Column="7" Grid.Row="17">
+            <Label Content=".-" FontSize="14" HorizontalAlignment="Left"></Label>
+        </StackPanel>
+        <Grid Grid.Column="5" Grid.ColumnSpan="3" Grid.Row="18">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <StackPanel Grid.Column="0" Grid.Row="0">
+                <Button Content="speichern" Command="{Binding SpeichereAuftragCommand}" Width="80"></Button>
+            </StackPanel>
+            <StackPanel Grid.Column="1" Grid.Row="0">
+                <Button Content="drucken" Command="{Binding DruckeAuftragCommand}" Width="80"></Button>
+            </StackPanel>
+        </Grid>
+        
     </Grid>
 </UserControl>
