@@ -52,24 +52,31 @@ namespace DA_Buchhaltung
         }
 
         private readonly ErfolgsrechnungViewModel _ucErfolgsrechnungViewModel = new ErfolgsrechnungViewModel();
-
         public ErfolgsrechnungViewModel UcErfolgsrechnungViewModel
         {
             get { return _ucErfolgsrechnungViewModel; }
+        }
+
+        private readonly AuftragViewModel _ucAuftragViewModel = new AuftragViewModel();
+        public AuftragViewModel UcAuftragViewModel
+        {
+            get { return _ucAuftragViewModel; }
         }
 
         public MainWindow()
         {
             InitializeComponent();
             //Eigene Naviagtionen
-            ViewModel.KreditorViewModel = UcKreditorViewModel;
-            ViewModel.KundenViewModel = UcKundeViewModel;
-            ViewModel.EinstellungenViewModel = UcEinstellungenViewModel;
-            ViewModel.RechnungViewModel = UcRechnungViewModel;
-            ViewModel.ErfolgsrechnungViewModel = UcErfolgsrechnungViewModel;
+            ViewModel.KreditorenViewModel = UcKreditorViewModel;
+            ViewModel.KundeViewModel = UcKundeViewModel;
+            ViewModel.EinstellungViewModel = UcEinstellungenViewModel;
+            ViewModel.RechnungsViewModel = UcRechnungViewModel;
+            ViewModel.ErfolgsrechnungsViewModel = UcErfolgsrechnungViewModel;
+            ViewModel.AuftragsViewModel = UcAuftragViewModel;
 
             //Hilfsnavigationen für Childs
-            ViewModel.KreditorViewModel.RechnungViewModel = UcRechnungViewModel;
+            ViewModel.KreditorenViewModel.RechnungViewModel = UcRechnungViewModel;
+            ViewModel.KundeViewModel.AuftragViewModel = UcAuftragViewModel;
 
         }
 

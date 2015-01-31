@@ -15,6 +15,7 @@ namespace DA_Buchhaltung.viewModel
     {
         //NavigationsProperties
         Model model = new Model();
+        public AuftragViewModel AuftragViewModel;
 
         //Statische Felder
         public static int Errors { get; set; }
@@ -45,6 +46,7 @@ namespace DA_Buchhaltung.viewModel
                     {
                         _aktuellerKunde = value;
                         OnPropertyChanged("AktuellerKunde");
+                        AuftragViewModel.UpdateKunde(value.ID);
                         if (value.ID == -1)
                         {
                             KeinNeuerKundeAktiv = false;

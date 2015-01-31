@@ -39,6 +39,7 @@
             <RowDefinition Height="26" />
             <RowDefinition Height="26" />
             <RowDefinition Height="26" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <!--Titel-->
         <StackPanel Grid.Column="0" Grid.ColumnSpan="8" Grid.Row="0">
@@ -58,6 +59,7 @@
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Datum" Binding="{Binding Datum.Date}" Width="*"></DataGridTextColumn>
                     <DataGridTextColumn Header="Total" Binding="{Binding Total}" Width="*"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Dienstleistung" Binding="{Binding Dienstleistung.Name}" Width="*"></DataGridTextColumn>
                     <DataGridTextColumn Header="Rabatt" Binding="{Binding Rabatt}" Width="*"></DataGridTextColumn>
                     <DataGridTextColumn Header="Rabatt in %" Binding="{Binding RabattInProzent}" Width="*"></DataGridTextColumn>
                 </DataGrid.Columns>
@@ -68,19 +70,19 @@
         </StackPanel>
         <!--Eingabe Dienstleistungen-->
         <StackPanel Grid.Column="0" Grid.ColumnSpan="8" Grid.Row="4">
-            <Label Content="Aktueller Auftrag" FontSize="14" FontWeight="Bold"></Label>
+            <Label Content="Aktueller Auftrag" FontSize="16" FontWeight="Bold" HorizontalAlignment="Center"></Label>
         </StackPanel>
-        <StackPanel Grid.Column="0" Grid.Row="5">
+        <StackPanel Grid.Column="0" Grid.Row="5" Margin="10,0,0,0">
             <Label Content="Dienstleistung" FontSize="14"></Label>
         </StackPanel>
-        <StackPanel Grid.Column="0" Grid.Row="6">
-            <RadioButton GroupName="dl" Content="Neu Set" IsChecked="{Binding IstNeuset}" FontSize="12"></RadioButton>
+        <StackPanel Grid.Column="0" Grid.Row="6" Margin="10,0,0,0">
+            <RadioButton GroupName="dl" Content="Neu Set" IsChecked="{Binding IstNeuset, Mode=TwoWay}" FontSize="12"></RadioButton>
         </StackPanel>
-        <StackPanel Grid.Column="0" Grid.Row="7">
-            <RadioButton GroupName="dl" Content="Auffüllen" IsChecked="{Binding IstAuffuellen}" FontSize="12"></RadioButton>
+        <StackPanel Grid.Column="0" Grid.Row="7" Margin="10,0,0,0">
+            <RadioButton GroupName="dl2" Content="Auffüllen" IsChecked="{Binding IstAuffuellen, Mode=TwoWay}" FontSize="12"></RadioButton>
         </StackPanel>
-        <StackPanel Grid.Column="0" Grid.Row="8">
-            <RadioButton GroupName="dl" Content="Gel Lack" IsChecked="{Binding IstGellack}" FontSize="12"></RadioButton>
+        <StackPanel Grid.Column="0" Grid.Row="8" Margin="10,0,0,0">
+            <RadioButton GroupName="dl3" Content="Gel Lack" IsChecked="{Binding IstGellack, Mode=TwoWay}" FontSize="12"></RadioButton>
         </StackPanel>
         <!--Eingabe Optionen-->
         <StackPanel Grid.Column="2" Grid.Row="5">
@@ -168,13 +170,7 @@
             <Label Content="Rabatt:" FontSize="12"></Label>
         </StackPanel>
         <StackPanel Grid.Column="3" Grid.Row="14">
-            <RadioButton GroupName="rabatt" Content="in %" IsChecked="{Binding AktuellerAuftrag.RabattInProzent}" FontSize="12">
-                <i:Interaction.Triggers>
-                    <i:EventTrigger EventName="ChangeChecked">
-                        <i:InvokeCommandAction Command="{Binding AktualisiereRabattCommand}" />
-                    </i:EventTrigger>
-                </i:Interaction.Triggers>
-            </RadioButton>
+            <RadioButton GroupName="rabatt" Content="in %" IsChecked="{Binding RabattInProzent}" FontSize="12"></RadioButton>
         </StackPanel>
         <StackPanel Grid.Column="4" Grid.Row="14">
             <RadioButton GroupName="rabatt" Content="in .- Fr." FontSize="12"></RadioButton>
@@ -182,8 +178,8 @@
         <StackPanel Grid.Column="5" Grid.Row="14">
             <TextBox x:Name="TbRabatt" Text="{Binding AktuellerAuftrag.Rabatt, ValidatesOnDataErrors=True,NotifyOnValidationError=True}" Validation.Error="Validation_Error" FontSize="12">
                 <i:Interaction.Triggers>
-                    <i:EventTrigger EventName="ChangeRabatt">
-                        <i:InvokeCommandAction Command="{Binding AktualisiereRabattCommand}" />
+                    <i:EventTrigger EventName="KeyUp">
+                        <i:InvokeCommandAction Command="{Binding AktualisiereRabattCommand}" CommandParameter="{Binding ElementName=TbRabatt, Path=Text}" />
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
             </TextBox>
@@ -195,8 +191,8 @@
         <StackPanel Grid.Column="0" Grid.ColumnSpan="5" Grid.Row="15">
             <Label Content="Auftragsübersicht" FontSize="14" FontWeight="Bold"></Label>
         </StackPanel>
-        <StackPanel Grid.Column="0" Grid.ColumnSpan="5" Grid.Row="16" Grid.RowSpan="3">
-            <DataGrid Height="100" Margin="5 0 5 0" CanUserSortColumns="True" SelectionMode="Single" AutoGenerateColumns="False" IsReadOnly="True"
+        <StackPanel Grid.Column="0" Grid.ColumnSpan="5" Grid.Row="16" Grid.RowSpan="4">
+            <DataGrid Height="100" Margin="5 0 0 0" CanUserSortColumns="True" SelectionMode="Extended" AutoGenerateColumns="False" IsReadOnly="True"
                  ItemsSource="{Binding PositionsListe}"  
                  ClipboardCopyMode="IncludeHeader" EnableRowVirtualization="False">
                 <DataGrid.Columns>
@@ -215,9 +211,7 @@
             <Label Content="Total: Fr." FontSize="14"></Label>
         </StackPanel>
         <StackPanel Grid.Column="6" Grid.Row="17">
-            <Label FontSize="14">
-                <TextBlock TextDecorations="Underline"  Text="{Binding AktuellerAuftrag.Total}" Foreground="Green"></TextBlock>
-            </Label>
+            <Label FontSize="14" Content="{Binding AktuellerAuftrag.Total}"></Label>
         </StackPanel>
         <StackPanel Grid.Column="7" Grid.Row="17">
             <Label Content=".-" FontSize="14" HorizontalAlignment="Left"></Label>

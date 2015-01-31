@@ -15,11 +15,12 @@ namespace DA_Buchhaltung.viewModel
     {
         //NavigationsProperties
         private Model model = new Model();
-        public KundeViewModel KundenViewModel;
-        public KreditorViewModel KreditorViewModel;
-        public EinstellungenViewModel EinstellungenViewModel;
-        public RechnungViewModel RechnungViewModel;
-        public ErfolgsrechnungViewModel ErfolgsrechnungViewModel;
+        public KundeViewModel KundeViewModel;
+        public KreditorViewModel KreditorenViewModel;
+        public EinstellungenViewModel EinstellungViewModel;
+        public RechnungViewModel RechnungsViewModel;
+        public ErfolgsrechnungViewModel ErfolgsrechnungsViewModel;
+        public AuftragViewModel AuftragsViewModel;
 
 
         //Properties
@@ -81,6 +82,12 @@ namespace DA_Buchhaltung.viewModel
             get { return _zeigeErfolgsrechnungCommand ?? (_zeigeErfolgsrechnungCommand = new SimpleCommand(ZeigeErfolgsrechnung)); }
         }
 
+        private SimpleCommand _zeigeAuftragCommand;
+        public SimpleCommand ZeigeAuftragCommand
+        {
+            get { return _zeigeAuftragCommand ?? (_zeigeAuftragCommand = new SimpleCommand(ZeigeAuftrag)); }
+        }
+
 
         //Commandhelper
 
@@ -91,60 +98,77 @@ namespace DA_Buchhaltung.viewModel
 
         private void ZeigeKunden()
         {
-            KundenViewModel.IstKundenAktiv = true;
-            KreditorViewModel.IstKreditorAktiv = false;
-            RechnungViewModel.IstRechnungAktiv = false;
-            RechnungViewModel.IstRueckzahlungAktiv = false;
-            EinstellungenViewModel.IstEinstellungenAktiv = false;
-            ErfolgsrechnungViewModel.IstErfolgsrechnungAktiv = false;
+            KundeViewModel.IstKundenAktiv = true;
+            KreditorenViewModel.IstKreditorAktiv = false;
+            RechnungsViewModel.IstRechnungAktiv = false;
+            RechnungsViewModel.IstRueckzahlungAktiv = false;
+            EinstellungViewModel.IstEinstellungenAktiv = false;
+            ErfolgsrechnungsViewModel.IstErfolgsrechnungAktiv = false;
+            AuftragsViewModel.IstAuftragAktiv = false;
         }
 
         private void ZeigeKreditor()
         {
-            KundenViewModel.IstKundenAktiv = false;
-            KreditorViewModel.IstKreditorAktiv = true;
-            RechnungViewModel.IstRechnungAktiv = false;
-            RechnungViewModel.IstRueckzahlungAktiv = false;
-            EinstellungenViewModel.IstEinstellungenAktiv = false;
-            ErfolgsrechnungViewModel.IstErfolgsrechnungAktiv = false;
+            KundeViewModel.IstKundenAktiv = false;
+            KreditorenViewModel.IstKreditorAktiv = true;
+            RechnungsViewModel.IstRechnungAktiv = false;
+            RechnungsViewModel.IstRueckzahlungAktiv = false;
+            EinstellungViewModel.IstEinstellungenAktiv = false;
+            ErfolgsrechnungsViewModel.IstErfolgsrechnungAktiv = false;
+            AuftragsViewModel.IstAuftragAktiv = false;
         }
 
         private void ZeigeEinstellungen()
         {
-            KundenViewModel.IstKundenAktiv = false;
-            KreditorViewModel.IstKreditorAktiv = false;
-            RechnungViewModel.IstRechnungAktiv = false;
-            RechnungViewModel.IstRueckzahlungAktiv = false;
-            EinstellungenViewModel.IstEinstellungenAktiv = true;
-            ErfolgsrechnungViewModel.IstErfolgsrechnungAktiv = false;
+            KundeViewModel.IstKundenAktiv = false;
+            KreditorenViewModel.IstKreditorAktiv = false;
+            RechnungsViewModel.IstRechnungAktiv = false;
+            RechnungsViewModel.IstRueckzahlungAktiv = false;
+            EinstellungViewModel.IstEinstellungenAktiv = true;
+            ErfolgsrechnungsViewModel.IstErfolgsrechnungAktiv = false;
+            AuftragsViewModel.IstAuftragAktiv = false;
         }
 
         private void ZeigeRechnungen()
         {
-            KundenViewModel.IstKundenAktiv = false;
-            KreditorViewModel.IstKreditorAktiv = true;
-            RechnungViewModel.IstRechnungAktiv = true;
-            RechnungViewModel.IstRueckzahlungAktiv = false;
-            EinstellungenViewModel.IstEinstellungenAktiv = false;
-            ErfolgsrechnungViewModel.IstErfolgsrechnungAktiv = false;
+            KundeViewModel.IstKundenAktiv = false;
+            KreditorenViewModel.IstKreditorAktiv = true;
+            RechnungsViewModel.IstRechnungAktiv = true;
+            RechnungsViewModel.IstRueckzahlungAktiv = false;
+            EinstellungViewModel.IstEinstellungenAktiv = false;
+            ErfolgsrechnungsViewModel.IstErfolgsrechnungAktiv = false;
+            AuftragsViewModel.IstAuftragAktiv = false;
         }
         private void ZeigeRueckzahlungen()
         {
-            KundenViewModel.IstKundenAktiv = false;
-            KreditorViewModel.IstKreditorAktiv = true;
-            RechnungViewModel.IstRechnungAktiv = false;
-            RechnungViewModel.IstRueckzahlungAktiv = true;
-            EinstellungenViewModel.IstEinstellungenAktiv = false;
-            ErfolgsrechnungViewModel.IstErfolgsrechnungAktiv = false;
+            KundeViewModel.IstKundenAktiv = false;
+            KreditorenViewModel.IstKreditorAktiv = true;
+            RechnungsViewModel.IstRechnungAktiv = false;
+            RechnungsViewModel.IstRueckzahlungAktiv = true;
+            EinstellungViewModel.IstEinstellungenAktiv = false;
+            ErfolgsrechnungsViewModel.IstErfolgsrechnungAktiv = false;
+            AuftragsViewModel.IstAuftragAktiv = false;
         }
         private void ZeigeErfolgsrechnung()
         {
-            KundenViewModel.IstKundenAktiv = false;
-            KreditorViewModel.IstKreditorAktiv = false;
-            RechnungViewModel.IstRechnungAktiv = false;
-            RechnungViewModel.IstRueckzahlungAktiv = false;
-            EinstellungenViewModel.IstEinstellungenAktiv = false;
-            ErfolgsrechnungViewModel.IstErfolgsrechnungAktiv = true;
+            KundeViewModel.IstKundenAktiv = false;
+            KreditorenViewModel.IstKreditorAktiv = false;
+            RechnungsViewModel.IstRechnungAktiv = false;
+            RechnungsViewModel.IstRueckzahlungAktiv = false;
+            EinstellungViewModel.IstEinstellungenAktiv = false;
+            ErfolgsrechnungsViewModel.IstErfolgsrechnungAktiv = true;
+            AuftragsViewModel.IstAuftragAktiv = false;
+        }
+
+        private void ZeigeAuftrag()
+        {
+            KundeViewModel.IstKundenAktiv = true;
+            KreditorenViewModel.IstKreditorAktiv = false;
+            RechnungsViewModel.IstRechnungAktiv = false;
+            RechnungsViewModel.IstRueckzahlungAktiv = false;
+            EinstellungViewModel.IstEinstellungenAktiv = false;
+            ErfolgsrechnungsViewModel.IstErfolgsrechnungAktiv = false;
+            AuftragsViewModel.IstAuftragAktiv = true;
         }
 
         public MainViewModel()

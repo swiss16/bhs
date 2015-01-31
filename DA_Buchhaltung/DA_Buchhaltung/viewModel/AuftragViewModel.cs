@@ -31,19 +31,18 @@ namespace DA_Buchhaltung.viewModel
             {
                 if (value != null)
                 {
-                    if (value.ID != _aktuellerAuftrag.ID)
+                    
+                    _aktuellerAuftrag = value;
+                    OnPropertyChanged("AktuellerAuftrag");
+                    if (value.ID == -1)
                     {
-                        _aktuellerAuftrag = value;
-                        OnPropertyChanged("AktuellerAuftrag");
-                        if (value.ID == -1)
-                        {
-                            KeinNeuerAuftragAktiv = false;
-                        }
-                        else
-                        {
-                            KeinNeuerAuftragAktiv = true;
-                        }
+                        KeinNeuerAuftragAktiv = false;
                     }
+                    else
+                    {
+                        KeinNeuerAuftragAktiv = true;
+                    }
+                    
                 }
                 else
                 {
@@ -85,6 +84,21 @@ namespace DA_Buchhaltung.viewModel
             }
         }
 
+        private bool _rabattInProzent = true;
+        public bool RabattInProzent
+        {
+            get { return _rabattInProzent; }
+            set
+            {
+                if (value != _rabattInProzent)
+                {
+                    _rabattInProzent = value;
+                    OnPropertyChanged("RabattInProzent");
+                    AktualisiereRabatt(AktuellerAuftrag.Rabatt.ToString());
+                }
+            }
+        }
+
         //Dienstleistung Properties
         private bool _istNeuset = true;
         public bool IstNeuset
@@ -92,12 +106,12 @@ namespace DA_Buchhaltung.viewModel
             get { return _istNeuset; }
             set
             {
+                _istNeuset = value;
+                OnPropertyChanged("IstNeuset");
                 if (value)
                 {
-                    _istNeuset = value;
                     IstAuffuellen = false;
                     IstGellack = false;
-                    OnPropertyChanged("IstNeuset");
                     UpdateDienstleistung();
                 }
             }
@@ -109,12 +123,12 @@ namespace DA_Buchhaltung.viewModel
             get { return _istAuffuellen; }
             set
             {
+                _istAuffuellen = value;
+                OnPropertyChanged("IstAuffuellen");
                 if (value)
                 {
-                    _istAuffuellen = value;
                     IstNeuset = false;
                     IstGellack = false;
-                    OnPropertyChanged("IstAuffuellen");
                     UpdateDienstleistung();
                 }
             }
@@ -126,12 +140,12 @@ namespace DA_Buchhaltung.viewModel
             get { return _istGellack; }
             set
             {
+                _istGellack = value;
+                OnPropertyChanged("IstGellack");
                 if (value)
                 {
-                    _istGellack = value;
-                    IstAuffuellen = false;
                     IstNeuset = false;
-                    OnPropertyChanged("IstGellack");
+                    IstAuffuellen = false;
                     UpdateDienstleistung();
                 }
             }
@@ -144,13 +158,11 @@ namespace DA_Buchhaltung.viewModel
             get { return _reperatur; }
             set
             {
-                if (value != _reperatur)
-                {
-                    _reperatur = value;
-                    OnPropertyChanged("Reperatur");
+                _reperatur = value;
+                OnPropertyChanged("Reperatur");
                     
-                    UpdatePosition(value, "Reperatur", true);
-                }
+                UpdatePosition(value, "Reperatur", true);
+                
             }
         }
 
@@ -161,13 +173,11 @@ namespace DA_Buchhaltung.viewModel
             get { return GetValue(() => _steinchen); }
             set
             {
-                if (value != _steinchen)
-                {
-                    SetValue(() => _steinchen, value);
-                    OnPropertyChanged("Steinchen");
+                SetValue(() => _steinchen, value);
+                OnPropertyChanged("Steinchen");
 
-                    UpdatePosition(value, "Steinchen", true);
-                }
+                UpdatePosition(value, "Steinchen", true);
+                
             }
         }
 
@@ -178,13 +188,11 @@ namespace DA_Buchhaltung.viewModel
             get { return GetValue(() => _stamping); }
             set
             {
-                if (value != _stamping)
-                {
-                    SetValue(() => _stamping, value);
-                    OnPropertyChanged("Stamping");
+                SetValue(() => _stamping, value);
+                OnPropertyChanged("Stamping");
 
-                    UpdatePosition(value, "Stamping", false);
-                }
+                UpdatePosition(value, "Stamping", false);
+                
             }
         }
 
@@ -195,13 +203,12 @@ namespace DA_Buchhaltung.viewModel
             get { return GetValue(() => _nailart); }
             set
             {
-                if (value != _nailart)
-                {
-                    SetValue(() => _nailart, value);
-                    OnPropertyChanged("Nailart");
+                
+                 SetValue(() => _nailart, value);
+                 OnPropertyChanged("Nailart");
 
-                    UpdatePosition(value, "Nailart", false);
-                }
+                 UpdatePosition(value, "Nailart", false);
+                
             }
         }
 
@@ -212,21 +219,19 @@ namespace DA_Buchhaltung.viewModel
             get { return GetValue(() => _sonstigesText); }
             set
             {
-                if (value != _sonstigesText)
-                {
-                    SetValue(() => _sonstigesText, value);
-                    OnPropertyChanged("SonstigesText");
-                    if (value.Length == 0)
-                    {
-                        SonstigesAktiv = false;
-                        SonstigesPreis = 0.0m;
-                    }
-                    else
-                    {
-                        SonstigesAktiv = true;
-                    }
+                 SetValue(() => _sonstigesText, value);
+                 OnPropertyChanged("SonstigesText");
+                 if (value.Length == 0)
+                 {
+                     SonstigesAktiv = false;
+                     SonstigesPreis = 0.0m;
+                 }
+                 else
+                 {
+                     SonstigesAktiv = true;
+                 }
                     
-                }
+                
             }
         }
 
@@ -237,13 +242,18 @@ namespace DA_Buchhaltung.viewModel
             get { return GetValue(() => _sonstigesPreis); }
             set
             {
-                if (value != _sonstigesPreis)
+                SetValue(() => _sonstigesPreis, value);
+                OnPropertyChanged("SonstigesPreis");
+                if (!string.IsNullOrEmpty(SonstigesText))
                 {
-                    SetValue(() => _sonstigesPreis, value);
-                    OnPropertyChanged("SonstigesPreis");
-
                     UpdatePosition(value, SonstigesText, false);
                 }
+                else
+                {
+                    UpdatePosition(value, "Sonstiges", false);
+                }
+                    
+                
             }
         }
 
@@ -309,10 +319,10 @@ namespace DA_Buchhaltung.viewModel
             get { return _druckeAuftragCommand ?? (_druckeAuftragCommand = new SimpleCommand(DruckeAuftrag)); }
         }
 
-        private SimpleCommand _aktualisiereRabattCommand;
-        public SimpleCommand AktualisiereRabattCommand
+        private RelayCommand<string> _aktualisiereRabattCommand;
+        public RelayCommand<string> AktualisiereRabattCommand
         {
-            get { return _aktualisiereRabattCommand ?? (_aktualisiereRabattCommand = new SimpleCommand(UpdatePositionList)); }
+            get { return _aktualisiereRabattCommand ?? (_aktualisiereRabattCommand = new RelayCommand<string>(AktualisiereRabatt)); }
         }
 
 
@@ -321,7 +331,9 @@ namespace DA_Buchhaltung.viewModel
         {
             AktuellerAuftrag = new Auftrag();
             AktuellerAuftrag.KundeID = AktuelleKundenId;
+            AktuellerAuftrag = AktuellerAuftrag;
             KeinNeuerAuftragAktiv = false;
+            IstNeuset = true;
         }
         
         private void LoescheAuftrag()
@@ -429,22 +441,25 @@ namespace DA_Buchhaltung.viewModel
                 if (value > 0)
                 {
                     //Gibt es schon in Liste, nur ändern
-                    if (AktuellerAuftrag.Positionen.Any(i => i.Name == name))
+                    if (AktuellerAuftrag.Positionen.Any(i => (i.Name == name)&&(i.WurdeGeloescht == false)))
                     {
-                        AktuellerAuftrag.Positionen.First(i => i.Name == name).Anzahl = value;
-                        AktuellerAuftrag.Positionen.First(i => i.Name == name).PreisInFranken = value *
-                                                                                                       _optionenListe
-                                                                                                           .First(
-                                                                                                               i =>
-                                                                                                                   i
-                                                                                                                       .Name ==
-                                                                                                                   name)
-                                                                                                           .Einheitspreis;
+                        AktuellerAuftrag.Positionen.First(i => (i.Name == name) && (i.WurdeGeloescht == false)).Anzahl = value;
+                        AktuellerAuftrag.Positionen.First(i => (i.Name == name) && (i.WurdeGeloescht == false)).PreisInFranken = value *
+                                                                                                           _optionenListe
+                                                                                                               .First(
+                                                                                                                   i =>
+                                                                                                                       i
+                                                                                                                           .Name ==
+                                                                                                                       name)
+                                                                                                               .Einheitspreis;
+                        
+                        
                     }
                     else
                     {
                         //Neu hinzufügen
-                        Option opt = _optionenListe.First(i => i.Name == name);
+                        Option bestOpt = _optionenListe.First(i => i.Name == name);
+                        Option opt = new Option{Anzahl = bestOpt.Anzahl, BereitsVorhanden = bestOpt.BereitsVorhanden, Einheitspreis = bestOpt.Einheitspreis, EndDate = bestOpt.EndDate, StartDate = bestOpt.StartDate, ID = bestOpt.ID, Konfigurierbar = bestOpt.Konfigurierbar, Name = bestOpt.Name, PreisInFranken = bestOpt.PreisInFranken, WurdeGeloescht = bestOpt.WurdeGeloescht};
                         opt.Anzahl = value;
                         opt.PreisInFranken = value * opt.Einheitspreis;
                         AktuellerAuftrag.Positionen.Add(opt);
@@ -453,9 +468,9 @@ namespace DA_Buchhaltung.viewModel
                 else
                 {
                     //Löschen falls in liste existiert
-                    if (AktuellerAuftrag.Positionen.Any(i => i.Name == name))
+                    if (AktuellerAuftrag.Positionen.Any(i => (i.Name == name) && (i.WurdeGeloescht == false)))
                     {
-                        AktuellerAuftrag.Positionen.First(i => i.Name == name).WurdeGeloescht = true;
+                        AktuellerAuftrag.Positionen.First(i => (i.Name == name) && (i.WurdeGeloescht == false)).WurdeGeloescht = true;
                     }
                 }
             }
@@ -467,11 +482,11 @@ namespace DA_Buchhaltung.viewModel
                     if (value > 0)
                     {
                         //Gibt es schon in Liste, nur ändern
-                        if (AktuellerAuftrag.Positionen.Any(i => i.Name == name))
+                        if (AktuellerAuftrag.Positionen.Any(i => (i.Name == name) && (i.WurdeGeloescht == false)))
                         {
-                            AktuellerAuftrag.Positionen.First(i => i.Name == name).Anzahl = 1;
-                            AktuellerAuftrag.Positionen.First(i => i.Name == name).PreisInFranken = value;
-                            AktuellerAuftrag.Positionen.First(i => i.Name == name).Einheitspreis = value;
+                            AktuellerAuftrag.Positionen.First(i => (i.Name == name) && (i.WurdeGeloescht == false)).Anzahl = 1;
+                            AktuellerAuftrag.Positionen.First(i => (i.Name == name) && (i.WurdeGeloescht == false)).PreisInFranken = value;
+                            AktuellerAuftrag.Positionen.First(i => (i.Name == name) && (i.WurdeGeloescht == false)).Einheitspreis = value;
                         }
                         else
                         {
@@ -486,39 +501,54 @@ namespace DA_Buchhaltung.viewModel
                     else
                     {
                         //Löschen der Option
-                        if (AktuellerAuftrag.Positionen.Any(i => i.Name == name))
+                        if (AktuellerAuftrag.Positionen.Any(i => (i.Name == name) && (i.WurdeGeloescht == false)))
                         {
-                            AktuellerAuftrag.Positionen.First(i => i.Name == name).WurdeGeloescht = true;
+                            AktuellerAuftrag.Positionen.First(i => (i.Name == name) && (i.WurdeGeloescht == false)).WurdeGeloescht = true;
                         }
                     }
                 }
                 else
                 {
                     //Sonstiges
-                    if (AktuellerAuftrag.Positionen.Any(i => (i.Name != "Steinchen") && (i.Name != "Stamping") && (i.Name != "Nailart") && (i.Name != "Reperatur")))
+                    if (value > 0)
                     {
-                        AktuellerAuftrag.Positionen.First(
-                            i =>
-                                (i.Name != "Steinchen") && (i.Name != "Stamping") && (i.Name != "Nailart") &&
-                                (i.Name != "Reperatur")).Name = name;
-                        AktuellerAuftrag.Positionen.First(
-                            i =>
-                                (i.Name != "Steinchen") && (i.Name != "Stamping") && (i.Name != "Nailart") &&
-                                (i.Name != "Reperatur")).Einheitspreis = value;
-                        AktuellerAuftrag.Positionen.First(
-                            i =>
-                                (i.Name != "Steinchen") && (i.Name != "Stamping") && (i.Name != "Nailart") &&
-                                (i.Name != "Reperatur")).PreisInFranken = value;
+                        if (AktuellerAuftrag.Positionen.Any(i => (i.Name != "Steinchen") && (i.Name != "Stamping") && (i.Name != "Nailart") && (i.Name != "Reperatur") && (i.WurdeGeloescht == false)))
+                        {
+                            AktuellerAuftrag.Positionen.First(
+                                i =>
+                                    (i.Name != "Steinchen") && (i.Name != "Stamping") && (i.Name != "Nailart") &&
+                                    (i.Name != "Reperatur") && (i.WurdeGeloescht == false)).Name = name;
+                            AktuellerAuftrag.Positionen.First(
+                                i =>
+                                    (i.Name != "Steinchen") && (i.Name != "Stamping") && (i.Name != "Nailart") &&
+                                    (i.Name != "Reperatur") && (i.WurdeGeloescht == false)).Einheitspreis = value;
+                            AktuellerAuftrag.Positionen.First(
+                                i =>
+                                    (i.Name != "Steinchen") && (i.Name != "Stamping") && (i.Name != "Nailart") &&
+                                    (i.Name != "Reperatur") && (i.WurdeGeloescht == false)).PreisInFranken = value;
+                        }
+                        else
+                        {
+                            Option opt = new Option();
+                            opt.Anzahl = 1;
+                            opt.Name = name;
+                            opt.Einheitspreis = value;
+                            opt.PreisInFranken = value;
+                            AktuellerAuftrag.Positionen.Add(opt);
+                        }
                     }
                     else
                     {
-                        Option opt = new Option();
-                        opt.Anzahl = 1;
-                        opt.Name = name;
-                        opt.Einheitspreis = value;
-                        opt.PreisInFranken = value;
-                        AktuellerAuftrag.Positionen.Add(opt);
+                        if (AktuellerAuftrag.Positionen.Any(i => (i.Name != "Steinchen") && (i.Name != "Stamping") && (i.Name != "Nailart") && (i.Name != "Reperatur") && (i.WurdeGeloescht == false)))
+                        {
+                            AktuellerAuftrag.Positionen.First(
+                                i =>
+                                    (i.Name != "Steinchen") && (i.Name != "Stamping") && (i.Name != "Nailart") &&
+                                    (i.Name != "Reperatur") && (i.WurdeGeloescht == false)).WurdeGeloescht = true;
+                        }
                     }
+                    
+                    
                 }
                 
             }
@@ -545,17 +575,21 @@ namespace DA_Buchhaltung.viewModel
             //Optionen
             foreach (var option in AktuellerAuftrag.Positionen)
             {
-                Position opt = new Position
+                if (option.WurdeGeloescht == false)
                 {
-                    Anzahl = option.Anzahl,
-                    Beschreibung = option.Name,
-                    Einheitspreis = option.Einheitspreis,
-                    Preis = option.PreisInFranken,
-                    IstDienstleistung = false,
-                    IstOption = true,
-                    IstRabatt = false
-                };
-                PositionsListe.Add(opt);
+                    Position opt = new Position
+                    {
+                        Anzahl = option.Anzahl,
+                        Beschreibung = option.Name,
+                        Einheitspreis = option.Einheitspreis,
+                        Preis = option.PreisInFranken,
+                        IstDienstleistung = false,
+                        IstOption = true,
+                        IstRabatt = false
+                    };
+                    PositionsListe.Add(opt);
+                }
+                
             }
             //Berechne Total vor Rabatt
             AktuellerAuftrag.Total = 0.0m;
@@ -578,6 +612,7 @@ namespace DA_Buchhaltung.viewModel
                     _tempRabatt = AktuellerAuftrag.Rabatt;
                 }
                 _tempRabatt= _tempRabatt*(-1);
+                _tempRabatt = Math.Round(_tempRabatt * 20.0M, MidpointRounding.AwayFromZero) * 0.05M;
                 Position rabatt = new Position
                 {
                     Anzahl = 1,
@@ -589,13 +624,14 @@ namespace DA_Buchhaltung.viewModel
                     IstRabatt = true
                 };
                 PositionsListe.Add(rabatt);
-                AktuellerAuftrag.Total -= _tempRabatt;
+                AktuellerAuftrag.Total += _tempRabatt;
             }
             else
             {
                 AktuellerAuftrag.Rabatt = 0.0m;
             }
-            
+            AktuellerAuftrag = AktuellerAuftrag;
+
         }
 
         private void UpdateDienstleistung()
@@ -652,6 +688,18 @@ namespace DA_Buchhaltung.viewModel
             UpdatePositionList();
         }
 
+        private void AktualisiereRabatt(string rabattAsString)
+        {
+            decimal rabatt = 0.0m;
+            if (decimal.TryParse(rabattAsString, out rabatt))
+            {
+                AktuellerAuftrag.Rabatt = rabatt;
+                AktuellerAuftrag.RabattInProzent = RabattInProzent;
+                AktuellerAuftrag = AktuellerAuftrag;
+                UpdatePositionList();
+            }             
+        }
+
         //Public Methoden
         public void UpdateKunde(int id)
         {
@@ -666,7 +714,7 @@ namespace DA_Buchhaltung.viewModel
         {
             AktuelleKundenId = -1;
             _optionenListe = model.LadeOptionen();
-
+            IstNeuset = true;
             ReperaturListe.Clear();
             for (int i = 0; i < 10; i++)
             {
