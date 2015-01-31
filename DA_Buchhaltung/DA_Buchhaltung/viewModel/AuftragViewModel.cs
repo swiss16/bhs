@@ -436,6 +436,10 @@ namespace DA_Buchhaltung.viewModel
                 _tempAuftragsListe.ForEach(a => AuftragsListe.Add(a));
                 AktuellerAuftrag = AuftragsListe.First();
             }
+            else
+            {
+                NeuerAuftrag();
+            }
 
             _optionenListe = model.LadeOptionen();
             
