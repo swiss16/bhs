@@ -139,6 +139,9 @@
     <Compile Include="model\Position.cs" />
     <Compile Include="model\PreisOption.cs" />
     <Compile Include="model\Rechnung.cs" />
+    <Compile Include="userforms\UC_Auftrag.xaml.cs">
+      <DependentUpon>UC_Auftrag.xaml</DependentUpon>
+    </Compile>
     <Compile Include="userforms\UC_Einstellungen.xaml.cs">
       <DependentUpon>UC_Einstellungen.xaml</DependentUpon>
     </Compile>
@@ -190,6 +193,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="userforms\UC_Auftrag.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="userforms\UC_Einstellungen.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
