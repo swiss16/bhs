@@ -36,11 +36,51 @@
             <RowDefinition Height="26" />
             <RowDefinition Height="26" />
         </Grid.RowDefinitions>
-            <!--Titel-->
-            <!--Buttons und Liste oben-->
-            <!--Eingabe Dienstleistungen-->
-            <!--Eingabe Optionen-->
-            <!--Auftragsübersicht-->
-            <!--Abschluss-->
+        <!--Titel-->
+        <StackPanel Grid.Column="0" Grid.ColumnSpan="8" Grid.Row="0">
+            <Label Content="Aufträge" FontWeight="Bold" FontSize="18" HorizontalAlignment="Center"></Label>
+        </StackPanel>
+        <!--Buttons und Liste oben-->
+        <StackPanel Grid.Column="0" Grid.Row="1">
+            <Button Content="Neuer Auftrag" Command="{Binding NeuerAuftragCommand}" Width="120"></Button>
+        </StackPanel>
+        <StackPanel Grid.Column="6" Grid.ColumnSpan="2" Grid.Row="1">
+            <Button Content="Auftrag Löschen" Command="{Binding LoescheAuftragCommand}" IsEnabled="{Binding KeinNeuerAuftragAktiv}" Width="120"></Button>
+        </StackPanel>
+        <StackPanel Grid.Column="0" Grid.ColumnSpan="8" Grid.Row="2">
+            <DataGrid Height="200" Margin="5 0 5 0" CanUserSortColumns="True" SelectionMode="Single" AutoGenerateColumns="False" IsReadOnly="True"
+                 ItemsSource="{Binding AuftragsListe}"  
+                 SelectedItem="{Binding Path=AktuellerAuftrag}" ClipboardCopyMode="None" EnableRowVirtualization="False">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Datum" Binding="{Binding Datum.Date}" Width="*"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Total" Binding="{Binding Total}" Width="*"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Rabatt" Binding="{Binding Rabatt}" Width="*"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Rabatt in %" Binding="{Binding RabattInProzent}" Width="*"></DataGridTextColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </StackPanel>
+        <StackPanel Grid.Column="0" Grid.ColumnSpan="8" Grid.Row="3">
+            <Rectangle Height="3" Fill="Black" Margin="5 12 5 0"></Rectangle>
+        </StackPanel>
+        <!--Eingabe Dienstleistungen-->
+        <StackPanel Grid.Column="0" Grid.ColumnSpan="8" Grid.Row="4">
+            <Label Content="Aktueller Auftrag" FontSize="14" FontWeight="Bold"></Label>
+        </StackPanel>
+        <StackPanel Grid.Column="0" Grid.Row="5">
+            <Label Content="Dienstleistung:" FontSize="14"></Label>
+        </StackPanel>
+        <StackPanel Grid.Column="0" Grid.Row="6">
+            <RadioButton GroupName="dl" Content="Neu Set" IsChecked="{Binding IstNeuset}" FontSize="14"></RadioButton>
+        </StackPanel>
+        <StackPanel Grid.Column="0" Grid.Row="7">
+            <RadioButton GroupName="dl" Content="Auffüllen" IsChecked="{Binding IstAuffuellen}" FontSize="14"></RadioButton>
+        </StackPanel>
+        <StackPanel Grid.Column="0" Grid.Row="8">
+            <RadioButton GroupName="dl" Content="Gel Lack" IsChecked="{Binding IstGellack}" FontSize="14"></RadioButton>
+        </StackPanel>
+        <!--Eingabe Optionen-->
+        
+        <!--Auftragsübersicht-->
+        <!--Abschluss-->
     </Grid>
 </UserControl>
