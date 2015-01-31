@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DA_Buchhaltung.viewModel;
 
 namespace DA_Buchhaltung.model
 {
-    public class Auftrag
+    public class Auftrag : ViewModelBase
     {
         public int ID { get; set; }
         public List<Option> Positionen { get; set; }
@@ -17,7 +19,13 @@ namespace DA_Buchhaltung.model
         public decimal Total { get; set; }
         public DateTime Datum { get; set; }
         public bool RabattInProzent { get; set; }
-        public decimal Rabatt { get; set; }
+        [RegularExpression(@"\d+(\.\d{1,2})?", ErrorMessage = "Das Format muss zB: 5.20 sein und nicht negativ")]
+        [Range(0, 500, ErrorMessage = "Wert muss zwischen 0 und 500 sein")]
+        public decimal Rabatt
+        {
+            get { return GetValue(() => Rabatt); }
+            set { SetValue(() => Rabatt, value); }
+        }
 
         public Auftrag()
         {

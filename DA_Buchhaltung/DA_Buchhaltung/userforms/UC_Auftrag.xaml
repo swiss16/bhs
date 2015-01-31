@@ -57,10 +57,11 @@
                  ItemsSource="{Binding AuftragsListe}"  
                  SelectedItem="{Binding Path=AktuellerAuftrag}" ClipboardCopyMode="None" EnableRowVirtualization="False">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Datum" Binding="{Binding Datum.Date}" Width="*"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Total" Binding="{Binding Total}" Width="*"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Datum" Binding="{Binding Datum, StringFormat=\{0:dd.MM.yyyy HH:mm\} Uhr}" Width="*"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Total" Binding="{Binding Total, StringFormat={}Fr. {0:n2} .-}" Width="*"></DataGridTextColumn>
                     <DataGridTextColumn Header="Dienstleistung" Binding="{Binding Dienstleistung.Name}" Width="*"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Rabatt" Binding="{Binding Rabatt}" Width="*"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Rabatt" Binding="{Binding Rabatt, StringFormat={}Fr. {0:n2} .-}" Width="*" Visibility="{Binding RabattNichtInProzent, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=Hidden}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Rabatt" Binding="{Binding Rabatt, StringFormat={}{0:n2} %}" Width="*" Visibility="{Binding RabattInProzent, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=Hidden}"></DataGridTextColumn>
                     <DataGridTextColumn Header="Rabatt in %" Binding="{Binding RabattInProzent}" Width="*"></DataGridTextColumn>
                 </DataGrid.Columns>
             </DataGrid>
@@ -72,21 +73,21 @@
         <StackPanel Grid.Column="0" Grid.ColumnSpan="8" Grid.Row="4">
             <Label Content="Aktueller Auftrag" FontSize="16" FontWeight="Bold" HorizontalAlignment="Center"></Label>
         </StackPanel>
-        <StackPanel Grid.Column="0" Grid.Row="5" Margin="10,0,0,0">
-            <Label Content="Dienstleistung" FontSize="14"></Label>
+        <StackPanel Grid.Column="0" Grid.Row="5" Margin="20,0,0,0">
+            <Label Content="Dienstleistung" FontSize="14" FontWeight="Bold"></Label>
         </StackPanel>
-        <StackPanel Grid.Column="0" Grid.Row="6" Margin="10,0,0,0">
+        <StackPanel Grid.Column="0" Grid.Row="6" Margin="20,0,0,0">
             <RadioButton GroupName="dl" Content="Neu Set" IsChecked="{Binding IstNeuset, Mode=TwoWay}" FontSize="12"></RadioButton>
         </StackPanel>
-        <StackPanel Grid.Column="0" Grid.Row="7" Margin="10,0,0,0">
+        <StackPanel Grid.Column="0" Grid.Row="7" Margin="20,0,0,0">
             <RadioButton GroupName="dl2" Content="Auffüllen" IsChecked="{Binding IstAuffuellen, Mode=TwoWay}" FontSize="12"></RadioButton>
         </StackPanel>
-        <StackPanel Grid.Column="0" Grid.Row="8" Margin="10,0,0,0">
+        <StackPanel Grid.Column="0" Grid.Row="8" Margin="20,0,0,0">
             <RadioButton GroupName="dl3" Content="Gel Lack" IsChecked="{Binding IstGellack, Mode=TwoWay}" FontSize="12"></RadioButton>
         </StackPanel>
         <!--Eingabe Optionen-->
         <StackPanel Grid.Column="2" Grid.Row="5">
-            <Label Content="Optionen" FontSize="14"></Label>
+            <Label Content="Optionen" FontSize="14" FontWeight="Bold"></Label>
         </StackPanel>
         
         <StackPanel Grid.Column="2" Grid.Row="6">
@@ -164,7 +165,7 @@
         </StackPanel>
         <!-- Gutschriften-->
         <StackPanel Grid.Column="2" Grid.Row="13">
-            <Label Content="Gutschriften" FontSize="14"></Label>
+            <Label Content="Gutschriften" FontSize="14" FontWeight="Bold"></Label>
         </StackPanel>
         <StackPanel Grid.Column="2" Grid.Row="14">
             <Label Content="Rabatt:" FontSize="12"></Label>

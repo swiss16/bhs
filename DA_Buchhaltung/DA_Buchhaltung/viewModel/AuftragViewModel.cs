@@ -96,6 +96,17 @@ namespace DA_Buchhaltung.viewModel
                     OnPropertyChanged("RabattInProzent");
                     AktualisiereRabatt(AktuellerAuftrag.Rabatt.ToString());
                 }
+                RabattNichtInProzent = !value;
+            }
+        }
+
+        public bool RabattNichtInProzent
+        {
+            get { return GetValue(() => RabattNichtInProzent); }
+            set
+            {
+                SetValue(() =>RabattNichtInProzent, value);
+                OnPropertyChanged("RabattNichtInProzent");
             }
         }
 
@@ -166,61 +177,58 @@ namespace DA_Buchhaltung.viewModel
             }
         }
 
-        [Range(0, 500, ErrorMessage = "Muss 0-500 sein")]
-        private int _steinchen = 0;
+        [Range(0,500, ErrorMessage = "Wert muss zwischen 0 und 500 sein")]
         public int Steinchen
         {
-            get { return GetValue(() => _steinchen); }
+            get { return GetValue(() => Steinchen); }
             set
             {
-                SetValue(() => _steinchen, value);
-                OnPropertyChanged("Steinchen");
-
-                UpdatePosition(value, "Steinchen", true);
+                SetValue(() => Steinchen, value);
                 
+                if (value <= 500)
+                {
+                    UpdatePosition(value, "Steinchen", true);
+                }
             }
         }
 
-        [Range(0, 500, ErrorMessage = "Muss 0-500 sein")]
-        private decimal _stamping = 0.0m;
+        [RegularExpression(@"\d+(\.\d{1,2})?", ErrorMessage = "Das Format muss zB: 5.20 sein und nicht negativ")]
+        [Range(0, 500, ErrorMessage = "Wert muss zwischen 0 und 500 sein")]
         public decimal Stamping
         {
-            get { return GetValue(() => _stamping); }
+            get { return GetValue(() => Stamping); }
             set
             {
-                SetValue(() => _stamping, value);
-                OnPropertyChanged("Stamping");
-
-                UpdatePosition(value, "Stamping", false);
-                
+                SetValue(() => Stamping, value);
+                if (value <= 500)
+                {
+                    UpdatePosition(value, "Stamping", false);
+                }
             }
         }
 
-        [Range(0,500, ErrorMessage = "Muss 0-500 sein")]
-        private decimal _nailart = 0.0m;
+        [RegularExpression(@"\d+(\.\d{1,2})?", ErrorMessage = "Das Format muss zB: 5.20 sein und nicht negativ")]
+        [Range(0, 500, ErrorMessage = "Wert muss zwischen 0 und 500 sein")]
         public decimal Nailart
         {
-            get { return GetValue(() => _nailart); }
+            get { return GetValue(() => Nailart); }
             set
             {
-                
-                 SetValue(() => _nailart, value);
-                 OnPropertyChanged("Nailart");
-
-                 UpdatePosition(value, "Nailart", false);
-                
+                SetValue(() => Nailart, value);
+                if (value <= 500)
+                {
+                    UpdatePosition(value, "Nailart", false);
+                }
             }
         }
-
-        [MaxLength(50, ErrorMessage = "Maximal 50 Stellen erlaubt")] 
-        private string _sonstigesText = string.Empty;
+        
+        [MaxLength(50, ErrorMessage = "Max. 50 Zeichen!")]
         public string SonstigesText
         {
-            get { return GetValue(() => _sonstigesText); }
+            get { return GetValue(() => SonstigesText); }
             set
             {
-                 SetValue(() => _sonstigesText, value);
-                 OnPropertyChanged("SonstigesText");
+                SetValue(() => SonstigesText, value);
                  if (value.Length == 0)
                  {
                      SonstigesAktiv = false;
@@ -229,34 +237,42 @@ namespace DA_Buchhaltung.viewModel
                  else
                  {
                      SonstigesAktiv = true;
+                     SonstigesPreis = SonstigesPreis;
                  }
                     
                 
             }
         }
 
-        [Range(0, 500, ErrorMessage = "Muss 0-500 sein")]
-        private decimal _sonstigesPreis = 0.0m;
+        [RegularExpression(@"\d+(\.\d{1,2})?", ErrorMessage = "Das Format muss zB: 5.20 sein und nicht negativ")]
+        [Range(0, 500, ErrorMessage = "Wert muss zwischen 0 und 500 sein")]
         public decimal SonstigesPreis
         {
-            get { return GetValue(() => _sonstigesPreis); }
+            get { return GetValue(() => SonstigesPreis); }
             set
             {
-                SetValue(() => _sonstigesPreis, value);
-                OnPropertyChanged("SonstigesPreis");
-                if (!string.IsNullOrEmpty(SonstigesText))
+                SetValue(() => SonstigesPreis, value);
+                if (value <= 500)
                 {
-                    UpdatePosition(value, SonstigesText, false);
+                    if (!string.IsNullOrEmpty(SonstigesText))
+                    {
+                        if (SonstigesText.Length <= 50)
+                        {
+                            UpdatePosition(value, SonstigesText, false);
+                        }
+                        else
+                        {
+                            UpdatePosition(0.0m,"xx",false);
+                        }
+                        
+                    }
+                    else
+                    {
+                        UpdatePosition(value, "Sonstiges", false);
+                    }
                 }
-                else
-                {
-                    UpdatePosition(value, "Sonstiges", false);
-                }
-                    
-                
             }
         }
-
 
         // Sichtbarkeitsproperties
         private bool _istAuftragAktiv = false;
@@ -611,8 +627,14 @@ namespace DA_Buchhaltung.viewModel
                 {
                     _tempRabatt = AktuellerAuftrag.Rabatt;
                 }
+                if (_tempRabatt > AktuellerAuftrag.Total)
+                {
+                    _tempRabatt = AktuellerAuftrag.Total;
+                    AktuellerAuftrag.Rabatt = _tempRabatt;
+                }
                 _tempRabatt= _tempRabatt*(-1);
                 _tempRabatt = Math.Round(_tempRabatt * 20.0M, MidpointRounding.AwayFromZero) * 0.05M;
+                
                 Position rabatt = new Position
                 {
                     Anzahl = 1,
@@ -691,13 +713,21 @@ namespace DA_Buchhaltung.viewModel
         private void AktualisiereRabatt(string rabattAsString)
         {
             decimal rabatt = 0.0m;
-            if (decimal.TryParse(rabattAsString, out rabatt))
+            if (!rabattAsString.EndsWith("."))
             {
-                AktuellerAuftrag.Rabatt = rabatt;
-                AktuellerAuftrag.RabattInProzent = RabattInProzent;
-                AktuellerAuftrag = AktuellerAuftrag;
-                UpdatePositionList();
-            }             
+                if (decimal.TryParse(rabattAsString, out rabatt))
+                {
+                    if (RabattInProzent && rabatt > 100)
+                    {
+                        rabatt = 100;
+                    }
+                    AktuellerAuftrag.Rabatt = rabatt;
+                    AktuellerAuftrag.RabattInProzent = RabattInProzent;
+                    AktuellerAuftrag = AktuellerAuftrag;
+                    UpdatePositionList();
+                } 
+            }
+                        
         }
 
         //Public Methoden
