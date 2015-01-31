@@ -35,6 +35,9 @@
             <RowDefinition Height="26" />
             <RowDefinition Height="26" />
             <RowDefinition Height="26" />
+            <RowDefinition Height="26" />
+            <RowDefinition Height="26" />
+            <RowDefinition Height="26" />
         </Grid.RowDefinitions>
         <!--Titel-->
         <StackPanel Grid.Column="0" Grid.ColumnSpan="8" Grid.Row="0">
@@ -79,7 +82,84 @@
             <RadioButton GroupName="dl" Content="Gel Lack" IsChecked="{Binding IstGellack}" FontSize="14"></RadioButton>
         </StackPanel>
         <!--Eingabe Optionen-->
+        <StackPanel Grid.Column="2" Grid.Row="5">
+            <Label Content="Optionen:" FontSize="14"></Label>
+        </StackPanel>
         
+        <StackPanel Grid.Column="2" Grid.Row="6">
+            <Label Content="Reperatur:" FontSize="12"></Label>
+        </StackPanel>
+        <StackPanel Grid.Column="3" Grid.Row="6">
+            <ComboBox ItemsSource="{Binding ReperaturListe}" SelectedValue="{Binding Reperatur}" IsReadOnly="True"></ComboBox>
+        </StackPanel>
+        <StackPanel Grid.Column="4" Grid.Row="6">
+            <Label Content="stk." FontSize="12" HorizontalAlignment="Left"></Label>
+        </StackPanel>
+        
+        <StackPanel Grid.Column="2" Grid.Row="8">
+            <Label Content="Steinchen:" FontSize="12"></Label>
+        </StackPanel>
+        <StackPanel Grid.Column="3" Grid.Row="8">
+            <TextBox x:Name="TbStein" Text="{Binding Steinchen, ValidatesOnDataErrors=True,NotifyOnValidationError=True}" Validation.Error="Validation_Error" FontSize="12"></TextBox>
+        </StackPanel>
+        <StackPanel Grid.Column="4" Grid.Row="8">
+            <Label Content="stk." FontSize="12" HorizontalAlignment="Left"></Label>
+        </StackPanel>
+        <StackPanel Grid.Column="2" Grid.ColumnSpan="3" Grid.Row="9">
+            <TextBlock Text="{Binding (Validation.Errors)[0].ErrorContent, ElementName=TbStein}" Foreground="Red" Margin="5,0,0,0" FontSize="10" TextWrapping="Wrap"/>
+        </StackPanel>
+
+        <StackPanel Grid.Column="5" Grid.Row="6">
+            <Label Content="Stamping: Fr." FontSize="12"></Label>
+        </StackPanel>
+        <StackPanel Grid.Column="6" Grid.Row="6">
+            <TextBox x:Name="TbStamping" Text="{Binding Stamping, ValidatesOnDataErrors=True,NotifyOnValidationError=True}" Validation.Error="Validation_Error" FontSize="12"></TextBox>
+        </StackPanel>
+        <StackPanel Grid.Column="7" Grid.Row="6">
+            <Label Content=".-" FontSize="12" HorizontalAlignment="Left"></Label>
+        </StackPanel>
+        <StackPanel Grid.Column="5" Grid.ColumnSpan="3" Grid.Row="7">
+            <TextBlock Text="{Binding (Validation.Errors)[0].ErrorContent, ElementName=TbStamping}" Foreground="Red" Margin="5,0,0,0" FontSize="10" TextWrapping="Wrap"/>
+        </StackPanel>
+
+        <StackPanel Grid.Column="5" Grid.Row="8">
+            <Label Content="Nailart: Fr." FontSize="12"></Label>
+        </StackPanel>
+        <StackPanel Grid.Column="6" Grid.Row="8">
+            <TextBox x:Name="TbNailart" Text="{Binding Nailart, ValidatesOnDataErrors=True,NotifyOnValidationError=True}" Validation.Error="Validation_Error" FontSize="12"></TextBox>
+        </StackPanel>
+        <StackPanel Grid.Column="7" Grid.Row="8">
+            <Label Content=".-" FontSize="12" HorizontalAlignment="Left"></Label>
+        </StackPanel>
+        <StackPanel Grid.Column="5" Grid.ColumnSpan="3" Grid.Row="9">
+            <TextBlock Text="{Binding (Validation.Errors)[0].ErrorContent, ElementName=TbNailart}" Foreground="Red" Margin="5,0,0,0" FontSize="10" TextWrapping="Wrap"/>
+        </StackPanel>
+
+        <StackPanel Grid.Column="2" Grid.Row="11">
+            <Label Content="Sonstiges:" FontSize="12"></Label>
+        </StackPanel>
+        <StackPanel Grid.Column="3" Grid.Row="10">
+            <Label Content="Beschreibung" FontSize="10"></Label>
+        </StackPanel>
+        <StackPanel Grid.Column="6" Grid.Row="10">
+            <Label Content="Preis Fr." FontSize="10"></Label>
+        </StackPanel>
+        <StackPanel Grid.Column="3" Grid.ColumnSpan="3" Grid.Row="11">
+            <TextBox x:Name="TbSonstigesText" Text="{Binding SonstigesText, ValidatesOnDataErrors=True,NotifyOnValidationError=True}" Validation.Error="Validation_Error" FontSize="12"></TextBox>
+        </StackPanel>
+        <StackPanel Grid.Column="6" Grid.Row="11">
+            <TextBox x:Name="TbSonstigesPreis" Text="{Binding SonstigesPreis, ValidatesOnDataErrors=True,NotifyOnValidationError=True}" Validation.Error="Validation_Error" FontSize="12"></TextBox>
+        </StackPanel>
+        <StackPanel Grid.Column="7" Grid.Row="11">
+            <Label Content=".-" FontSize="12" HorizontalAlignment="Left"></Label>
+        </StackPanel>
+        <StackPanel Grid.Column="2" Grid.ColumnSpan="3" Grid.Row="12">
+            <TextBlock Text="{Binding (Validation.Errors)[0].ErrorContent, ElementName=TbSonstigesText}" Foreground="Red" Margin="5,0,0,0" FontSize="10" TextWrapping="Wrap"/>
+        </StackPanel>
+        <StackPanel Grid.Column="5" Grid.ColumnSpan="3" Grid.Row="12">
+            <TextBlock Text="{Binding (Validation.Errors)[0].ErrorContent, ElementName=TbSonstigesPreis}" Foreground="Red" Margin="5,0,0,0" FontSize="10" TextWrapping="Wrap"/>
+        </StackPanel>
+
         <!--Auftragsübersicht-->
         <!--Abschluss-->
     </Grid>

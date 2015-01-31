@@ -277,6 +277,12 @@ namespace DA_Buchhaltung.viewModel
             get { return _positionsListe; }
         }
 
+        private readonly ObservableCollection<int> _reperaturListe = new ObservableCollection<int>();
+        public ObservableCollection<int> ReperaturListe
+        {
+            get { return _reperaturListe; }
+        }
+
 
         //Commands
         private SimpleCommand _neuerAuftragCommand;
@@ -660,6 +666,12 @@ namespace DA_Buchhaltung.viewModel
         {
             AktuelleKundenId = -1;
             _optionenListe = model.LadeOptionen();
+
+            ReperaturListe.Clear();
+            for (int i = 0; i < 10; i++)
+            {
+                ReperaturListe.Add(i);
+            }
         }
     }
 }
