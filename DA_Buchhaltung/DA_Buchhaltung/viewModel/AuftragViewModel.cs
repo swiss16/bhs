@@ -29,9 +29,10 @@ namespace DA_Buchhaltung.viewModel
             get { return _aktuellerAuftrag; }
             set
             {
+                int _tempId = -1;
                 if (value != null)
                 {
-                    
+                    _tempId = _aktuellerAuftrag.ID;
                     _aktuellerAuftrag = value;
                     OnPropertyChanged("AktuellerAuftrag");
                     if (value.ID == -1)
@@ -41,14 +42,16 @@ namespace DA_Buchhaltung.viewModel
                     else
                     {
                         KeinNeuerAuftragAktiv = true;
-                    }
-                    
+                    }                   
                 }
                 else
                 {
                     AktuellerAuftrag = new Auftrag();
                 }
-
+                if (AktuellerAuftrag.ID != _tempId)
+                {
+                    UpdateFelder();
+                }
 
             }
         }
@@ -95,8 +98,9 @@ namespace DA_Buchhaltung.viewModel
                     _rabattInProzent = value;
                     OnPropertyChanged("RabattInProzent");
                     AktualisiereRabatt(AktuellerAuftrag.Rabatt.ToString());
+                    RabattNichtInProzent = !value;
                 }
-                RabattNichtInProzent = !value;
+                
             }
         }
 
@@ -105,8 +109,11 @@ namespace DA_Buchhaltung.viewModel
             get { return GetValue(() => RabattNichtInProzent); }
             set
             {
-                SetValue(() =>RabattNichtInProzent, value);
-                OnPropertyChanged("RabattNichtInProzent");
+                if (value != RabattNichtInProzent )
+                {
+                    SetValue(() => RabattNichtInProzent, value);
+                    OnPropertyChanged("RabattNichtInProzent");
+                }
             }
         }
 
@@ -396,6 +403,7 @@ namespace DA_Buchhaltung.viewModel
                 return;
             }
             AktuellerAuftrag.KundeID = AktuelleKundenId;
+            UpdatePositionList();
             
             int _tempAuftragId = model.SpeichereAuftrag(AktuellerAuftrag);
 
@@ -728,6 +736,88 @@ namespace DA_Buchhaltung.viewModel
                 } 
             }
                         
+        }
+
+        private void UpdateFelder()
+        {
+            List<Option> _tempPositionen = new List<Option>();
+            AktuellerAuftrag.Positionen.ForEach(_tempPositionen.Add);
+            PositionsListe.Clear();
+            if (_tempPositionen.All(i => i.Name != "Steinchen"))
+            {
+                Steinchen = 0;
+            }
+            if (_tempPositionen.All(i => i.Name != "Reperatur"))
+            {
+                Reperatur = 0;
+            }
+            if (_tempPositionen.All(i => i.Name != "Nailart"))
+            {
+                Nailart = 0.0m;
+            }
+            if (_tempPositionen.All(i => i.Name != "Stamping"))
+            {
+                Stamping = 0.0m;
+            }
+            if (_tempPositionen.All(i => (i.Name == "Steinchen") || (i.Name == "Stamping") || (i.Name == "Reperatur") || (i.Name == "Nailart")))
+            {
+                SonstigesAktiv = false;
+                SonstigesPreis = 0.0m;
+                SonstigesText = string.Empty;
+            }
+ 
+            foreach (var option in _tempPositionen)
+            {
+                if (option.Name == "Steinchen")
+                {
+                    int anz = 0;
+                    if (Int32.TryParse(option.Anzahl.ToString(), out anz))
+                    {
+                        Steinchen = anz;
+                    }
+                    
+                }
+                if (option.Name == "Reperatur")
+                {
+                    int anz = 0;
+                    if (Int32.TryParse(option.Anzahl.ToString(), out anz))
+                    {
+                        Reperatur = anz;
+                    }
+                }
+                if (option.Name == "Nailart")
+                {
+                    Nailart = option.PreisInFranken;
+                }
+                if (option.Name == "Stamping")
+                {
+                    Stamping = option.PreisInFranken;
+                }
+                if (option.Name != "Stamping" && option.Name != "Nailart" && option.Name != "Reperatur" && option.Name != "Steinchen")
+                {
+                    SonstigesAktiv = true;
+                    SonstigesPreis = option.PreisInFranken;
+                    SonstigesText = option.Name;
+                }
+            }
+
+            if (AktuellerAuftrag.Dienstleistung.Name == "Neuset")
+            {
+                IstNeuset = true;
+            }
+            if (AktuellerAuftrag.Dienstleistung.Name == "Auffüllen")
+            {
+                IstAuffuellen = true;
+            }
+            if (AktuellerAuftrag.Dienstleistung.Name == "Gellack")
+            {
+                IstGellack = true;
+            }
+            RabattInProzent = AktuellerAuftrag.RabattInProzent;
+
+
+            
+            
         }
 
         //Public Methoden

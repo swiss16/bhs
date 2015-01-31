@@ -174,7 +174,7 @@
             <RadioButton GroupName="rabatt" Content="in %" IsChecked="{Binding RabattInProzent}" FontSize="12"></RadioButton>
         </StackPanel>
         <StackPanel Grid.Column="4" Grid.Row="14">
-            <RadioButton GroupName="rabatt" Content="in .- Fr." FontSize="12"></RadioButton>
+            <RadioButton GroupName="rabatt" Content="in .- Fr." IsChecked="{Binding RabattNichtInProzent}" FontSize="12"></RadioButton>
         </StackPanel>
         <StackPanel Grid.Column="5" Grid.Row="14">
             <TextBox x:Name="TbRabatt" Text="{Binding AktuellerAuftrag.Rabatt, ValidatesOnDataErrors=True,NotifyOnValidationError=True}" Validation.Error="Validation_Error" FontSize="12">

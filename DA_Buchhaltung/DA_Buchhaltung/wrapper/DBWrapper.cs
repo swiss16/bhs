@@ -125,10 +125,12 @@ namespace DA_Buchhaltung.wrapper
                         Preis = d.Preis
                     },
                     KundeID = a.Person_ID,
+                    RabattInProzent = a.RabattInProzent,
+                    Rabatt = a.Rabatt.HasValue ? a.Rabatt.Value : 0.0m
                     
                 };
-            
-                foreach (var auftrag in list)
+            auftragsListe = list.ToList();
+                foreach (var auftrag in auftragsListe)
                 {
                     foreach (var bild in db.TBL_Bild.Where(i => i.Auftrag_ID == auftrag.ID))
                     {
@@ -141,7 +143,7 @@ namespace DA_Buchhaltung.wrapper
                     foreach (var optAuftr in db.TBL_Opt_Auftr.Where(i => i.Auftrag_ID == auftrag.ID))
                     {
                         Option opt = new Option();
-                        var optInDb = db.TBL_Option.Where(i => i.Option_ID == optAuftr.Option_ID).First();
+                        var optInDb = db.TBL_Option.First(i => i.Option_ID == optAuftr.Option_ID);
                         opt.ID = optAuftr.Option_ID;
                         opt.PreisInFranken = optAuftr.GesammtPreis;
                         opt.Einheitspreis = optInDb.Einheitspreis;
@@ -149,11 +151,14 @@ namespace DA_Buchhaltung.wrapper
                         opt.Name = optInDb.Name;
                         opt.Konfigurierbar = optInDb.Konfigurierbar;
                         opt.BereitsVorhanden = true;
+                        opt.EndDate = optInDb.PreisEndDatum;
+                        opt.StartDate = optInDb.PreisStartDatum;
+                        opt.WurdeGeloescht = false;
                         auftrag.Positionen.Add(opt);
 
                     }
                 }
-                auftragsListe = list.ToList();
+                
             
             
             
@@ -1254,7 +1259,7 @@ namespace DA_Buchhaltung.wrapper
 
             foreach (var tempOption in _tempOptions)
             {
-                if (tempOption.BereitsVorhanden == false)
+                if (tempOption.BereitsVorhanden == false && (!db.TBL_Opt_Auftr.Any(i=>(i.Option_ID == tempOption.ID)&&(returnValue == i.Auftrag_ID))))
                 {
                     var newOptAuftr = new TBL_Opt_Auftr
                     {
