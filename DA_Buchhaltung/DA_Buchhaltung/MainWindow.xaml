@@ -48,7 +48,8 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <StackPanel Grid.Column="0" Grid.Row="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="10,20,0,0" Width="auto" Height="auto" Background="WhiteSmoke" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto" CanHorizontallyScroll="True" CanVerticallyScroll="True">
+            
+            <StackPanel Grid.Column="0" Grid.Row="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="10,20,0,0" Width="auto" Height="auto" Background="MistyRose">
                  <!--Hier Navigation-->
                 <Button Command="{Binding ZeigeStartCommand}" Margin="0,10,0,0" MaxWidth="100" MaxHeight="150">
                     <Image Source="common/layout/Bild.jpg" MaxWidth="100" MaxHeight="150"></Image>
@@ -64,7 +65,7 @@
                 <Button Content="Terminplaner" Margin="0,10,0,0" Width="120" FontSize="16" Visibility="Collapsed"></Button>
             </StackPanel>
              <!-- Aktionen-->
-            <StackPanel Grid.Column="1" Grid.Row="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="10,22,0,0" Width="auto" Height="auto" Background="BlueViolet" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto" CanHorizontallyScroll="True" CanVerticallyScroll="True">
+            <StackPanel Grid.Column="1" Grid.Row="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="10,22,0,0" Width="auto" Height="auto" Background="SkyBlue">
                 <uc:UC_Einstellungen DataContext="{Binding UcEinstellungenViewModel, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}" Visibility="{Binding IstEinstellungenAktiv, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=Hidden}"></uc:UC_Einstellungen>
                 <uc:UC_Rechnung DataContext="{Binding UcRechnungViewModel, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}" Visibility="{Binding IstRechnungAktiv, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=Hidden}"></uc:UC_Rechnung>
                 <uc:UC_Rechnung DataContext="{Binding UcRechnungViewModel, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}" Visibility="{Binding IstRueckzahlungAktiv, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=Hidden}"></uc:UC_Rechnung>
@@ -72,16 +73,13 @@
                 <uc:UC_Auftrag DataContext="{Binding UcAuftragViewModel, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}" Visibility="{Binding IstAuftragAktiv, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=Hidden}"></uc:UC_Auftrag>
             </StackPanel>
              <!--Verwaltungen-->
-            <StackPanel Grid.Column="2" Grid.Row="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="10,22,10,0" Width="auto" Height="auto" Background="Chartreuse" CanHorizontallyScroll="True" CanVerticallyScroll="True" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto">
+            <StackPanel Grid.Column="2" Grid.Row="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="10,22,10,0" Width="auto" Height="auto" Background="SkyBlue">
                 <uc:UC_Kunde DataContext="{Binding UcKundeViewModel, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}" Visibility="{Binding IstKundenAktiv, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=Hidden}"></uc:UC_Kunde>
                 <uc:UC_Kreditor DataContext="{Binding UcKreditorViewModel, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}" Visibility="{Binding IstKreditorAktiv, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=Hidden}"></uc:UC_Kreditor>
             </StackPanel>
             
-            
-
-
-        
             </Grid>
+        
         <Grid Grid.Column="0" Grid.Row="2" Width="auto" Height="auto" Background="Lavender">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*" />
@@ -95,5 +93,6 @@
             <Label Grid.Column="1" Grid.Row="0" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Alle Preise in Schweizer Franken ohne MwSt." Margin="0,0,0,0"></Label>
             <Label Grid.Column="2" Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Center" Content="Copyright © 2015 by Martin Osterwalder" Margin="0,0,30,0" FontSize="16px"></Label>
         </Grid>
+        
     </Grid>
 </Window>

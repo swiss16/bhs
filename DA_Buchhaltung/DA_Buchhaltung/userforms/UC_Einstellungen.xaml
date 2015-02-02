@@ -12,6 +12,7 @@
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="35" />
+            <RowDefinition Height="20" />
             <RowDefinition Height="180" />
             <RowDefinition Height="20" />
             <RowDefinition Height="180" />
@@ -20,10 +21,12 @@
         <!-- Header Titel -->
         <StackPanel Grid.Column="0" Grid.Row="0">
             <Label Content="Einstellungen" FontWeight="Bold" FontSize="18" HorizontalAlignment="Center"></Label>
-            <Rectangle Height="2" Fill="Black"></Rectangle>
+        </StackPanel>
+        <StackPanel Grid.Column="0" Grid.Row="1">
+            <Rectangle Height="3" Fill="Black"></Rectangle>
         </StackPanel>
         <!-- Kategorien -->
-        <Grid Grid.Column="0" Grid.Row="1">
+        <Grid Grid.Column="0" Grid.Row="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1.5*" />
                 <ColumnDefinition Width="1*" />
@@ -77,11 +80,11 @@
                 <Button Content="Speichern" Command="{Binding SpeichereKategorieCommand}" HorizontalAlignment="Center" Margin="5,5,5,5" Width="80"></Button>
             </StackPanel>
         </Grid>
-        <StackPanel Grid.Column="0" Grid.Row="2">
+        <StackPanel Grid.Column="0" Grid.Row="3">
             <Rectangle Height="2" Fill="Black" Margin="0,12,0,0"></Rectangle>
         </StackPanel>
         <!-- Preisoptionen -->
-        <Grid Grid.Column="0" Grid.Row="3">
+        <Grid Grid.Column="0" Grid.Row="4">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="4*" />
                 <ColumnDefinition Width="2*" />
