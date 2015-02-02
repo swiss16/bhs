@@ -88,6 +88,12 @@ namespace DA_Buchhaltung.viewModel
             get { return _zeigeAuftragCommand ?? (_zeigeAuftragCommand = new SimpleCommand(ZeigeAuftrag)); }
         }
 
+        private SimpleCommand _zeigeStartCommand;
+        public SimpleCommand ZeigeStartCommand
+        {
+            get { return _zeigeStartCommand ?? (_zeigeStartCommand = new SimpleCommand(ZeigeStart)); }
+        }
+
 
         //Commandhelper
 
@@ -169,6 +175,17 @@ namespace DA_Buchhaltung.viewModel
             EinstellungViewModel.IstEinstellungenAktiv = false;
             ErfolgsrechnungsViewModel.IstErfolgsrechnungAktiv = false;
             AuftragsViewModel.IstAuftragAktiv = true;
+        }
+
+        private void ZeigeStart()
+        {
+            KundeViewModel.IstKundenAktiv = false;
+            KreditorenViewModel.IstKreditorAktiv = false;
+            RechnungsViewModel.IstRechnungAktiv = false;
+            RechnungsViewModel.IstRueckzahlungAktiv = false;
+            EinstellungViewModel.IstEinstellungenAktiv = false;
+            ErfolgsrechnungsViewModel.IstErfolgsrechnungAktiv = false;
+            AuftragsViewModel.IstAuftragAktiv = false;
         }
 
         public MainViewModel()

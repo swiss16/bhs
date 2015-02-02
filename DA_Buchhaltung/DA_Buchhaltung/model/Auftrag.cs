@@ -135,13 +135,15 @@ namespace DA_Buchhaltung.model
 <header>
 <img id='logo' src='logo.jpg' alt='Logo'>
 <div id='title'>
-<h1 class='mitte'>Rechnung</h1></div>
+<h1 class='mitte'>Quittung</h1></div>
 </header>
 
 <div id='kunde'>
 <table class='tablehidden'>
 ");
-            html = string.Concat(html, string.Format(@"<tr><th class='left'>Kunden Nr:</th><td>K-{0}</td></tr>
+            html = string.Concat(html, string.Format(@"<tr><th class='left'>Rechnungs Nr:</th><td>R-{12}</td></tr>
+<tr><th class='left'></th><td></td></tr>
+<tr><th class='left'>Kunden Nr:</th><td>K-{0}</td></tr>
 <tr><th class='left'>Name Vorname:</th><td>{1} {2}</td></tr>
 <tr><th class='left'>Strasse und Hausnr:</th><td>{3}</td></tr>
 <tr><th class='left'>PLZ und Ort:</th><td>{4}, {5}</td></tr>
@@ -162,7 +164,7 @@ namespace DA_Buchhaltung.model
 <h2>Abrechnung</h2>
 <table class='table'>
 <tr><th>Produkt</th><th>Anzahl</th><th>Einzelpreis</th><th>Total</th></tr>
-", Kunde.KundeID, Kunde.Name, Kunde.Vorname,Kunde.Adresse, Kunde.PLZ, Kunde.Wohnort,_firma,_nameVorname,_adresse,_plzUndOrt, DateTime.Now.ToShortDateString(), nurOrt));
+", Kunde.KundeID, Kunde.Name, Kunde.Vorname,Kunde.Adresse, Kunde.PLZ, Kunde.Wohnort,_firma,_nameVorname,_adresse,_plzUndOrt, DateTime.Now.ToShortDateString(), nurOrt, ID));
 
             foreach (var pos in positionList)
             {
