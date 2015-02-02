@@ -459,7 +459,18 @@ namespace DA_Buchhaltung.viewModel
                     MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
-            AktuellerAuftrag.Print();
+            try
+            {
+                AktuellerAuftrag.Kunde = model.LadeKunden("").First(i => i.ID == AktuelleKundenId);
+                AktuellerAuftrag.Print(PositionsListe.ToList());
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Rechnung konnte nicht erstellt werden, versuchen Sie es erneut",
+                    "Fehler beim erstellen", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            
+            
         }
 
         private void UpdatePosition(decimal value, string name, bool konfigurierbar)
