@@ -275,7 +275,7 @@ namespace DA_Buchhaltung.viewModel
                     }
                     else
                     {
-                        UpdatePosition(value, "Sonstiges", false);
+                        //UpdatePosition(value, "Sonstiges", false);
                     }
                 }
             }
