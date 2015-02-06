@@ -61,6 +61,7 @@
     <Compile Include="EinnahmeTest.cs" />
     <Compile Include="KundeTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="AusgabeTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DA_Buchhaltung\DA_Buchhaltung.csproj">
