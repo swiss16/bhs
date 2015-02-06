@@ -1,4 +1,11 @@
-﻿using System;
+﻿/*
+ * Klasse: DBWrapper.cs
+ * Author: Martin Osterwalder
+ * Verwaltet jeglichen Datenverkehr, zwischen den Entities und den eigenen Objekten.
+ * Der Eigentliche DBWrapper ist das EntityFramework.
+ * Jegliche Lade- Speicher und Löschmethoden sind in dieser Klasse Implementiert.
+ */
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Documents;

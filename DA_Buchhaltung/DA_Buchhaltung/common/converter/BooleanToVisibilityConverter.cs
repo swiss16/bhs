@@ -1,4 +1,9 @@
-﻿using System;
+﻿/*
+ * Klasse: BooleanToVisibilityConverter.cs
+ * Author: Martin Osterwalder >> Hilfe von Projektwoche Projekt (BioBS) (Hauptersteller Imanuel Näf, Mitstudent HFU) 
+ * Konvertiert ein bool Property zu Visibility Value (True = Visible , False = Collapsed)
+ */
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;

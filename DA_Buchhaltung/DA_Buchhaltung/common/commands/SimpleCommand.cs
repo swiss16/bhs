@@ -1,4 +1,9 @@
-﻿using System;
+﻿/*
+ * Klasse: SimpleCommand.cs
+ * Author: Martin Osterwalder >> Bezug aus Projektwoche Projekt (BioBS) Hauptersteller war Imanuel Näf
+ * Ermöglicht die Ausführung von Parameterlose Commands
+ */
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;

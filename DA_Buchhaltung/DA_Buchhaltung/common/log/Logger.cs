@@ -1,4 +1,10 @@
-﻿using System;
+﻿/*
+ * Klasse: Logger.cs
+ * Author: Martin Osterwalder
+ * Ermöglicht das Loggen von Fehlermeldungen und Hinweisen.
+ * Das Loglevel ist Konfigurierbar über die AppConfig
+ */
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;

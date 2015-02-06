@@ -1,4 +1,9 @@
-﻿using System;
+﻿/*
+ * Klasse: RelayCommand.cs
+ * Author: Martin Osterwalder >> Bezug aus MSDN und nullskull (siehe weiter unten)
+ * Implementierung des ICommand interface, ermöglich das Ausführen von Methoden, welche durch Commands aufgerufen werden
+ */
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;

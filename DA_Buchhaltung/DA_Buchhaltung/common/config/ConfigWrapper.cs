@@ -1,4 +1,10 @@
-﻿using System;
+﻿/*
+ * Klasse: ConfigWrapper.cs
+ * Author: Martin Osterwalder
+ * Ermöglicht das Statische Aufrufen von Konfigrationen aus der AppConfig.
+ * Setter und Getter speichern und laden die Daten
+ */
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
