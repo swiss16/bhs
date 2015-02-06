@@ -1,4 +1,11 @@
-﻿using System;
+﻿/*
+ * Klasse: Model.cs
+ * Author: Martin Osterwalder
+ * Diese Klasse verkörpert die ganze Businesslogik und steuert die entsprechenden Modeltypen, sowie den DBWrapper an.
+ * Ausserdem werden hier die Fehlermeldungen vom inneren Kern abgefangen und als Meldungsfenster (Messagebox) angezeigt.
+ * Die Viewmodels können über diese Klasse die gewünschte Arbeiten auslösen.
+ */
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;

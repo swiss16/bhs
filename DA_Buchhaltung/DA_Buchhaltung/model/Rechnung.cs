@@ -1,4 +1,11 @@
-﻿using System;
+﻿/*
+ * Klasse: Rechnung.cs
+ * Author: Martin Osterwalder
+ * Objektklasse um mit "Rechnungen" oder "Rückzahlungen" zu arbeiten.
+ * Der DBWrapper wrappt diese Klasse an die entsprechende Entity des Entity Models.
+ * Da Rechnungen und Rückzahlungen so gut wie identisch sind, wurde dafür weder eine Vererbung noch eine seperate Klasse erstellt.
+ */
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;

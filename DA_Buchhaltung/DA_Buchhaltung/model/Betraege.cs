@@ -1,4 +1,10 @@
-﻿using System;
+﻿/*
+ * Klasse: Betraege.cs
+ * Author: Martin Osterwalder
+ * Objektklasse um mit "Betraege" zu arbeiten.
+ * Dies ist eine Hilfsklasse um die benötigten Daten für die Erfolgsrechnung zu ergänzen.
+ */
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;

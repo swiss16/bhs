@@ -1,4 +1,10 @@
-﻿using System;
+﻿/*
+ * Klasse: ViewModelBase.cs
+ * Author: Martin Osterwalder
+ * Implementierung der INotifyPropertyChanged Schnittstelle.
+ * Zusätzliches Fremdsnippet für die Validierung mit Annotations. Source von Technet (Detaillink siehe weiter unten)
+ */
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;

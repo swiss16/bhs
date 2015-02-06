@@ -1,4 +1,11 @@
-﻿using System;
+﻿/*
+ * Klasse: MainViewModel.cs
+ * Author: Martin Osterwalder
+ * Stellt für die View die Commands und Properties bereit um die entsprechende Modelfunktionen aufzurufen.
+ * Die View bindet die Steuerungselemente an diese Commands und Properties.
+ * Zuständig für das Steuern der Anzeige, welche Ansichten gezeigt werden sollen.
+ */
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;

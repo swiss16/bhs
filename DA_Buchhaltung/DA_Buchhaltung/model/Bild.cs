@@ -1,4 +1,11 @@
-﻿using System;
+﻿/*
+ * Klasse: Bild.cs
+ * Author: Martin Osterwalder
+ * Objektklasse um mit "Bilder" zu arbeiten.
+ * Dies gehört zu den Kannzielen um Bilder zu speichern. Wird derzeit noch nicht benötigt.
+ * Der DBWrapper wrappt diese Klasse an die entsprechende Entity des Entity Models.
+ */
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;

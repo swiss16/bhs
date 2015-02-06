@@ -1,4 +1,11 @@
-﻿using System;
+﻿/*
+ * Klasse: Position.cs
+ * Author: Martin Osterwalder
+ * Objektklasse um mit "Positionen" zu arbeiten.
+ * Dies ist eine Hilfsklasse, diese wird hauptsächlich von den Viewmodels verwendet.
+ * Diese Klasse wird für  die Listenanzeigen aller Positionen verwendet. Unabhängig ob Dienstleistung, Option oder Rabatt(Bestandteil vom Auftrag)
+ */
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;

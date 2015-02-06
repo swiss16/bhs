@@ -1,4 +1,10 @@
-﻿using System;
+﻿/*
+ * Klasse: Kreditor.cs
+ * Author: Martin Osterwalder
+ * Objektklasse um mit "Kreditoren" zu arbeiten. Leitet von Personen ab und erbt Personenbezogene Properties.
+ * Der DBWrapper wrappt diese Klasse an die entsprechende Entity des Entity Models.
+ */
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;

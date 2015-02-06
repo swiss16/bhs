@@ -1,4 +1,11 @@
-﻿using System;
+﻿/*
+ * Klasse: AuftragViewModel.cs
+ * Author: Martin Osterwalder
+ * Stellt für die View die Commands und Properties bereit um die entsprechende Modelfunktionen aufzurufen.
+ * Die View bindet die Steuerungselemente an diese Commands und Properties.
+ * Zuständig für die weiterleitung jeglichen Aufgaben um Aufträge zu erfassen, löschen und manipulieren.
+ */
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;

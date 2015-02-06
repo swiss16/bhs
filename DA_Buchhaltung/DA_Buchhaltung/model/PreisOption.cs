@@ -1,4 +1,11 @@
-﻿using System;
+﻿/*
+ * Klasse: PreisOption.cs
+ * Author: Martin Osterwalder
+ * Objektklasse um mit "preisOptionen" zu arbeiten.
+ * Der DBWrapper wrappt diese Klasse an die entsprechende Entity des Entity Models.
+ * Diese Klasse ermöglicht es Einstellungen der Preise vorzunehmen.
+ */
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;

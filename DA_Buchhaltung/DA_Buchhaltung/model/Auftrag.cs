@@ -1,4 +1,11 @@
-﻿using System;
+﻿/*
+ * Klasse: Auftrag.cs
+ * Author: Martin Osterwalder
+ * Objektklasse um mit "Aufträge" zu arbeiten.
+ * Zusätzliche Print() Methode um Aufträge zu drucken.
+ * Der DBWrapper wrappt diese Klasse an die entsprechende Entity des Entity Models.
+ */
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;

@@ -1,4 +1,10 @@
-﻿using System;
+﻿/*
+ * Klasse: Erfolgsrechnung.cs
+ * Author: Martin Osterwalder
+ * Objektklasse um mit "Erfolgsrechnungen" zu arbeiten.
+ * Zusätzliche Print() Methode um Erfolgsrechnungen zu drucken.
+ */
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;

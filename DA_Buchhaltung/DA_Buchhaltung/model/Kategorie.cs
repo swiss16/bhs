@@ -1,4 +1,10 @@
-﻿using System;
+﻿/*
+ * Klasse: Kategorie.cs
+ * Author: Martin Osterwalder
+ * Objektklasse um mit "Kategorien" zu arbeiten.
+ * Der DBWrapper wrappt diese Klasse an die entsprechende Entity des Entity Models.
+ */
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;

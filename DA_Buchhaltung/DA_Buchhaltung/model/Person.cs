@@ -1,4 +1,10 @@
-﻿using System;
+﻿/*
+ * Klasse: Person.cs
+ * Author: Martin Osterwalder
+ * Basisklasse um mit Personen zu Arbeiten.
+ * Diese Klasse wird selbst nicht direkt verwendet, vererbt jedoch seine Properties.
+ */
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;

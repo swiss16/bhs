@@ -1,4 +1,10 @@
-﻿using System;
+﻿/*
+ * Klasse: Dienstleistung.cs
+ * Author: Martin Osterwalder
+ * Objektklasse um mit "Dienstleistungen" zu arbeiten.
+ * Der DBWrapper wrappt diese Klasse an die entsprechende Entity des Entity Models.
+ */
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
