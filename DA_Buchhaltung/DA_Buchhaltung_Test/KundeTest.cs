@@ -11,6 +11,11 @@ namespace DA_Buchhaltung_Test
     [TestClass]
     public class KundeTest
     {
+
+        /// <summary>
+        /// Unittests für die 3 Kundentests ( UT 1,2,3)
+        /// </summary>
+
         [TestMethod]
         public void KundeErfassenTest_KorrektesErfassen()
         {

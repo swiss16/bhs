@@ -9,6 +9,10 @@ namespace DA_Buchhaltung_Test
     [TestClass]
     public class AusgabeTest
     {
+        /// <summary>
+        /// Unittests für die 3 Ausgabetests ( UT 4,5,6) und den Rückerstattungstest (UT 11)
+        /// </summary>
+
         public int _id = 0;
         [TestMethod]
         public void AusgabeErfassenTest_KorrektesErfassen()
