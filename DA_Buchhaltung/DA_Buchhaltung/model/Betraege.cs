@@ -12,6 +12,9 @@ using System.Threading.Tasks;
 
 namespace DA_Buchhaltung.model
 {
+    /// <summary>
+    /// Diese Klasse stellt Betraegespezifische Attribute und Methoden (DB unabhängig) bereit.
+    /// </summary>
     public class Betraege
     {
         public string Kategorie { get; set; }

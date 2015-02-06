@@ -13,6 +13,10 @@ using System.Threading.Tasks;
 
 namespace DA_Buchhaltung.model
 {
+    /// <summary>
+    /// Diese Klasse stellt Kreditorenspezifische Attribute und Methoden (DB unabhängig) bereit.
+    /// Abgeleitet von der Basisklasse Person
+    /// </summary>
     public class Kreditor : Person
     {
         public int KreditorID { get; set; }

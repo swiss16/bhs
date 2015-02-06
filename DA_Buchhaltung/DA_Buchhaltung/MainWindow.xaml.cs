@@ -18,6 +18,7 @@ namespace DA_Buchhaltung
 {
     /// <summary>
     /// Interaktionslogik für MainWindow.xaml
+    /// Verwaltet alle Viewmodels und deren Beziehungen (zB. Kunde -> Auftrag)
     /// </summary>
     public partial class MainWindow : Window
     {

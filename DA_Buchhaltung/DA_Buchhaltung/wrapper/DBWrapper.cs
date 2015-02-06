@@ -15,6 +15,9 @@ using DA_Buchhaltung.model;
 
 namespace DA_Buchhaltung.wrapper
 {
+    /// <summary>
+    /// Diese Klasse ist zuständig für jegliche Verwaltungsmethoden und der Übersetzung von EigenemObjekt zu EntityObjekt (und andersrum)
+    /// </summary>
     public class DBWrapper
     {
         //Private Properties

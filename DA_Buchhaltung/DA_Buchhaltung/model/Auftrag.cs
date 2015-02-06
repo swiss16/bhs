@@ -19,6 +19,9 @@ using DA_Buchhaltung.viewModel;
 
 namespace DA_Buchhaltung.model
 {
+    /// <summary>
+    /// Diese Klasse stellt Auftragsspezifische Attribute und Methoden (DB unabhängig) bereit.
+    /// </summary>
     public class Auftrag : ViewModelBase
     {
         public int ID { get; set; }

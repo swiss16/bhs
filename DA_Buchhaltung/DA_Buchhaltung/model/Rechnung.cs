@@ -15,6 +15,9 @@ using DA_Buchhaltung.viewModel;
 
 namespace DA_Buchhaltung.model
 {
+    /// <summary>
+    /// Diese Klasse stellt Rechnungsspezifische Attribute und Methoden (DB unabhängig) bereit.
+    /// </summary>
     public class Rechnung : ViewModelBase
     {
         public int ID { get; set; }

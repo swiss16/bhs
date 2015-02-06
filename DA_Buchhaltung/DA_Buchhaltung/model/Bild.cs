@@ -13,6 +13,9 @@ using System.Threading.Tasks;
 
 namespace DA_Buchhaltung.model
 {
+    /// <summary>
+    /// Diese Klasse stellt Bilderspezifische Attribute und Methoden (DB unabhängig) bereit.
+    /// </summary>
     public class Bild
     {
         public int ID { get; set; }

@@ -12,6 +12,9 @@ using System.Threading.Tasks;
 
 namespace DA_Buchhaltung.model
 {
+    /// <summary>
+    /// Diese Klasse stellt Dienstleistungsspezifische Attribute und Methoden (DB unabhängig) bereit.
+    /// </summary>
     public class Dienstleistung
     {
         public int ID { get; set; }

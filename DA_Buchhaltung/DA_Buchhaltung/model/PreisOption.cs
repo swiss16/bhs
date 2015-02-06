@@ -15,11 +15,17 @@ using DA_Buchhaltung.viewModel;
 
 namespace DA_Buchhaltung.model
 {
+    /// <summary>
+    /// Dieser Enumerator stellt die möglichen Preiskategorien bereit
+    /// </summary>
     public enum PreisKatalog
     {
         Dienstleistung,
         Option
     }
+    /// <summary>
+    /// Diese Klasse stellt Preisoptionsspezifische Attribute und Methoden (DB unabhängig) bereit.
+    /// </summary>
     public class PreisOption : ViewModelBase
     {
         public int ID { get; set; }

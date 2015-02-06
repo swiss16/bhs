@@ -1,4 +1,9 @@
-﻿<Window x:Class="DA_Buchhaltung.MainWindow"
+﻿<!-- View: MainWindow.xaml
+    Author: Martin Osterwalder
+    Steuerelemente und Bindungen an das entsprechende Viewmodel
+    Diese Ansicht stellt den Grundaufbau der Software dar und die Usercontrols werden kontrolliert angezeigt.
+-->
+    <Window x:Class="DA_Buchhaltung.MainWindow"
         DataContext="{Binding ViewModel, RelativeSource={RelativeSource Self}}"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:uc="clr-namespace:DA_Buchhaltung.userforms"

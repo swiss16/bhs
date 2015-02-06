@@ -13,6 +13,9 @@ using System.Threading.Tasks;
 
 namespace DA_Buchhaltung.model
 {
+    /// <summary>
+    /// Diese Klasse stellt Positionsspezifische Attribute und Methoden (DB unabhängig) bereit.
+    /// </summary>
     public class Position
     {
         public string Beschreibung { get; set; }

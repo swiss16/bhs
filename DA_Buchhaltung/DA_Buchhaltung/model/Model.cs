@@ -17,6 +17,10 @@ using DA_Buchhaltung.wrapper;
 
 namespace DA_Buchhaltung.model
 {
+    /// <summary>
+    /// Diese Klasse stellt die gesammte Businesslogik dar.
+    /// Steuert den DBWrapper und die restlichen benötigten Modelklassen.
+    /// </summary>
     public class Model
     {
         //Private Variablen

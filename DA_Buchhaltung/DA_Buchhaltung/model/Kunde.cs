@@ -12,6 +12,10 @@ using System.Threading.Tasks;
 
 namespace DA_Buchhaltung.model
 {
+    /// <summary>
+    /// Diese Klasse stellt Kundenspezifische Attribute und Methoden (DB unabhängig) bereit.
+    /// Abgeleitet von der Basisklasse Person
+    /// </summary>
     public class Kunde:Person
     {
         public int KundeID { get; set; }

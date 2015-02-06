@@ -1,4 +1,8 @@
-﻿<UserControl x:Class="DA_Buchhaltung.userforms.UC_Einstellungen"
+﻿<!-- View: UC_Einstellungen.xaml
+    Author: Martin Osterwalder
+    Steuerelemente und Bindungen an das entsprechende Viewmodel
+-->
+    <UserControl x:Class="DA_Buchhaltung.userforms.UC_Einstellungen"
              DataContext="{Binding ViewModel, RelativeSource={RelativeSource Self}}"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"

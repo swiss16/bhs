@@ -15,6 +15,10 @@ using DA_Buchhaltung.viewModel;
 
 namespace DA_Buchhaltung.model
 {
+    /// <summary>
+    /// Diese Klasse stellt Grundattribute für Personenbezogene Objekte wie Kunden und Kreditoren dar.
+    /// Dies ist die Basisklasse der Kunden und Kreditoren
+    /// </summary>
     public class Person : ViewModelBase
     {
         public int ID { get; set; }

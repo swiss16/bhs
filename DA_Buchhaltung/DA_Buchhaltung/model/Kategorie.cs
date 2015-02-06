@@ -14,6 +14,9 @@ using DA_Buchhaltung.viewModel;
 
 namespace DA_Buchhaltung.model
 {
+    /// <summary>
+    /// Diese Klasse stellt Kategorienspezifische Attribute und Methoden (DB unabhängig) bereit.
+    /// </summary>
     public class Kategorie : ViewModelBase
     {
         public int ID { get; set; }

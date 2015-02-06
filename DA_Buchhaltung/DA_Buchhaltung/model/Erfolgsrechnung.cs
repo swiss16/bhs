@@ -16,6 +16,9 @@ using DA_Buchhaltung.common.log;
 
 namespace DA_Buchhaltung.model
 {
+    /// <summary>
+    /// Diese Klasse stellt Erfolgsrechnungsspezifische Attribute und Methoden (DB unabhängig) bereit.
+    /// </summary>
     public class Erfolgsrechnung
     {
         public int ID { get; set; }
