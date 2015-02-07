@@ -11,9 +11,9 @@
           </Key>
           <Property Name="Auftrag_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ErfassungsDatum" Type="datetime" Nullable="false" />
-          <Property Name="Total" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Total" Type="decimal" Precision="16" Scale="2" Nullable="false" />
           <Property Name="RabattInProzent" Type="bit" Nullable="false" />
-          <Property Name="Rabatt" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="Rabatt" Type="decimal" Precision="16" Scale="2" />
           <Property Name="KundenGespraech" Type="nvarchar" MaxLength="500" Nullable="false" />
           <Property Name="Dienstleistung_ID" Type="int" Nullable="false" />
           <Property Name="Person_ID" Type="int" Nullable="false" />
@@ -32,7 +32,7 @@
             <PropertyRef Name="Dienstleistung_ID" />
           </Key>
           <Property Name="Dienstleistung_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Preis" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Preis" Type="decimal" Precision="16" Scale="2" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="PreisStartDatum" Type="datetime" Nullable="false" />
           <Property Name="PreisEndDatum" Type="datetime" Nullable="false" />
@@ -42,7 +42,7 @@
             <PropertyRef Name="Gutschein_ID" />
           </Key>
           <Property Name="Gutschein_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Rabatt" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Rabatt" Type="decimal" Precision="16" Scale="2" Nullable="false" />
           <Property Name="GutscheinCode" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="AusstellungsDatum" Type="datetime" Nullable="false" />
           <Property Name="GueltigInTage" Type="int" Nullable="false" />
@@ -78,8 +78,8 @@
           </Key>
           <Property Name="Auftrag_ID" Type="int" Nullable="false" />
           <Property Name="Option_ID" Type="int" Nullable="false" />
-          <Property Name="GesammtPreis" Type="decimal" Precision="18" Scale="0" Nullable="false" />
-          <Property Name="Anzahl" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="GesammtPreis" Type="decimal" Precision="16" Scale="2" Nullable="false" />
+          <Property Name="Anzahl" Type="decimal" Precision="16" Scale="2" Nullable="false" />
         </EntityType>
         <EntityType Name="TBL_Option">
           <Key>
@@ -87,7 +87,7 @@
           </Key>
           <Property Name="Option_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="Einheitspreis" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Einheitspreis" Type="decimal" Precision="16" Scale="2" Nullable="false" />
           <Property Name="PreisStartDatum" Type="datetime" Nullable="false" />
           <Property Name="PreisEndDatum" Type="datetime" Nullable="false" />
           <Property Name="Konfigurierbar" Type="bit" Nullable="false" />
@@ -120,7 +120,7 @@
           <Property Name="Rechnung_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Beschreibung" Type="nvarchar" MaxLength="500" Nullable="false" />
           <Property Name="Erfassungsdatum" Type="datetime" Nullable="false" />
-          <Property Name="Preis" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Preis" Type="decimal" Precision="16" Scale="2" Nullable="false" />
           <Property Name="Kategorie_ID" Type="int" Nullable="false" />
           <Property Name="Person_ID" Type="int" Nullable="false" />
         </EntityType>
@@ -129,7 +129,7 @@
             <PropertyRef Name="Rueckerstattung_ID" />
           </Key>
           <Property Name="Rueckerstattung_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Total" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Total" Type="decimal" Precision="16" Scale="2" Nullable="false" />
           <Property Name="Beschreibung" Type="nvarchar" MaxLength="500" Nullable="false" />
           <Property Name="Erfassungsdatum" Type="datetime" Nullable="false" />
           <Property Name="Kategorie_ID" Type="int" Nullable="false" />
@@ -471,9 +471,9 @@
           </Key>
           <Property Name="Auftrag_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ErfassungsDatum" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="Total" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="Total" Type="Decimal" Nullable="false" Precision="16" Scale="2" />
           <Property Name="RabattInProzent" Type="Boolean" Nullable="false" />
-          <Property Name="Rabatt" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Rabatt" Type="Decimal" Precision="16" Scale="2" />
           <Property Name="KundenGespraech" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="Dienstleistung_ID" Type="Int32" Nullable="false" />
           <Property Name="Person_ID" Type="Int32" Nullable="false" />
@@ -498,7 +498,7 @@
             <PropertyRef Name="Dienstleistung_ID" />
           </Key>
           <Property Name="Dienstleistung_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Preis" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="Preis" Type="Decimal" Nullable="false" Precision="16" Scale="2" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="PreisStartDatum" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="PreisEndDatum" Type="DateTime" Nullable="false" Precision="3" />
@@ -509,7 +509,7 @@
             <PropertyRef Name="Gutschein_ID" />
           </Key>
           <Property Name="Gutschein_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Rabatt" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="Rabatt" Type="Decimal" Nullable="false" Precision="16" Scale="2" />
           <Property Name="GutscheinCode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="AusstellungsDatum" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="GueltigInTage" Type="Int32" Nullable="false" />
@@ -550,8 +550,8 @@
           </Key>
           <Property Name="Auftrag_ID" Type="Int32" Nullable="false" />
           <Property Name="Option_ID" Type="Int32" Nullable="false" />
-          <Property Name="GesammtPreis" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
-          <Property Name="Anzahl" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="GesammtPreis" Type="Decimal" Nullable="false" Precision="16" Scale="2" />
+          <Property Name="Anzahl" Type="Decimal" Nullable="false" Precision="16" Scale="2" />
           <NavigationProperty Name="TBL_Auftrag" Relationship="bhs_DBModel.TBL_Auftrag_TBL_Opt_Auftr_fk" FromRole="TBL_Opt_Auftr" ToRole="TBL_Auftrag" />
           <NavigationProperty Name="TBL_Option" Relationship="bhs_DBModel.TBL_Option_TBL_Opt_Auftr_fk" FromRole="TBL_Opt_Auftr" ToRole="TBL_Option" />
         </EntityType>
@@ -561,7 +561,7 @@
           </Key>
           <Property Name="Option_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Einheitspreis" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="Einheitspreis" Type="Decimal" Nullable="false" Precision="16" Scale="2" />
           <Property Name="PreisStartDatum" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="PreisEndDatum" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Konfigurierbar" Type="Boolean" Nullable="false" />
@@ -601,7 +601,7 @@
           <Property Name="Rechnung_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Beschreibung" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="Erfassungsdatum" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="Preis" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="Preis" Type="Decimal" Nullable="false" Precision="16" Scale="2" />
           <Property Name="Kategorie_ID" Type="Int32" Nullable="false" />
           <Property Name="Person_ID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="TBL_Kategorie" Relationship="bhs_DBModel.TBL_Kategorie_TBL_Rechnung_fk" FromRole="TBL_Rechnung" ToRole="TBL_Kategorie" />
@@ -612,7 +612,7 @@
             <PropertyRef Name="Rueckerstattung_ID" />
           </Key>
           <Property Name="Rueckerstattung_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Total" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="Total" Type="Decimal" Nullable="false" Precision="16" Scale="2" />
           <Property Name="Beschreibung" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="Erfassungsdatum" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Kategorie_ID" Type="Int32" Nullable="false" />
