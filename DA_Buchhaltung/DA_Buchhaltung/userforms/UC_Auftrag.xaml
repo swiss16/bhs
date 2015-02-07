@@ -59,14 +59,20 @@
         <StackPanel Grid.Column="0" Grid.ColumnSpan="8" Grid.Row="2">
             <DataGrid Height="200" Margin="5 0 5 0" CanUserSortColumns="True" SelectionMode="Single" AutoGenerateColumns="False" IsReadOnly="True"
                  ItemsSource="{Binding AuftragsListe}"  
-                 SelectedItem="{Binding Path=AktuellerAuftrag}" ClipboardCopyMode="None" EnableRowVirtualization="False">
+                 SelectedItem="{Binding AktuellerAuftrag}" ClipboardCopyMode="None" EnableRowVirtualization="False">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Datum" Binding="{Binding Datum, StringFormat=\{0:dd.MM.yyyy HH:mm\} Uhr}" Width="*"></DataGridTextColumn>
                     <DataGridTextColumn Header="Total" Binding="{Binding Total, StringFormat={}Fr. {0:n2} .-}" Width="*"></DataGridTextColumn>
                     <DataGridTextColumn Header="Dienstleistung" Binding="{Binding Dienstleistung.Name}" Width="*"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Rabatt" Binding="{Binding Rabatt, StringFormat={}Fr. {0:n2} .-}" Width="*" Visibility="{Binding RabattNichtInProzent, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=Hidden}"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Rabatt" Binding="{Binding Rabatt, StringFormat={}{0:n2} %}" Width="*" Visibility="{Binding RabattInProzent, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=Hidden}"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Rabatt in %" Binding="{Binding RabattInProzent}" Width="*"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Rabatt" Width="0.5*">
+                        <DataGridTextColumn.Binding>
+                            <MultiBinding Converter="{StaticResource RabattConverter}" >
+                                <Binding Path="Rabatt"/>
+                                <Binding Path="RabattInProzent"/>
+                            </MultiBinding>
+                        </DataGridTextColumn.Binding>
+                    </DataGridTextColumn>
+                    <DataGridCheckBoxColumn Header="Rabatt in %" Binding="{Binding RabattInProzent}" Width="0.5*"></DataGridCheckBoxColumn>
                 </DataGrid.Columns>
             </DataGrid>
         </StackPanel>

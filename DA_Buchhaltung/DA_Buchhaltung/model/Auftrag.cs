@@ -34,6 +34,7 @@ namespace DA_Buchhaltung.model
         public decimal Total { get; set; }
         public DateTime Datum { get; set; }
         public bool RabattInProzent { get; set; }
+
         [RegularExpression(@"\d+(\.\d{1,2})?", ErrorMessage = "Das Format muss zB: 5.20 sein und nicht negativ")]
         [Range(0, 500, ErrorMessage = "Wert muss zwischen 0 und 500 sein")]
         public decimal Rabatt

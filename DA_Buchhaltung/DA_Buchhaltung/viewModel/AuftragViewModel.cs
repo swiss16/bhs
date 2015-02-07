@@ -111,14 +111,15 @@ namespace DA_Buchhaltung.viewModel
             }
         }
 
+        private bool _rabattNichtInProzent = false;
         public bool RabattNichtInProzent
         {
-            get { return GetValue(() => RabattNichtInProzent); }
+            get { return _rabattNichtInProzent; }
             set
             {
-                if (value != RabattNichtInProzent )
+                if (value != _rabattNichtInProzent)
                 {
-                    SetValue(() => RabattNichtInProzent, value);
+                    _rabattNichtInProzent = value;
                     OnPropertyChanged("RabattNichtInProzent");
                 }
             }

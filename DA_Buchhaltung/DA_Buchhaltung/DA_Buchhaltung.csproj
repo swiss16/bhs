@@ -87,6 +87,7 @@
     <Compile Include="common\commands\SimpleCommand.cs" />
     <Compile Include="common\config\ConfigWrapper.cs" />
     <Compile Include="common\converter\BooleanToVisibilityConverter.cs" />
+    <Compile Include="common\converter\RabattConverter.cs" />
     <Compile Include="common\log\Logger.cs" />
     <Compile Include="data\TBL_Auftrag.cs">
       <DependentUpon>bhsContext.tt</DependentUpon>
