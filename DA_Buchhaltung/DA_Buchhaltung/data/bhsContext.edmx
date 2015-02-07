@@ -107,7 +107,7 @@
           <Property Name="TelFirma" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="TelMobile" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Fax" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="Email" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="100" />
           <Property Name="Erfassungsdatum" Type="datetime" Nullable="false" />
           <Property Name="Geloescht" Type="bit" Nullable="false" />
           <Property Name="Kunde_ID" Type="int" />
@@ -582,7 +582,7 @@
           <Property Name="TelFirma" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="TelMobile" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Fax" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Email" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="Erfassungsdatum" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Geloescht" Type="Boolean" Nullable="false" />
           <Property Name="Kunde_ID" Type="Int32" />

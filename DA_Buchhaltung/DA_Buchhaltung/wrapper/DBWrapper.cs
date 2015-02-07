@@ -708,6 +708,7 @@ namespace DA_Buchhaltung.wrapper
                 try
                 {
                     db.TBL_Person.Add(newKunde);
+                    db.Configuration.ValidateOnSaveEnabled = false;
                     db.SaveChanges();
                     db.Entry(newKunde);
                     returnValue = newKunde.Person_ID;
@@ -747,6 +748,7 @@ namespace DA_Buchhaltung.wrapper
 
                 try
                 {
+                    db.Configuration.ValidateOnSaveEnabled = false;
                     db.SaveChanges();
                     db.Entry(bestKunde);
                     returnValue = bestKunde.Person_ID;
@@ -805,6 +807,7 @@ namespace DA_Buchhaltung.wrapper
 
             } 
             #endregion
+
             if (kreditor.ID == -1)
             {
                 
@@ -830,6 +833,7 @@ namespace DA_Buchhaltung.wrapper
                 try
                 {
                     db.TBL_Person.Add(newKreditor);
+                    db.Configuration.ValidateOnSaveEnabled = false;
                     db.SaveChanges();
                     db.Entry(newKreditor);
                     returnValue = newKreditor.Person_ID;
@@ -869,6 +873,7 @@ namespace DA_Buchhaltung.wrapper
 
                 try
                 {
+                    db.Configuration.ValidateOnSaveEnabled = false;
                     db.SaveChanges();
                     db.Entry(bestKreditor);
                     returnValue = bestKreditor.Person_ID;
