@@ -39,7 +39,7 @@
                 <MenuItem Width="auto" Height="auto" Header="Einstellungen" Command="{Binding ZeigeEinstellungenCommand}"></MenuItem>
             </MenuItem>
             <MenuItem Width="auto" Height="auto" Header="Hilfe">
-                <MenuItem Width="auto" Height="auto" Header="Hilfe"></MenuItem>
+                <MenuItem Width="auto" Height="auto" Header="Hilfe" Command="{Binding StarteHilfeCommand}"></MenuItem>
             </MenuItem>
             </Menu>
         </Border>

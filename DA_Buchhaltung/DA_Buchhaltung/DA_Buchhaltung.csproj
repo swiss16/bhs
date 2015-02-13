@@ -65,6 +65,7 @@
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
@@ -243,7 +244,9 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>bhsContext.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="common\help\NFM_Help.chm" />
+    <Content Include="common\help\NFM_Help.chm">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="data\bhsContext.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>bhsContext.edmx</DependentUpon>

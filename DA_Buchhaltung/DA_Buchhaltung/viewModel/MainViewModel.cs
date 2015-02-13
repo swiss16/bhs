@@ -8,13 +8,15 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Windows;
+using System.Windows.Forms;
 using DA_Buchhaltung.common.commands;
 using DA_Buchhaltung.model;
+using Application = System.Windows.Application;
 
 namespace DA_Buchhaltung.viewModel
 {
@@ -99,6 +101,12 @@ namespace DA_Buchhaltung.viewModel
         public SimpleCommand ZeigeStartCommand
         {
             get { return _zeigeStartCommand ?? (_zeigeStartCommand = new SimpleCommand(ZeigeStart)); }
+        }
+
+        private SimpleCommand _starteHilfeCommand;
+        public SimpleCommand StarteHilfeCommand
+        {
+            get { return _starteHilfeCommand ?? (_starteHilfeCommand = new SimpleCommand(StarteHilfe)); }
         }
 
 
@@ -193,6 +201,27 @@ namespace DA_Buchhaltung.viewModel
             EinstellungViewModel.IstEinstellungenAktiv = false;
             ErfolgsrechnungsViewModel.IstErfolgsrechnungAktiv = false;
             AuftragsViewModel.IstAuftragAktiv = false;
+        }
+
+        private void StarteHilfe()
+        {
+            KundeViewModel.IstKundenAktiv = false;
+            KreditorenViewModel.IstKreditorAktiv = false;
+            RechnungsViewModel.IstRechnungAktiv = false;
+            RechnungsViewModel.IstRueckzahlungAktiv = false;
+            EinstellungViewModel.IstEinstellungenAktiv = false;
+            ErfolgsrechnungsViewModel.IstErfolgsrechnungAktiv = false;
+            AuftragsViewModel.IstAuftragAktiv = false;
+            try
+            {
+                Process.Start(System.IO.Path.Combine(System.Windows.Forms.Application.StartupPath, "common/help/NFM_Help.chm"));
+            }
+            catch (Exception)
+            {
+
+                MessageBox.Show("Die Hilfedatei konnte nicht geöffnet werden", "Fehler beim öffnen");
+            }
+            
         }
 
         public MainViewModel()
