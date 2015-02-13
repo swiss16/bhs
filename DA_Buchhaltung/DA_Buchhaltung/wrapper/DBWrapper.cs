@@ -21,7 +21,7 @@ namespace DA_Buchhaltung.wrapper
     public class DBWrapper
     {
         //Private Properties
-        private bhs_DBEntities db = new bhs_DBEntities();
+        private bhs_DBEntities db;
         private bool connectstate;
         private List<Kreditor> kreditorenliste = new List<Kreditor>();
         private List<Kunde> kundenliste = new List<Kunde>();
@@ -30,8 +30,22 @@ namespace DA_Buchhaltung.wrapper
         private List<Rechnung> rueckzahlungsListe = new List<Rechnung>(); 
         private List<PreisOption> preisOptionsListe = new List<PreisOption>();
         private List<Kategorie> kategorienListe = new List<Kategorie>();
-        private List<Option> optionenListe = new List<Option>(); 
+        private List<Option> optionenListe = new List<Option>();
 
+        public DBWrapper()
+        {
+            try
+            {
+                db = new bhs_DBEntities();
+                db.TBL_Auftrag.Any();
+            }
+            catch (Exception)
+            {
+                
+                Logger.append("Zur Startzeit konnte noch keine Datenbankverbindung aufgebaut werden",Logger.INFO);
+            }
+            
+        }
 
         //Private Methoden
         /// <summary>
@@ -43,7 +57,7 @@ namespace DA_Buchhaltung.wrapper
             //Verbindungsversuch
             try
             {
-                db.SaveChanges();
+                db.TBL_Auftrag.Any();
                 connectstate = true;
             }
             catch (Exception)
@@ -52,7 +66,7 @@ namespace DA_Buchhaltung.wrapper
                 {
                     //Reconnect und 2 Versuch
                     db = new bhs_DBEntities();
-                    db.SaveChanges();
+                    db.TBL_Auftrag.Any();
                     connectstate = true;
 
                 }
