@@ -243,6 +243,7 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>bhsContext.Designer.cs</LastGenOutput>
     </EntityDeploy>
+    <None Include="common\help\NFM_Help.chm" />
     <None Include="data\bhsContext.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>bhsContext.edmx</DependentUpon>
