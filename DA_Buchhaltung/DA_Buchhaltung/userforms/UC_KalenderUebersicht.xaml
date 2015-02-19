@@ -1,4 +1,5 @@
 ﻿<UserControl x:Class="DA_Buchhaltung.userforms.UC_KalenderUebersicht"
+             DataContext="{Binding ViewModel, RelativeSource={RelativeSource Self}}"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -16,17 +17,20 @@
             <RowDefinition Height="3*" />
         </Grid.RowDefinitions>
         <StackPanel Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0">
-            <DatePicker></DatePicker>
+            <Label Content="Terminübersicht" FontWeight="Bold" FontSize="16" HorizontalAlignment="Center"></Label>
+            <DatePicker SelectedDate="{Binding AktuellesDatum}"></DatePicker>
         </StackPanel>
         <StackPanel Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1">
-            <Rectangle Height="3" Fill="Black"></Rectangle>
+            <Rectangle Margin="0,13,0,0" Height="3" Fill="Black"></Rectangle>
         </StackPanel>
         <StackPanel Grid.Column="0" Grid.Row="2">
-            <DataGrid SelectionMode="Single" SelectionUnit="Cell" IsReadOnly="True" CanUserResizeRows="False" AutoGenerateColumns="False" ClipboardCopyMode="None" Margin="5,5,5,5" CanUserSortColumns="True">
+            <DataGrid SelectionMode="Single" SelectionUnit="Cell" IsReadOnly="True" CanUserResizeRows="False" AutoGenerateColumns="False" ClipboardCopyMode="None" Margin="5,5,5,5" CanUserSortColumns="False" CanUserResizeColumns="False"
+                      ItemsSource="{Binding ZeitListe}"
+                      SelectedValue="{Binding AktuelleZeit}">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Width="*" Header="6.00-10.45 Uhr"/>
-                    <DataGridTextColumn Width="*" Header="11.00-15.45 Uhr"/>
-                    <DataGridTextColumn Width="*" Header="16.00-21.00 Uhr"/>
+                    <DataGridTextColumn Width="*" Header="6.00-10.45 Uhr" Binding="{Binding AbSechsUhr}"/>
+                    <DataGridTextColumn Width="*" Header="11.00-15.45 Uhr" Binding="{Binding AbElfUhr}"/>
+                    <DataGridTextColumn Width="*" Header="16.00-21.00 Uhr" Binding="{Binding AbSechzehnUhr}"/>
                 </DataGrid.Columns>
             </DataGrid>
         </StackPanel>

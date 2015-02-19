@@ -34,6 +34,7 @@ namespace DA_Buchhaltung.model
         private List<Kategorie> kategorienListe ;
         private List<Option> optionenListe ;
         private Erfolgsrechnung erfolgsrechnung;
+        private List<Termin> terminListe; 
 
         //public Methoden
         /// <summary>
@@ -62,6 +63,28 @@ namespace DA_Buchhaltung.model
             }
             return kundenListe;
         }
+
+        /// <summary>
+        /// Gibt die Liste aller Terminen zurück. Jeder Termin beinhaltet den entsprechenden Kunden. No Exceptions!
+        /// </summary>
+        /// <returns>List von Termine</returns>
+        public List<Termin> LadeTermine()
+        {
+            kundenListe= LadeKunden("");
+            try
+            {
+                terminListe = dbWrapper.LadeTermine();
+                terminListe.ForEach(i=>i.Kunde = kundenListe.First(x=>x.ID == i.KundeId));
+
+            }
+            catch (Exception e)
+            {
+                terminListe = new List<Termin>();
+                MessageBox.Show(e.ToString(), "Datenbank Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            return terminListe;
+        } 
+
         /// <summary>
         /// Gibt die Liste aller nicht gelöschten Kreditoren aus und werden gefiltert gemäss dem Suchtext string (Name,Vorname,Adresse, Wohnort). No Exception
         /// </summary>

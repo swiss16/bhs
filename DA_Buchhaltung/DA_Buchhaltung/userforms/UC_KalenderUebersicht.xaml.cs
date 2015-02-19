@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using DA_Buchhaltung.viewModel;
 
 namespace DA_Buchhaltung.userforms
 {
@@ -20,6 +21,14 @@ namespace DA_Buchhaltung.userforms
     /// </summary>
     public partial class UC_KalenderUebersicht : UserControl
     {
+        private readonly KalenderViewModel _viewModel = new KalenderViewModel();
+
+        public KalenderViewModel ViewModel
+        {
+            get { return _viewModel; }
+
+        }
+
         public UC_KalenderUebersicht()
         {
             InitializeComponent();

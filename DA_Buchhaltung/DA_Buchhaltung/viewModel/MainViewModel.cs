@@ -30,6 +30,7 @@ namespace DA_Buchhaltung.viewModel
         public RechnungViewModel RechnungsViewModel;
         public ErfolgsrechnungViewModel ErfolgsrechnungsViewModel;
         public AuftragViewModel AuftragsViewModel;
+        public KalenderViewModel KalenderViewmodel;
 
 
         //Properties
@@ -109,6 +110,12 @@ namespace DA_Buchhaltung.viewModel
             get { return _starteHilfeCommand ?? (_starteHilfeCommand = new SimpleCommand(StarteHilfe)); }
         }
 
+        private SimpleCommand _zeigeKalenderUebersichtCommand;
+        public SimpleCommand ZeigeKalenderUebersichtCommand
+        {
+            get { return _zeigeKalenderUebersichtCommand ?? (_zeigeKalenderUebersichtCommand = new SimpleCommand(ZeigeKalenderUebersicht)); }
+        }
+
 
         //Commandhelper
 
@@ -126,6 +133,7 @@ namespace DA_Buchhaltung.viewModel
             EinstellungViewModel.IstEinstellungenAktiv = false;
             ErfolgsrechnungsViewModel.IstErfolgsrechnungAktiv = false;
             AuftragsViewModel.IstAuftragAktiv = false;
+            KalenderViewmodel.IstKalenderUebersichtAktiv = false;
         }
 
         private void ZeigeKreditor()
@@ -137,6 +145,7 @@ namespace DA_Buchhaltung.viewModel
             EinstellungViewModel.IstEinstellungenAktiv = false;
             ErfolgsrechnungsViewModel.IstErfolgsrechnungAktiv = false;
             AuftragsViewModel.IstAuftragAktiv = false;
+            KalenderViewmodel.IstKalenderUebersichtAktiv = false;
         }
 
         private void ZeigeEinstellungen()
@@ -148,6 +157,7 @@ namespace DA_Buchhaltung.viewModel
             EinstellungViewModel.IstEinstellungenAktiv = true;
             ErfolgsrechnungsViewModel.IstErfolgsrechnungAktiv = false;
             AuftragsViewModel.IstAuftragAktiv = false;
+            KalenderViewmodel.IstKalenderUebersichtAktiv = false;
         }
 
         private void ZeigeRechnungen()
@@ -159,6 +169,7 @@ namespace DA_Buchhaltung.viewModel
             EinstellungViewModel.IstEinstellungenAktiv = false;
             ErfolgsrechnungsViewModel.IstErfolgsrechnungAktiv = false;
             AuftragsViewModel.IstAuftragAktiv = false;
+            KalenderViewmodel.IstKalenderUebersichtAktiv = false;
         }
         private void ZeigeRueckzahlungen()
         {
@@ -169,6 +180,7 @@ namespace DA_Buchhaltung.viewModel
             EinstellungViewModel.IstEinstellungenAktiv = false;
             ErfolgsrechnungsViewModel.IstErfolgsrechnungAktiv = false;
             AuftragsViewModel.IstAuftragAktiv = false;
+            KalenderViewmodel.IstKalenderUebersichtAktiv = false;
         }
         private void ZeigeErfolgsrechnung()
         {
@@ -179,6 +191,7 @@ namespace DA_Buchhaltung.viewModel
             EinstellungViewModel.IstEinstellungenAktiv = false;
             ErfolgsrechnungsViewModel.IstErfolgsrechnungAktiv = true;
             AuftragsViewModel.IstAuftragAktiv = false;
+            KalenderViewmodel.IstKalenderUebersichtAktiv = false;
         }
 
         private void ZeigeAuftrag()
@@ -190,6 +203,7 @@ namespace DA_Buchhaltung.viewModel
             EinstellungViewModel.IstEinstellungenAktiv = false;
             ErfolgsrechnungsViewModel.IstErfolgsrechnungAktiv = false;
             AuftragsViewModel.IstAuftragAktiv = true;
+            KalenderViewmodel.IstKalenderUebersichtAktiv = false;
         }
 
         private void ZeigeStart()
@@ -201,6 +215,19 @@ namespace DA_Buchhaltung.viewModel
             EinstellungViewModel.IstEinstellungenAktiv = false;
             ErfolgsrechnungsViewModel.IstErfolgsrechnungAktiv = false;
             AuftragsViewModel.IstAuftragAktiv = false;
+            KalenderViewmodel.IstKalenderUebersichtAktiv = false;
+        }
+
+        private void ZeigeKalenderUebersicht()
+        {
+            KundeViewModel.IstKundenAktiv = false;
+            KreditorenViewModel.IstKreditorAktiv = false;
+            RechnungsViewModel.IstRechnungAktiv = false;
+            RechnungsViewModel.IstRueckzahlungAktiv = false;
+            EinstellungViewModel.IstEinstellungenAktiv = false;
+            ErfolgsrechnungsViewModel.IstErfolgsrechnungAktiv = false;
+            AuftragsViewModel.IstAuftragAktiv = false;
+            KalenderViewmodel.IstKalenderUebersichtAktiv = true;
         }
 
         private void StarteHilfe()
@@ -212,6 +239,7 @@ namespace DA_Buchhaltung.viewModel
             EinstellungViewModel.IstEinstellungenAktiv = false;
             ErfolgsrechnungsViewModel.IstErfolgsrechnungAktiv = false;
             AuftragsViewModel.IstAuftragAktiv = false;
+            KalenderViewmodel.IstKalenderUebersichtAktiv = false;
             try
             {
                 Process.Start(System.IO.Path.Combine(System.Windows.Forms.Application.StartupPath, "common/help/NFM_Help.chm"));

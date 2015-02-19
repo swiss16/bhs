@@ -64,6 +64,12 @@ namespace DA_Buchhaltung
             get { return _ucAuftragViewModel; }
         }
 
+        private readonly KalenderViewModel _ucKalenderViewModel = new KalenderViewModel();
+        public KalenderViewModel UcKalenderViewModel
+        {
+            get { return _ucKalenderViewModel; }
+        }
+
         public MainWindow()
         {
             InitializeComponent();
@@ -74,6 +80,7 @@ namespace DA_Buchhaltung
             ViewModel.RechnungsViewModel = UcRechnungViewModel;
             ViewModel.ErfolgsrechnungsViewModel = UcErfolgsrechnungViewModel;
             ViewModel.AuftragsViewModel = UcAuftragViewModel;
+            ViewModel.KalenderViewmodel = UcKalenderViewModel;
 
             //Hilfsnavigationen für Childs
             ViewModel.KreditorenViewModel.RechnungViewModel = UcRechnungViewModel;

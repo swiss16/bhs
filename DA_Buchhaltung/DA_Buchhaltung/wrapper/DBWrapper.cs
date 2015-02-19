@@ -31,6 +31,7 @@ namespace DA_Buchhaltung.wrapper
         private List<PreisOption> preisOptionsListe = new List<PreisOption>();
         private List<Kategorie> kategorienListe = new List<Kategorie>();
         private List<Option> optionenListe = new List<Option>();
+        private List<Termin> terminListe = new List<Termin>(); 
 
         public DBWrapper()
         {
@@ -118,6 +119,33 @@ namespace DA_Buchhaltung.wrapper
             kundenliste = klist.ToList();
 
             return kundenliste;
+        }
+        /// <summary>
+        /// Lädt alle Termine aus der Datenbank und gibt diese als Liste von Termine zurück. (Noch nicht fertig implementiert!!)
+        /// </summary>
+        /// <exception>Datenbank Verbindung ist instabil</exception>
+        /// <returns>List von Termin></returns>
+        public List<Termin> LadeTermine()
+        {
+            if (checkConnection() == false)
+            {
+                Logger.append(
+                    "Error: Fehler beim Verbindungsaufbau zur Datenbank. Überprüfen sie die Internetverbindung oder die Konfiguration!",
+                    1);
+                throw new Exception("Fehler beim Datenbankzugriff. Weitere Informationen stehen im Logfile.");
+            }
+            IQueryable<Termin> tlist = from t in db.TBL_Termin
+                                      join p in db.TBL_Person on t.Person_ID equals p.Person_ID
+                                      select new Termin
+                                      {
+                                          Id = t.Termin_ID,
+                                          KundeId = p.Person_ID
+                                          //Datenbank muss neu überarbeitet werden
+
+                                      };
+            terminListe = tlist.ToList();
+
+            return terminListe;
         }
 
         /// <summary>
