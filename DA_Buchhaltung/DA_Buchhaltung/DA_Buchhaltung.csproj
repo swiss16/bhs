@@ -150,6 +150,9 @@
     <Compile Include="userforms\UC_Erfolgsrechnung.xaml.cs">
       <DependentUpon>UC_Erfolgsrechnung.xaml</DependentUpon>
     </Compile>
+    <Compile Include="userforms\UC_KalenderUebersicht.xaml.cs">
+      <DependentUpon>UC_KalenderUebersicht.xaml</DependentUpon>
+    </Compile>
     <Compile Include="userforms\UC_Kreditor.xaml.cs">
       <DependentUpon>UC_Kreditor.xaml</DependentUpon>
     </Compile>
@@ -204,6 +207,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="userforms\UC_Erfolgsrechnung.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="userforms\UC_KalenderUebersicht.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

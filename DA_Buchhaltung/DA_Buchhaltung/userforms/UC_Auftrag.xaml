@@ -95,6 +95,10 @@
         <StackPanel Grid.Column="0" Grid.Row="8" Margin="20,0,0,0">
             <RadioButton GroupName="dl3" Content="Gel Lack" IsChecked="{Binding IstGellack, Mode=TwoWay}" FontSize="12"></RadioButton>
         </StackPanel>
+        <StackPanel Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="10" Grid.RowSpan="3">
+            <Label Content="Gesprächsnotizen:" FontSize="14" FontWeight="Bold" Margin="20,0,20,0"></Label>
+            <TextBox Text="{Binding AktuellerAuftrag.KundenGespraech}" TextWrapping="Wrap" FontSize="12" Margin="20,0,20,0" Height="50" MaxLength="500"></TextBox>
+        </StackPanel>
         <!--Eingabe Optionen-->
         <StackPanel Grid.Column="2" Grid.Row="5">
             <Label Content="Optionen" FontSize="14" FontWeight="Bold"></Label>

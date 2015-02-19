@@ -9,18 +9,33 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DA_Buchhaltung_Test", "DA_B
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		CD_ROM|Any CPU = CD_ROM|Any CPU
 		Debug|Any CPU = Debug|Any CPU
+		DVD-5|Any CPU = DVD-5|Any CPU
 		Release|Any CPU = Release|Any CPU
+		SingleImage|Any CPU = SingleImage|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B87BD6B8-B36E-4DD4-B9BB-E72E1FD89517}.CD_ROM|Any CPU.ActiveCfg = Release|Any CPU
+		{B87BD6B8-B36E-4DD4-B9BB-E72E1FD89517}.CD_ROM|Any CPU.Build.0 = Release|Any CPU
 		{B87BD6B8-B36E-4DD4-B9BB-E72E1FD89517}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{B87BD6B8-B36E-4DD4-B9BB-E72E1FD89517}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B87BD6B8-B36E-4DD4-B9BB-E72E1FD89517}.DVD-5|Any CPU.ActiveCfg = Debug|Any CPU
+		{B87BD6B8-B36E-4DD4-B9BB-E72E1FD89517}.DVD-5|Any CPU.Build.0 = Debug|Any CPU
 		{B87BD6B8-B36E-4DD4-B9BB-E72E1FD89517}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B87BD6B8-B36E-4DD4-B9BB-E72E1FD89517}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B87BD6B8-B36E-4DD4-B9BB-E72E1FD89517}.SingleImage|Any CPU.ActiveCfg = Release|Any CPU
+		{B87BD6B8-B36E-4DD4-B9BB-E72E1FD89517}.SingleImage|Any CPU.Build.0 = Release|Any CPU
+		{27BF3FB1-E79D-4C1C-95EB-DBAAC4EA7F0F}.CD_ROM|Any CPU.ActiveCfg = Release|Any CPU
+		{27BF3FB1-E79D-4C1C-95EB-DBAAC4EA7F0F}.CD_ROM|Any CPU.Build.0 = Release|Any CPU
 		{27BF3FB1-E79D-4C1C-95EB-DBAAC4EA7F0F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{27BF3FB1-E79D-4C1C-95EB-DBAAC4EA7F0F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{27BF3FB1-E79D-4C1C-95EB-DBAAC4EA7F0F}.DVD-5|Any CPU.ActiveCfg = Debug|Any CPU
+		{27BF3FB1-E79D-4C1C-95EB-DBAAC4EA7F0F}.DVD-5|Any CPU.Build.0 = Debug|Any CPU
 		{27BF3FB1-E79D-4C1C-95EB-DBAAC4EA7F0F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{27BF3FB1-E79D-4C1C-95EB-DBAAC4EA7F0F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{27BF3FB1-E79D-4C1C-95EB-DBAAC4EA7F0F}.SingleImage|Any CPU.ActiveCfg = Release|Any CPU
+		{27BF3FB1-E79D-4C1C-95EB-DBAAC4EA7F0F}.SingleImage|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
